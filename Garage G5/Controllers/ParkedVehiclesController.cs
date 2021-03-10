@@ -13,7 +13,6 @@ namespace Garage_G5.Controllers
     public class ParkedVehiclesController : Controller
     {
         private readonly Garage_G5Context _context;
-
         public ParkedVehiclesController(Garage_G5Context context)
         {
             _context = context;
@@ -62,7 +61,9 @@ namespace Garage_G5.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(parkedVehicle);
+
         }
 
         // GET: ParkedVehicles/Edit/5
@@ -149,5 +150,27 @@ namespace Garage_G5.Controllers
         {
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
+
+        public bool IsRegisterNumberExists(string RegistrationNum)
+        {
+            bool unique;
+            var list = _context.ParkedVehicle.ToList();
+            var boolList = new List<bool>();
+
+            foreach (var item in list)
+            {
+                boolList.Add(item.RegistrationNum == RegistrationNum);
+            }
+            if (boolList.Contains(true))
+            {
+                unique = false;
+            }
+            else
+            {
+                unique = true;
+            }
+            return unique;
+        }
+
     }
 }

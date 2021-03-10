@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Garage_G5.Models
 {
+
     public class ParkedVehicle
     {
         private DateTime? dateCreated;
@@ -14,6 +13,8 @@ namespace Garage_G5.Models
 
         public VehicleType VehicleType { get; set; }
 
+        
+        [Remote("IsRegisterNumberExists", "ParkedVehicles", ErrorMessage = "Registration Number already in use")]
         public string RegistrationNum { get; set; }
 
         public string Color { get; set; }
