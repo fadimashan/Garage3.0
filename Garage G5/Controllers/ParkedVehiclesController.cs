@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Garage_G5.Data;
 using Garage_G5.Models;
 
+
 namespace Garage_G5.Controllers
 {
     public class ParkedVehiclesController : Controller
@@ -56,6 +57,7 @@ namespace Garage_G5.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,VehicleType,RegistrationNum,Color,Brand,Model,WheelsNum,EnteringTime")] ParkedVehicle parkedVehicle)
         {
+
             if (ModelState.IsValid)
             {
                 _context.Add(parkedVehicle);
@@ -149,5 +151,40 @@ namespace Garage_G5.Controllers
         {
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
+        //public JsonResult IsRegExists2(string RegistrationNum)
+        //{
+        //    //check if any of the UserName matches the UserName specified in the Parameter using the ANY extension method.  
+
+        //   var res = Json(_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum), new System.Text.Json.JsonSerializerOptions());
+        //    return res;
+        //}
+        //[AcceptVerbs("GET", "POST")]
+        //public IActionResult IsRegExists2(string RegistrationNum, int id)
+        //{
+        //    if (_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum))
+        //    {
+        //        return Json(false); //Json($"Email {email} is already in use.");
+        //    }
+
+        //    return Json(true);
+        //}
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult IsRegExists(string RegistrationNum, int Id)
+        {
+            return Json(IsUnique(RegistrationNum, Id));
+        }
+
+        private bool IsUnique(string RegistrationNum, int Id)
+        {
+            if (Id == 0) // its a new object
+            {
+                return !_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum);
+            }
+            else // its an existing object so exclude existing objects with the id
+            {
+                return !_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum && x.Id != Id);
+            }
+        }
     }
+
 }
