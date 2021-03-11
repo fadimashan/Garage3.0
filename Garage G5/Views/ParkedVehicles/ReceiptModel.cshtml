@@ -1,0 +1,55 @@
+﻿@model Garage_G5.ViewModels.ReceiptModel
+
+@{
+    ViewData["Title"] = "ReceiptModel";
+}
+
+<h1>ReceiptModel</h1>
+
+<div>
+    <h4>ReceiptModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CheckoutTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CheckoutTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EnteringTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EnteringTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RegistrationNum)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RegistrationNum)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.VehicleType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.VehicleType)
+        </dd>
+
+        <dt class="col-sm-2">
+            <p> Totel Price</p>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => (model.EnteringTime - model.CheckoutTime) )
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

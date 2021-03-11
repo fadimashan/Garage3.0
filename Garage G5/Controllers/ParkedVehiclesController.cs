@@ -24,18 +24,47 @@ namespace Garage_G5.Controllers
             return View(await _context.ParkedVehicle.ToListAsync());
         }
 
-        public DateTime CalcTotal(DateTime enteringTime)
-        {
-            return 
-        }
+
+
 
         public async Task<IActionResult> ReceiptModel(int id)
         {
-            //DateTime time;
-            //DateTime time2;
+   
 
-            var model = _context.ParkedVehicle.Select(x => new ReceiptModel()
+            if (id == null)
             {
+                return NotFound();
+            }
+
+            var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
+            if (parkedVehicle == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var nRM = new ReceiptModel()
+                {
+                    Price = 10,
+                    RegistrationNum = parkedVehicle.RegistrationNum,
+                    VehicleType = parkedVehicle.VehicleType,
+                    Id = parkedVehicle.Id,
+                    EnteringTime = parkedVehicle.EnteringTime,
+
+                };
+                return View(nRM);
+            }
+        
+
+        //var model = _context.ParkedVehicle.FirstOrDefaultAsync().Select(x => new ReceiptModel()
+        //{
+        //    Price = 10,
+        //    RegistrationNum = x.RegistrationNum,
+        //    VehicleType = x.VehicleType,
+        //    Id = x.Id,
+        //    EnteringTime = x.EnteringTime,
+        
+        
                 Price = 10,
                 RegistrationNum = x.RegistrationNum,
                 VehicleType = x.VehicleType,
@@ -53,16 +82,17 @@ namespace Garage_G5.Controllers
                 // time left to event
                 //Console.WriteLine("{0} days, {1} hours, {2} minutes", ts.TotalDays, ts.Hours, ts.Minutes)
                 //Console.WriteLine(x.EnteringTime - DateTime.Now)
+      }
 
-            });
+        //    //DateTime.Parse(EnteringTime).Subtract(DateTime.Parse(CheckoutTime)).Duration().ToString("hh:mm")
+
+        //});
+
+        //return View(await model.ToListAsync());
 
 
-
-            return View(await model.ToListAsync());
-        }
-    
-    // GET: ParkedVehicles/Details/5
-    public async Task<IActionResult> Details(int? id)
+        // GET: ParkedVehicles/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -187,7 +217,7 @@ namespace Garage_G5.Controllers
         }
 
 
-      
+
     }
 
 }
