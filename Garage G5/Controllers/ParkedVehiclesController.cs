@@ -151,23 +151,6 @@ namespace Garage_G5.Controllers
         {
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
-        //public JsonResult IsRegExists2(string RegistrationNum)
-        //{
-        //    //check if any of the UserName matches the UserName specified in the Parameter using the ANY extension method.  
-
-        //   var res = Json(_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum), new System.Text.Json.JsonSerializerOptions());
-        //    return res;
-        //}
-        //[AcceptVerbs("GET", "POST")]
-        //public IActionResult IsRegExists2(string RegistrationNum, int id)
-        //{
-        //    if (_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum))
-        //    {
-        //        return Json(false); //Json($"Email {email} is already in use.");
-        //    }
-
-        //    return Json(true);
-        //}
         [AcceptVerbs("GET", "POST")]
         public IActionResult IsRegExists(string RegistrationNum, int Id)
         {
