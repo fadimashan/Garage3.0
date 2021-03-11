@@ -4,14 +4,16 @@ using Garage_G5.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Garage_G5.Migrations
 {
     [DbContext(typeof(Garage_G5Context))]
-    partial class Garage_G5ContextModelSnapshot : ModelSnapshot
+    [Migration("20210311103555_receipt")]
+    partial class receipt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,7 +41,7 @@ namespace Garage_G5.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RegistrationNum")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("VehicleType")
                         .HasColumnType("int");
@@ -48,10 +50,6 @@ namespace Garage_G5.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RegistrationNum")
-                        .IsUnique()
-                        .HasFilter("[RegistrationNum] IS NOT NULL");
 
                     b.ToTable("ParkedVehicle");
                 });

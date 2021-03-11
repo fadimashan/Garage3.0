@@ -14,7 +14,6 @@ namespace Garage_G5.Controllers
     public class ParkedVehiclesController : Controller
     {
         private readonly Garage_G5Context _context;
-
         public ParkedVehiclesController(Garage_G5Context context)
         {
             _context = context;
@@ -25,6 +24,46 @@ namespace Garage_G5.Controllers
         {
             return View(await _context.ParkedVehicle.ToListAsync());
         }
+
+
+
+
+        public async Task<IActionResult> ReceiptModel(int id)
+        {
+            
+
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
+            if (parkedVehicle == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var nRM = new ReceiptModel()
+                {
+                    RegistrationNum = parkedVehicle.RegistrationNum,
+                    VehicleType = parkedVehicle.VehicleType,
+                    Id = parkedVehicle.Id,
+                    EnteringTime = parkedVehicle.EnteringTime,
+                    TotalTimeParked = DateTime.Now - parkedVehicle.EnteringTime,
+                    Price = (int)(DateTime.Now - parkedVehicle.EnteringTime).TotalMinutes * 10 / 60,
+                    //Price = (int)
+                    
+                };
+                return View(nRM);
+            }
+        
+
+    
+      }
+
+   
+
 
         // GET: ParkedVehicles/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -151,6 +190,12 @@ namespace Garage_G5.Controllers
         {
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
+  
+        public bool IsRegisterNumberExists(string RegistrationNum)
+        {
+            return !_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum);
+        }
+
         [AcceptVerbs("GET", "POST")]
         public IActionResult IsRegExists(string RegistrationNum, int Id)
         {

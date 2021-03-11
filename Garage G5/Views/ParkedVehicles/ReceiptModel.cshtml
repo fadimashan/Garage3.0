@@ -1,0 +1,73 @@
+﻿@model Garage_G5.ViewModels.ReceiptModel
+
+@{
+    ViewData["Title"] = "ReceiptModel";
+}
+
+<h1>ReceiptModel</h1>
+
+<div>
+    <h4>ReceiptModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            <p>10kr / h</p>@*@Html.DisplayFor(model => model.Price)*@
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CheckoutTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CheckoutTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EnteringTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EnteringTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RegistrationNum)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RegistrationNum)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.VehicleType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.VehicleType)
+        </dd>
+
+        <dt class="col-sm-2">
+            <p> Total TimeParked</p>
+        </dt>
+        <dd class="col-sm-10">
+            <p> @Html.DisplayFor(model => (model.TotalTimeParked.TotalMinutes))</p>
+        </dd>
+        <dt class="col-sm-2">
+            <p> Total Price</p>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => (model.Price) )
+        </dd>
+    </dl>
+</div>
+<div>
+
+    @*  <a asp-action="Delete" asp-route-id="@Model.Id">Confirm Check out</a> |*@
+
+    <div class="row">
+        <form asp-action="Index" class="col col-md-2">
+            <input type="submit" value="Back to List" class="btn btn-outline-success" />
+        </form>
+
+        <form asp-action="Delete" class="col col-md-2">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Confirm Check out" class="btn btn-danger" />
+        </form>
+    </div>
+
+</div>
