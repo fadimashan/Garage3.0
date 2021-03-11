@@ -6,67 +6,20 @@
 
 <h1>Index</h1>
 
+<form asp-controller="ParkedVehicles" asp-action="Filter">
+    <div class="form-group">
+        <div class="input-group mb-3">
+            @*name is the refrence to the method parameters*@
+            <input value="" id="input-value" type="text" class="form-control" placeholder="Search by Registration No." name="registrationNum">
+            <button class="btn btn-outline-secondary" type="submit" id="btn-search">Search</button>
+        </div>
+    </div>
+</form>
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.VehicleType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RegistrationNum)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Brand)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Model)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WheelsNum)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EnteringTime)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.VehicleType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RegistrationNum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Brand)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Model)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WheelsNum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnteringTime)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="ReceiptModel" asp-route-id="@item.Id">Check out</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<partial name="ParkedVehiclePartial" />
+
+

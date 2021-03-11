@@ -195,5 +195,18 @@ namespace Garage_G5.Controllers
             return !_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum);
         }
 
+        public ActionResult Filter(string registrationNum)
+        {
+            var listOfP = _context.ParkedVehicle.ToList();
+            if (registrationNum != null)
+            {
+                var tempList = listOfP.Where(p => p.RegistrationNum.ToLower().Contains(registrationNum)).ToList();
+                return View("Index", tempList);
+
+            }
+            return View("Index", _context.ParkedVehicle.ToList());
+
+        }
+
     }
 }
