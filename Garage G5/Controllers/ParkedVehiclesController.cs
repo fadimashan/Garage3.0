@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Garage_G5.Data;
 using Garage_G5.Models;
 using Garage_G5.ViewModels;
+using Garage_G5.Models.ViewModels;
 
 namespace Garage_G5.Controllers
 {
@@ -57,12 +58,26 @@ namespace Garage_G5.Controllers
                 };
                 return View(nRM);
             }
-        
+        }
 
-    
-      }
+        public async Task<IActionResult> GeneralInfoViewModel()
+        {
 
-   
+            var parkedVehicle = await _context.ParkedVehicle.ToListAsync();
+            parkedVehicle.Select(x => new GeneralInfoViewModel
+            {
+                Id = x.Id,
+                RegistrationNum = x.RegistrationNum,
+                VehicleType = x.VehicleType,
+                EnteringTime = x.EnteringTime,
+                TotalTimeParked = DateTime.Now - x.EnteringTime,
+            });
+            //var nRM = new GeneralInfoViewModel()
+            //{
+            //};
+            return View(parkedVehicle);
+
+        }
 
 
         // GET: ParkedVehicles/Details/5
