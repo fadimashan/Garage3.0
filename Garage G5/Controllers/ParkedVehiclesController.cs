@@ -29,10 +29,10 @@ namespace Garage_G5.Controllers
             return 
         }
 
-        public async Task<IActionResult> ReceiptModel()
+        public async Task<IActionResult> ReceiptModel(int id)
         {
-            DateTime time;
-            DateTime time2;
+            //DateTime time;
+            //DateTime time2;
 
             var model = _context.ParkedVehicle.Select(x => new ReceiptModel()
             {
@@ -41,9 +41,18 @@ namespace Garage_G5.Controllers
                 VehicleType = x.VehicleType,
                 Id = x.Id,
                 EnteringTime = x.EnteringTime,
-                CheckoutTime = CalcTotal(x.EnteringTime)
-
+                CheckoutTime = DateTime.Now,
+                //TotalTimeParked = x.EnteringTime - DateTime.Now
                 //DateTime.Parse(EnteringTime).Subtract(DateTime.Parse(CheckoutTime)).Duration().ToString("hh:mm")
+                //DateTime eventDate = new DateTime(2014, 6, 6);
+
+                // now to show the timespan you can use
+                //TimeSpan ts = EnteringTime - DateTime.Now.Date;
+                TotalTimeParked = x.EnteringTime - DateTime.Now,
+
+                // time left to event
+                //Console.WriteLine("{0} days, {1} hours, {2} minutes", ts.TotalDays, ts.Hours, ts.Minutes)
+                //Console.WriteLine(x.EnteringTime - DateTime.Now)
 
             });
 
