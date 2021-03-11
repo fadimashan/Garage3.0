@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Garage_G5.Data;
+using Garage_G5.Models;
+using Garage_G5.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Garage_G5.Data;
-using Garage_G5.Models;
 
 namespace Garage_G5.Controllers
 {
@@ -25,8 +24,36 @@ namespace Garage_G5.Controllers
             return View(await _context.ParkedVehicle.ToListAsync());
         }
 
-        // GET: ParkedVehicles/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public DateTime CalcTotal(DateTime enteringTime)
+        {
+            return 
+        }
+
+        public async Task<IActionResult> ReceiptModel()
+        {
+            DateTime time;
+            DateTime time2;
+
+            var model = _context.ParkedVehicle.Select(x => new ReceiptModel()
+            {
+                Price = 10,
+                RegistrationNum = x.RegistrationNum,
+                VehicleType = x.VehicleType,
+                Id = x.Id,
+                EnteringTime = x.EnteringTime,
+                CheckoutTime = CalcTotal(x.EnteringTime)
+
+                //DateTime.Parse(EnteringTime).Subtract(DateTime.Parse(CheckoutTime)).Duration().ToString("hh:mm")
+
+            });
+
+
+
+            return View(await model.ToListAsync());
+        }
+    
+    // GET: ParkedVehicles/Details/5
+    public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -149,5 +176,9 @@ namespace Garage_G5.Controllers
         {
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
+
+
+      
     }
+
 }
