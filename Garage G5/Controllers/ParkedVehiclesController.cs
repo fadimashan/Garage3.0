@@ -29,9 +29,9 @@ namespace Garage_G5.Controllers
 
         public async Task<IActionResult> ReceiptModel(int id)
         {
-   
+            
 
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }
@@ -45,12 +45,14 @@ namespace Garage_G5.Controllers
             {
                 var nRM = new ReceiptModel()
                 {
-                    Price = 10,
                     RegistrationNum = parkedVehicle.RegistrationNum,
                     VehicleType = parkedVehicle.VehicleType,
                     Id = parkedVehicle.Id,
                     EnteringTime = parkedVehicle.EnteringTime,
-
+                    TotalTimeParked = DateTime.Now - parkedVehicle.EnteringTime,
+                    Price = (int)(DateTime.Now - parkedVehicle.EnteringTime).TotalMinutes * 10 / 60,
+                    //Price = (int)
+                    
                 };
                 return View(nRM);
             }
@@ -65,19 +67,19 @@ namespace Garage_G5.Controllers
         //    EnteringTime = x.EnteringTime,
         
         
-                Price = 10,
-                RegistrationNum = x.RegistrationNum,
-                VehicleType = x.VehicleType,
-                Id = x.Id,
-                EnteringTime = x.EnteringTime,
-                CheckoutTime = DateTime.Now,
+                //Price = 10,
+                //RegistrationNum = x.RegistrationNum,
+                //VehicleType = x.VehicleType,
+                //Id = x.Id,
+                //EnteringTime = x.EnteringTime,
+                //CheckoutTime = DateTime.Now,
                 //TotalTimeParked = x.EnteringTime - DateTime.Now
                 //DateTime.Parse(EnteringTime).Subtract(DateTime.Parse(CheckoutTime)).Duration().ToString("hh:mm")
                 //DateTime eventDate = new DateTime(2014, 6, 6);
 
                 // now to show the timespan you can use
                 //TimeSpan ts = EnteringTime - DateTime.Now.Date;
-                TotalTimeParked = x.EnteringTime - DateTime.Now,
+                
 
                 // time left to event
                 //Console.WriteLine("{0} days, {1} hours, {2} minutes", ts.TotalDays, ts.Hours, ts.Minutes)
