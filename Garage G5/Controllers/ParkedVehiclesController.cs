@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Garage_G5.Data;
 using Garage_G5.Models;
+using Garage_G5.ViewModels;
 
 namespace Garage_G5.Controllers
 {
