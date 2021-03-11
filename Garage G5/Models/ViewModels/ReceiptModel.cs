@@ -31,10 +31,10 @@ namespace Garage_G5.ViewModels
 
         // this should be in the controller ( see the example )
         // and this prop should be int or duoble
-        public decimal CalcTotal()
-        {
+        //public decimal CalcTotal()
+        //{
 
-        }
+        //}
      
         //public DateTime CalcTotal { get; set; }
 

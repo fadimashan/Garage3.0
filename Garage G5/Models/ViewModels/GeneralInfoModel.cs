@@ -17,10 +17,10 @@ namespace Garage_G5.Models.ViewModels
             set { dateCreated = value; }
         }
 
-        public DateTime TotalTimeParked()
-        {
-            return EnteringTime - CurrentTime;
-        }
+        //public DateTime TotalTimeParked()
+        //{
+        //    return EnteringTime - CurrentTime;
+        //}
 
     }
 }
