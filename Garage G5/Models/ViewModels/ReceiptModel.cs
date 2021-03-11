@@ -12,31 +12,16 @@ namespace Garage_G5.ViewModels
         public int Price { get; set; }
 
         public int Id { get; set; }
-        //checkout time should be now (the time that you create the receipt)
         public DateTime CheckoutTime
         {
             get { return receiptCreated ?? DateTime.Now; }
             set { receiptCreated = value; }
         }
 
-        //this Entering time should be the same from the database 
         public DateTime EnteringTime { get; set; }
         public TimeSpan TotalTimeParked { get; set; }
         public string RegistrationNum { get; set; }
         public VehicleType VehicleType { get; set; }
-
-
-
-        // this should be in the controller ( see the example )
-        // and this prop should be int or duoble
-        //public decimal CalcTotal()
-        //{
-
-        //}
-     
-        //public DateTime CalcTotal { get; set; }
-
-
 
     }
     

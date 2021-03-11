@@ -25,7 +25,6 @@ namespace Garage_G5.Models
 
         public int WheelsNum { get; set; }
 
-       
         [Display(Name = "Date Created")]
         public DateTime EnteringTime { get { return dateCreated ?? DateTime.Now; }
             set { dateCreated = value; }

@@ -1,4 +1,4 @@
-﻿@model Garage_G5.ViewModels.gen
+﻿@model IEnumerable<ParkedVehicle>
 
 @{
     ViewData["Title"] = "Index";
@@ -57,7 +57,7 @@
                 @Html.DisplayFor(modelItem => item.EnteringTime)
             </td>
             <td>
-                <p id="timer"> @Html.DisplayFor(modelItem => item.to)</p>
+               @* <p id="timer"> @Html.DisplayFor(modelItem => item.TotalTimeParked.TotalMinutes)</p>*@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

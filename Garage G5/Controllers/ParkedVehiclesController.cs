@@ -60,11 +60,9 @@ namespace Garage_G5.Controllers
             }
         }
 
-        public async Task<IActionResult> GeneralInfoViewModel()
+        public async Task<IActionResult> GeneralInfoModel()
         {
-
-            var parkedVehicle = await _context.ParkedVehicle.ToListAsync();
-            parkedVehicle.Select(x => new GeneralInfoViewModel
+            var model = _context.ParkedVehicle.Select(x => new GeneralInfoModel
             {
                 Id = x.Id,
                 RegistrationNum = x.RegistrationNum,
@@ -72,11 +70,8 @@ namespace Garage_G5.Controllers
                 EnteringTime = x.EnteringTime,
                 TotalTimeParked = DateTime.Now - x.EnteringTime,
             });
-            //var nRM = new GeneralInfoViewModel()
-            //{
-            //};
-            return View(parkedVehicle);
 
+            return View("GeneralInfoModel", await model.ToListAsync());
         }
 
 

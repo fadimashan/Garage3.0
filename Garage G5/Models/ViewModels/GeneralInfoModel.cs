@@ -1,27 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Garage_G5.Models.ViewModels
 {
-    public class GeneralInfoViewModel
+    public class GeneralInfoModel
     {
-        public int Id { get; set; }
+
         private DateTime? dateCreated;
+        private DateTime? test;
+
+        public int Id { get; set; }
         public VehicleType VehicleType { get; set; }
-        //public DateTime TotalParkedTime { get; set; }
         public string RegistrationNum { get; set; }
+
         public DateTime EnteringTime
         {
             get { return dateCreated ?? DateTime.Now; }
             set { dateCreated = value; }
         }
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
         public TimeSpan TotalTimeParked { get; set; }
-        //public DateTime TotalTimeParked()
-        //{
-        //    return EnteringTime - CurrentTime;
-        //}
 
+        //public int Time { get {  return test ??   }; set; }
     }
 }
