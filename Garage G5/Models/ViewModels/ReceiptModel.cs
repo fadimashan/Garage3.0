@@ -8,22 +8,20 @@ namespace Garage_G5.ViewModels
 {
     public class ReceiptModel
     {
-        private DateTime? dateCreated;
+        private DateTime? receiptCreated;
         public int Price { get; set; }
 
         public int Id { get; set; }
         //checkout time should be now (the time that you create the receipt)
         public DateTime CheckoutTime
         {
-            get { return dateCreated ?? DateTime.Now; }
-            set { dateCreated = value; }
+            get { return receiptCreated ?? DateTime.Now; }
+            set { receiptCreated = value; }
         }
 
         //this Entering time should be the same from the database 
-        public DateTime EnteringTime
-        {
-            get; set;
-        }
+        public DateTime EnteringTime { get; set; }
+        public TimeSpan TotalTimeParked { get; set; }
         public string RegistrationNum { get; set; }
         public VehicleType VehicleType { get; set; }
 
