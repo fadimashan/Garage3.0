@@ -2,9 +2,12 @@
 {
     public enum VehicleType
     {
-        Car,
-        Bus,
-        sh,
-        ba
+        Sedan,
+        Coupe,
+        Van,
+        Truck,
+        BigTruck,
+        Roaster,
+        MiniVan
     }
 }

@@ -10,11 +10,9 @@ namespace Garage_G5.Models
         private DateTime? dateCreated;
 
         public int Id { get; set; }
-
         public VehicleType VehicleType { get; set; }
 
-        
-        [Remote("IsRegisterNumberExists", "ParkedVehicles", ErrorMessage = "Registration Number already in use")]
+        [Remote("IsRegisterNumberExists", "ParkedVehicles", ErrorMessage = "Registration Number already in use", AdditionalFields = "Id")]
         public string RegistrationNum { get; set; }
 
         public string Color { get; set; }
@@ -27,7 +25,9 @@ namespace Garage_G5.Models
 
         
         [Display(Name = "Date Created")]
-        public DateTime EnteringTime { get { return dateCreated ?? DateTime.Now; }
+        public DateTime EnteringTime
+        {
+            get { return dateCreated ?? DateTime.Now; }
             set { dateCreated = value; }
         }
 

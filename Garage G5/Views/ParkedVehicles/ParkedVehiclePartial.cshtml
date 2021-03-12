@@ -1,9 +1,9 @@
-﻿@model IEnumerable<ParkedVehicle>
+﻿@model IEnumerable<Garage_G5.Models.ViewModels.GeneralInfoViewModel>
 
 
 
 
-<table class="table table-striped">
+<table class="table" modal>
     <thead>
         <tr>
             <th>
@@ -12,27 +12,16 @@
             <th>
                 @Html.DisplayNameFor(model => model.RegistrationNum)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Brand)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Model)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WheelsNum)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.EnteringTime)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalParkedTime)
+            </th>
             <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+            @foreach (var item in Model)
+            {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.VehicleType)
@@ -40,20 +29,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.RegistrationNum)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Color)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Brand)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Model)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.WheelsNum)
-                </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.EnteringTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalParkedTime)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -62,6 +43,6 @@
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
-        }
-    </tbody>
-</table>
+}
+            </tbody>
+    </table>

@@ -24,13 +24,4 @@ namespace Garage_G5.ViewModels
         public VehicleType VehicleType { get; set; }
 
     }
-    
-   
 }
-//1. Skapa vymodell med den information kvittot behöver
-//2. Skapa en metod på kontrollern för att generera ett kvitto
-//3. Hämta den inforamtionen du behöver från DB
-//4. Mappa den informationen till Vymodellen
-//5. Sätt värderna på de saker som inte kommer från databasen (tex kostnad)
-//6. Skapa en vy med modellen som är din vymodell
-//7. Ordna så man kan komma till din backend och skicka med det du behöver tex id
