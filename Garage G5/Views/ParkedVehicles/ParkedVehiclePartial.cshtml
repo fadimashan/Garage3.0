@@ -1,27 +1,9 @@
-﻿@model Garage_G5.Models.ViewModels.GeneralInfoViewModel
+﻿@model IEnumerable<Garage_G5.Models.ViewModels.GeneralInfoViewModel>
 
-@{ ViewData["Title"] = "Index"; }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<form asp-action="Index">
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" asp-for="RegistrationNum" placeholder="Search on reg..." />
-        <div class="input-group-append">
-            <select asp-for="VehicleType" asp-items="@Model.Types" onchange="this.form.submit()" class="form-control">
-                <option selected="selected" value=""> Please select</option>
-            </select>
-        </div>
-        <div class="input-group-append">
-            <button type="submit" class="btn btn-dark ml-1" style="border-radius:4px"><i class="fa fa-search">&emsp;Search</i></button>
-        </div>
-    </div>
-</form>
 
-<table class="table">
+<table class="table" modal>
     <thead>
         <tr>
             <th>
@@ -38,9 +20,8 @@
                 @Html.DisplayNameFor(model => model.TotalParkedTime)
             </th>
             <th></th>
-        </tr>
-        @foreach (var item in Model.ParkedVehicles)
-        {
+            @foreach (var item in Model)
+            {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.VehicleType)
@@ -53,7 +34,7 @@
                     @Html.DisplayFor(modelItem => item.EnteringTime)
                 </td>
                 <td>
-                    @*@Html.DisplayFor(modelItem => item.TotalParkedTime)*@
+                    @Html.DisplayFor(modelItem => item.TotalParkedTime)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -62,6 +43,6 @@
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
-        }
-    </thead>
-</table>
+}
+            </tbody>
+    </table>

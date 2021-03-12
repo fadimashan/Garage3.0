@@ -4,14 +4,16 @@ using Garage_G5.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Garage_G5.Migrations
 {
     [DbContext(typeof(Garage_G5Context))]
-    partial class Garage_G5ContextModelSnapshot : ModelSnapshot
+    [Migration("20210311130249_Search")]
+    partial class Search
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,6 +52,36 @@ namespace Garage_G5.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ParkedVehicle");
+                });
+
+            modelBuilder.Entity("Garage_G5.ViewModels.ReceiptModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CheckoutTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("EnteringTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RegistrationNum")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan>("TotalTimeParked")
+                        .HasColumnType("time");
+
+                    b.Property<int>("VehicleType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ReceiptModel");
                 });
 #pragma warning restore 612, 618
         }

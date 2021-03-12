@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Garage_G5.Data;
 
@@ -26,6 +21,8 @@ namespace Garage_G5
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+           // services.AddScoped<ITotalParkedTimeService, TotalParkedTimeService>();
+
 
             services.AddDbContext<Garage_G5Context>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Garage_G5Context")));
@@ -55,7 +52,7 @@ namespace Garage_G5
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=ParkedVehicles}/{action=Index}/{id?}");
             });
         }
     }

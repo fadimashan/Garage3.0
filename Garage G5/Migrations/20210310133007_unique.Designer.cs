@@ -4,19 +4,21 @@ using Garage_G5.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Garage_G5.Migrations
 {
     [DbContext(typeof(Garage_G5Context))]
-    partial class Garage_G5ContextModelSnapshot : ModelSnapshot
+    [Migration("20210310133007_unique")]
+    partial class unique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("ProductVersion", "3.1.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Garage_G5.Models.ParkedVehicle", b =>
@@ -39,7 +41,7 @@ namespace Garage_G5.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RegistrationNum")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("VehicleType")
                         .HasColumnType("int");
@@ -48,6 +50,10 @@ namespace Garage_G5.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RegistrationNum")
+                        .IsUnique()
+                        .HasFilter("[RegistrationNum] IS NOT NULL");
 
                     b.ToTable("ParkedVehicle");
                 });

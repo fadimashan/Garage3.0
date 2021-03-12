@@ -19,7 +19,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="RegistrationNum" class="control-label"></label>
-                <input asp-for="RegistrationNum" class="form-control" />
+                <input asp-for="RegistrationNum" name="RegistrationNum" class="form-control" />
                 <span asp-validation-for="RegistrationNum" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -42,11 +42,6 @@
                 <input asp-for="WheelsNum" class="form-control" />
                 <span asp-validation-for="WheelsNum" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="EnteringTime" class="control-label"></label>
-                <input asp-for="EnteringTime" class="form-control" />
-                <span asp-validation-for="EnteringTime" class="text-danger"></span>
-            </div>*@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
