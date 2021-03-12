@@ -27,8 +27,6 @@ namespace Garage_G5.Controllers
         }
 
 
-
-
         public async Task<IActionResult> ReceiptModel(int id)
         {
             
