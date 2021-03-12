@@ -20,12 +20,43 @@ namespace Garage_G5.Controllers
             _context = context;
         }
 
-        // GET: ParkedVehicles
-        public async Task<IActionResult> Index()
+        
+
+        
+       
+        public async Task<IActionResult> Index(GeneralInfoViewModel viewModel)
         {
-            return View(await _context.ParkedVehicle.ToListAsync());
+            var vehicles = string.IsNullOrWhiteSpace(viewModel.RegistrationNum) ?
+               _context.ParkedVehicle :
+               _context.ParkedVehicle.Where(m => m.RegistrationNum.StartsWith(viewModel.RegistrationNum));
+
+               vehicles = viewModel.VehicleType == null ?
+                vehicles :
+                vehicles.Where(m => m.VehicleType == viewModel.VehicleType);
+
+            var model = new GeneralInfoViewModel
+            {
+                ParkedVehicles = vehicles,
+                Types = await GetGenresAsync()
+            };
+
+            return View(model);
+
+         
         }
 
+        private async Task<IEnumerable<SelectListItem>> GetGenresAsync()
+        {
+            return await _context.ParkedVehicle
+                          .Select(m => m.VehicleType)
+                          .Distinct()
+                          .Select(g => new SelectListItem
+                          {
+                              Text = g.ToString(),
+                              Value = g.ToString()
+                          })
+                          .ToListAsync();
+        }
 
 
 
@@ -45,7 +76,7 @@ namespace Garage_G5.Controllers
             }
             else
             {
-                var nRM = new ReceiptModel()
+                var nRM = new ReceiptModel
                 {
                     RegistrationNum = parkedVehicle.RegistrationNum,
                     VehicleType = parkedVehicle.VehicleType,
@@ -73,6 +104,8 @@ namespace Garage_G5.Controllers
 
             return View("GeneralInfoModel", await model.ToListAsync());
         }
+
+   
 
 
         // GET: ParkedVehicles/Details/5
@@ -106,6 +139,7 @@ namespace Garage_G5.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,VehicleType,RegistrationNum,Color,Brand,Model,WheelsNum,EnteringTime")] ParkedVehicle parkedVehicle)
         {
+
             if (ModelState.IsValid)
             {
                 _context.Add(parkedVehicle);
@@ -205,18 +239,23 @@ namespace Garage_G5.Controllers
             return !_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum);
         }
 
-        public ActionResult Filter(string registrationNum)
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult IsRegExists(string RegistrationNum, int Id)
         {
-            var listOfP = _context.ParkedVehicle.ToList();
-            if (registrationNum != null)
-            {
-                var tempList = listOfP.Where(p => p.RegistrationNum.ToLower().Contains(registrationNum)).ToList();
-                return View("Index", tempList);
-
-            }
-            return View("Index", _context.ParkedVehicle.ToList());
-
+            return Json(IsUnique(RegistrationNum, Id));
         }
 
+        private bool IsUnique(string RegistrationNum, int Id)
+        {
+            if (Id == 0) // its a new object
+            {
+                return !_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum);
+            }
+            else // its an existing object so exclude existing objects with the id
+            {
+                return !_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum && x.Id != Id);
+            }
+        }
     }
+
 }

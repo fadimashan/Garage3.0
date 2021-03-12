@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+
+using System.Collections.Generic;
+
 using System.ComponentModel.DataAnnotations;
 
 namespace Garage_G5.Models
@@ -12,9 +15,9 @@ namespace Garage_G5.Models
         public int Id { get; set; }
 
         public VehicleType VehicleType { get; set; }
-
-        
+       
         [Remote("IsRegisterNumberExists", "ParkedVehicles", ErrorMessage = "Registration Number already in use")]
+
         public string RegistrationNum { get; set; }
 
         public string Color { get; set; }
