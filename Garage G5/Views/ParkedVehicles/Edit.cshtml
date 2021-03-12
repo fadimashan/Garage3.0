@@ -4,9 +4,9 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Receipt</h1>
 
-<h4>ParkedVehicle</h4>
+<h4>Parked Vehicle</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -39,7 +39,7 @@
                 <span asp-validation-for="Model" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WheelsNum" class="control-label"></label>
+                <label asp-for="WheelsNum" class="control-label"></label> 
                 <input asp-for="WheelsNum" class="form-control" />
                 <span asp-validation-for="WheelsNum" class="text-danger"></span>
             </div>
@@ -67,7 +67,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            Confirm changes to @Html.DisplayFor(model => model.VehicleType) @Html.DisplayFor(model => model.RegistrationNum).
+                            Are you sure you want to save this edit to @Html.DisplayFor(model => model.VehicleType) @Html.DisplayFor(model => model.RegistrationNum).
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -124,10 +124,11 @@
                                 <td>Otto</td>
                                 <td>mdo</td>
                                 <td>
-                                    <button type="button" class="btn btn-outline-info btn-sm" onclick="window.print()">Details</button>
-                                    <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
-                                    <button type="button" class="btn btn-outline-warning btn-sm">Checkout</button>                                      
-                                </td>
+                                    
+                                        <a href="/" type="button" class="btn btn-outline-info btn-sm">Details</a>
+                                        <a href="/" type="button" class="btn btn-outline-primary btn-sm">Edit</a>
+                                        <a href="/" type="button" class="btn btn-outline-warning btn-sm">Checkout</a>
+</td>
                             </tr>
                             <tr>
                                 <th scope="row">2</th>
@@ -135,9 +136,9 @@
                                 <td>Thornton</td>
                                 <td>fat</td>
                                 <td>
-                                    <button type="button" class="btn btn-outline-info btn-sm">Details</button>
-                                    <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
-                                    <button type="button" class="btn btn-outline-warning btn-sm">Checkout</button>
+                                    <a href="/" type="button" class="btn btn-outline-info btn-sm">Details</a>
+                                    <a href="/" type="button" class="btn btn-outline-primary btn-sm">Edit</a>
+                                    <a href="/" type="button" class="btn btn-outline-warning btn-sm">Checkout</a>
                                 </td>
                             </tr>
                             <tr>
@@ -146,9 +147,9 @@
                                 <td>the Bird</td>
                                 <td>twitter</td>
                                 <td>
-                                    <button type="button" class="btn btn-outline-info btn-sm">Details</button>
-                                    <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
-                                    <button type="button" class="btn btn-outline-warning btn-sm">Checkout</button>
+                                    <a href="/" type="button" class="btn btn-outline-info btn-sm">Details</a>
+                                    <a href="/" type="button" class="btn btn-outline-primary btn-sm">Edit</a>
+                                    <a href="/" type="button" class="btn btn-outline-warning btn-sm">Checkout</a>
                                 </td>
                             </tr>
                         </tbody>
