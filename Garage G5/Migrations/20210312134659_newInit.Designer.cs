@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage_G5.Migrations
 {
     [DbContext(typeof(Garage_G5Context))]
-    [Migration("20210311132816_searchkarl")]
-    partial class searchkarl
+    [Migration("20210312134659_newInit")]
+    partial class newInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -52,36 +52,6 @@ namespace Garage_G5.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ParkedVehicle");
-                });
-
-            modelBuilder.Entity("Garage_G5.ViewModels.ReceiptModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CheckoutTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("EnteringTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RegistrationNum")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeSpan>("TotalTimeParked")
-                        .HasColumnType("time");
-
-                    b.Property<int>("VehicleType")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ReceiptModel");
                 });
 #pragma warning restore 612, 618
         }

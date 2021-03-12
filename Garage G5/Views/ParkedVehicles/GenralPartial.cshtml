@@ -1,31 +1,7 @@
 ﻿@model Garage_G5.Models.ViewModels.VehicleFilterViewModel
 
-@{
-    ViewData["Title"] = "GeneralInfoModel";
-}
-
-<h1>GeneralInfoModel</h1>
 
 
-@*<form asp-action="SearchAndFilterView">
-    <div class="input-group mb-2">
-        <input type="text" class="form-control" asp-for="RegistrationNum" placeholder="Search on name" />
-        <div class="input-group-append">
-            <select asp-for="VehicleType" asp-items="@Model.Types" onchange="this.form.submit()" class="form-control">
-                <option selected="selected" value="">Please select</option>
-            </select>
-        </div>
-        <div class="input-group-append mb-2 ml-1">
-            <button type="submit" class="btn btn-dark" style="border-radius:4px"><i class="fa fa-search"> &emsp;Search</i></button>
-        </div>
-    </div>
-</form>*@
-
-
-
-@*<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -33,10 +9,12 @@
                 @Html.DisplayNameFor(model => model.VehicleType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RegistrationNum)
+                Registration
+               @* @Html.DisplayNameFor(model => model.GenralVehicles[0].RegistrationNum)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EnteringTime)
+                Entering time
+              @*  @Html.DisplayNameFor(model => model.GenralVehicles[0].EnteringTime)*@
             </th>
             <th>
                 Total time parked
@@ -60,7 +38,7 @@
                     <p> @{var enterTime = (item.EnteringTime).ToString("g");}  @Html.DisplayFor(modelItem => enterTime)</p>
                 </td>
                 <td>
-                    <p id="timer"> @{ var total = (item.TotalTimeParked).ToString("hh'h 'mm'm'");}  @Html.DisplayFor(modelItem => total)</p>
+                    <p id="timer"> @{ var total = (item.TotalTimeParked).ToString("hh':'mm':'ss");}  @Html.DisplayFor(modelItem => total)</p>
 
                 </td>
                 <td>
@@ -71,4 +49,4 @@
             </tr>
         }
     </tbody>
-</table>*@
+</table>

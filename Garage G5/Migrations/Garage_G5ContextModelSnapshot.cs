@@ -51,60 +51,6 @@ namespace Garage_G5.Migrations
 
                     b.ToTable("ParkedVehicle");
                 });
-
-            modelBuilder.Entity("Garage_G5.Models.ViewModels.GeneralInfoModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("EnteringTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("RegistrationNum")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeSpan>("TotalTimeParked")
-                        .HasColumnType("time");
-
-                    b.Property<int>("VehicleType")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("GeneralInfoModel_1");
-                });
-
-            modelBuilder.Entity("Garage_G5.ViewModels.ReceiptModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CheckoutTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("EnteringTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RegistrationNum")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeSpan>("TotalTimeParked")
-                        .HasColumnType("time");
-
-                    b.Property<int>("VehicleType")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ReceiptModel");
-                });
 #pragma warning restore 612, 618
         }
     }
