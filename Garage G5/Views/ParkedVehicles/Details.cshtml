@@ -55,6 +55,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a id="NoPrint" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> <span id="NoPrint">|</span>
+    <a id="NoPrint" asp-action="Index">Back to List</a>
+
+    <button id="NoPrint" type="button" class="btn btn-outline-info btn-sm" onclick="window.print()">Print</button>
+    <button id="NoPrint" type="button" class="btn btn-outline-info btn-sm" onclick="$.notify('Hello World','success');">Hello</button>
 </div>

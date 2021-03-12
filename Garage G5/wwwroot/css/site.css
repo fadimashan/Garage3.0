@@ -74,3 +74,37 @@ body {
 
 */
 
+.table td, .table th {
+    padding: .75rem;
+    vertical-align: middle;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Print styles */
+@media print {
+    tr, td, th {
+        page-break-inside: avoid;
+        padding: 2em;
+    }
+
+    thead {
+        display: table-header-group;
+        padding: 2em;
+    }
+    div {
+        font-size: 1.5em;
+        
+    }
+    .NoPrint {
+        visibility: hidden;
+        display: none
+    }
+
+    a {
+        color: #000000
+    }
+    #NoPrint {
+        visibility: hidden;
+        display: none
+    }
+}

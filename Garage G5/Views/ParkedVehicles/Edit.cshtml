@@ -87,6 +87,81 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<!-- Main layout -->
+<main>
+
+    <div class="container">
+        <!-- Section: Tables -->
+        <section id="tables" class="my-5">
+
+            <!-- Heading -->
+            <h2 class="h1 mb-4">Garage G5</h2>
+
+            <!-- Subheading -->
+            <h2 class="sh2 mb-4">Vehicles currently in the garage:</h2>
+
+            <!-- Grid row -->
+            <div class="row mb-5">
+
+                <!-- Grid column -->
+                <div class="col-md-12">
+
+                    <!-- Basic Table -->
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Handle</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>mdo</td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-info btn-sm" onclick="window.print()">Details</button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                                    <button type="button" class="btn btn-outline-warning btn-sm">Checkout</button>                                      
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>fat</td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-info btn-sm">Details</button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                                    <button type="button" class="btn btn-outline-warning btn-sm">Checkout</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Larry</td>
+                                <td>the Bird</td>
+                                <td>twitter</td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-info btn-sm">Details</button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+                                    <button type="button" class="btn btn-outline-warning btn-sm">Checkout</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- Basic Table -->
+
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+    </div>
+</main>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
