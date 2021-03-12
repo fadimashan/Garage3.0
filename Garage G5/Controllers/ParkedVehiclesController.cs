@@ -26,9 +26,6 @@ namespace Garage_G5.Controllers
             return View(await _context.ParkedVehicle.ToListAsync());
         }
 
-
-
-
         public async Task<IActionResult> ReceiptModel(int id)
         {
             

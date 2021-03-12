@@ -24,6 +24,6 @@ namespace Garage_G5.Models.ViewModels
         [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
         public TimeSpan TotalTimeParked { get; set; }
 
-        //public int Time { get {  return test ??   }; set; }
+        public string TimeSinceCheckin { get { return (DateTime.Now - EnteringTime).ToString(@"hh\:mm"); } }
     }
 }
