@@ -1,8 +1,7 @@
 ﻿@model Garage_G5.Models.ViewModels.GeneralInfoViewModel
+@*@inject Garage_G5.Services.ITotalParkedTimeService service*@
 
-@{
-    ViewData["Title"] = "Index";
-}
+@{ ViewData["Title"] = "Index"; }
 
 <h1>Index</h1>
 
@@ -14,7 +13,7 @@
         <input type="text" class="form-control" asp-for="RegistrationNum" placeholder="Search on reg..." />
 
         <div class="input-group-append">
-            <select asp-for="VehicleType" asp-items="@Model.Types" class="form-control">
+            <select asp-for="VehicleType" asp-items="@Model.Types" onchange="this.form.submit()" class="form-control">
                 <option selected="selected" value=""> Please select</option>
             </select>
         </div>
@@ -23,6 +22,7 @@
         </div>
     </div>
 </form>
+
 <table class="table">
     <thead>
         <tr>
@@ -36,62 +36,34 @@
             <th>
                 @Html.DisplayNameFor(model => model.EnteringTime)
             </th>
-            <th></th>
             <th>
-                @Html.DisplayNameFor(model => model.WheelsNum)
+                @Html.DisplayNameFor(model => model.TotalParkedTime)
             </th>
-        @foreach (var item in Model.ParkedVehicles)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.VehicleType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RegistrationNum)
-                </td>
+            <th></th>
+            @foreach (var item in Model.ParkedVehicles)
+            {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.VehicleType)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.RegistrationNum)
+    </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.EnteringTime)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-            </td>
-            <td>
-@*@{
-    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-}
+    <td>
+        @Html.DisplayFor(modelItem => item.EnteringTime)
+    </td>
+    <td>
+        @*@Html.DisplayFor(modelItem => item.TotalParkedTime)*@
+    </td>
+    <td>
+        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+        <a asp-action="ReceiptModel" asp-route-id="@item.Id">Check out</a> |
+        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+    </td>
+</tr>}
+            </tbody>
+    </table>
 
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-pageNumber="@(Model.PageIndex - 1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-default @prevDisabled">
-    Previous
-</a>
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-pageNumber="@(Model.PageIndex + 1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-default @nextDisabled">
-    Next
-</a>*@                @Html.DisplayFor(modelItem => item.WheelsNum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnteringTime)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="ReceiptModel" asp-route-id="@item.Id">Check out</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+

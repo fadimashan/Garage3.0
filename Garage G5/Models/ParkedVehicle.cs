@@ -16,7 +16,7 @@ namespace Garage_G5.Models
 
         public VehicleType VehicleType { get; set; }
        
-        [Remote("IsRegisterNumberExists", "ParkedVehicles", ErrorMessage = "Registration Number already in use")]
+        [Remote("IsRegExists", "ParkedVehicles", ErrorMessage = "Registration Number already in use", AdditionalFields ="Id")]
 
         public string RegistrationNum { get; set; }
 

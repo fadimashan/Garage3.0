@@ -20,19 +20,19 @@ namespace Garage_G5.Controllers
             _context = context;
         }
 
-        
 
-        
-       
+
+
+
         public async Task<IActionResult> Index(GeneralInfoViewModel viewModel)
         {
             var vehicles = string.IsNullOrWhiteSpace(viewModel.RegistrationNum) ?
                _context.ParkedVehicle :
                _context.ParkedVehicle.Where(m => m.RegistrationNum.StartsWith(viewModel.RegistrationNum));
 
-               vehicles = viewModel.VehicleType == null ?
-                vehicles :
-                vehicles.Where(m => m.VehicleType == viewModel.VehicleType);
+            vehicles = viewModel.VehicleType == null ?
+             vehicles :
+             vehicles.Where(m => m.VehicleType == viewModel.VehicleType);
 
             var model = new GeneralInfoViewModel
             {
@@ -42,8 +42,28 @@ namespace Garage_G5.Controllers
 
             return View(model);
 
-         
         }
+        //public async Task<IActionResult> Index(GeneralInfoViewModel viewModel)
+        //{
+        //    var vehicles = string.IsNullOrWhiteSpace(viewModel.RegistrationNum) ?
+        //       _context.ParkedVehicle :
+        //       _context.ParkedVehicle.Where(m => m.RegistrationNum.StartsWith(viewModel.RegistrationNum));
+
+        //    vehicles = viewModel.VehicleType == null ?
+        //     vehicles :
+        //     vehicles.Where(m => m.VehicleType == viewModel.VehicleType).
+        //    Where(x => x.EnteringTime == viewModel.EnteringTime);
+
+        //    var model = new GeneralInfoViewModel
+        //    {
+        //        ParkedVehicles = vehicles,
+        //        Types = await GetGenresAsync()
+        //    };
+
+        //    return View(model);
+
+
+        //}
 
         private async Task<IEnumerable<SelectListItem>> GetGenresAsync()
         {
@@ -89,20 +109,6 @@ namespace Garage_G5.Controllers
                 };
                 return View(nRM);
             }
-        }
-
-        public async Task<IActionResult> GeneralInfoModel()
-        {
-            var model = _context.ParkedVehicle.Select(x => new GeneralInfoModel
-            {
-                Id = x.Id,
-                RegistrationNum = x.RegistrationNum,
-                VehicleType = x.VehicleType,
-                EnteringTime = x.EnteringTime,
-                TotalTimeParked = DateTime.Now - x.EnteringTime,
-            });
-
-            return View("GeneralInfoModel", await model.ToListAsync());
         }
 
    

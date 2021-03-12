@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Garage_G5.Data;
+using Garage_G5.Services;
 
 namespace Garage_G5
 {
@@ -26,6 +27,8 @@ namespace Garage_G5
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+           // services.AddScoped<ITotalParkedTimeService, TotalParkedTimeService>();
+
 
             services.AddDbContext<Garage_G5Context>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Garage_G5Context")));
@@ -55,7 +58,7 @@ namespace Garage_G5
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=ParkedVehicles}/{action=GeneralInfoModel}/{id?}");
+                    pattern: "{controller=ParkedVehicles}/{action=Index}/{id?}");
             });
         }
     }

@@ -18,8 +18,5 @@ namespace Garage_G5.Data
 
         public DbSet<ParkedVehicle> ParkedVehicle { get; set; }
 
-        public DbSet<ReceiptModel> ReceiptModel { get; set; }
-
-        public DbSet<GeneralInfoModel> GeneralInfoModel_1 { get; set; }
     }
 }
