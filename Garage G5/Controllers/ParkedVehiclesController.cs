@@ -170,7 +170,9 @@ namespace Garage_G5.Controllers
                         throw;
                     }
                 }
+                //HERE
                 return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(EditConfirm));
             }
             return View(parkedVehicle);
         }
