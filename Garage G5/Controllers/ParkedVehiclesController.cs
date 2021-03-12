@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Garage_G5.Data;
 using Garage_G5.Models;
-
+using Garage_G5.ViewModels;
+using Garage_G5.Models.ViewModels;
 
 namespace Garage_G5.Controllers
 {
@@ -20,11 +21,98 @@ namespace Garage_G5.Controllers
         }
 
         // GET: ParkedVehicles
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.ParkedVehicle.ToListAsync());
+        //}
+        //public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
+        //{
+        //    ViewData["CurrentSort"] = sortOrder;
+        //    ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+        //    ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+        //    if (searchString != null)
+        //    {
+        //        pageNumber = 1;
+
+        //    }
+        //    else
+        //    {
+        //        searchString = currentFilter;
+        //    }
+        //    ViewData["CurrentFilter"] = searchString;
+        //    var parkedvehicles = from s in _context.ParkedVehicle
+        //                   select s;
+        //    if (!String.IsNullOrEmpty(searchString))
+        //    {
+        //        parkedvehicles = parkedvehicles.Where(s => s.RegistrationNum.Contains(searchString)
+        //        || s.Color.Contains(searchString)
+        //         || s.Model.Contains(searchString)
+        //             || s.Brand.Contains(searchString)
+        //         || s.Color.Contains(searchString));
+
+               
+
+
+        //    }
+        //    switch (sortOrder)
+        //    {
+        //        case "name_desc":
+        //            parkedvehicles = parkedvehicles.OrderByDescending(s => s.RegistrationNum);
+        //            break;
+        //        case "Date":
+        //            parkedvehicles = parkedvehicles.OrderBy(s => s.EnteringTime);
+        //            break;
+        //        case "date_desc":
+        //            parkedvehicles = parkedvehicles.OrderByDescending(s => s.EnteringTime);
+        //            break;
+        //        default:
+        //            parkedvehicles = parkedvehicles.OrderBy(s => s.RegistrationNum);
+        //            break;
+        //    }
+        //    int pageSize = 3;
+        //    return View(await PaginatedList<ParkedVehicle>.CreateAsync(parkedvehicles.AsNoTracking(), pageNumber ?? 1, pageSize));
+        //}
+        public async Task<IActionResult> Index(GeneralInfoViewModel viewModel)
         {
-            return View(await _context.ParkedVehicle.ToListAsync());
+            var vehicles = string.IsNullOrWhiteSpace(viewModel.RegistrationNum) ?
+               _context.ParkedVehicle :
+               _context.ParkedVehicle.Where(m => m.RegistrationNum.StartsWith(viewModel.RegistrationNum));
+
+               vehicles = viewModel.VehicleType == null ?
+                vehicles :
+                vehicles.Where(m => m.VehicleType == viewModel.VehicleType);
+
+            var model = new GeneralInfoViewModel
+            {
+                ParkedVehicles = vehicles,
+                Types = await GetGenresAsync()
+            };
+
+            return View(model);
+
+           // var model = new GeneralInfoModel
+           // {
+           //     ParkedVehicles = vehicles,
+           //     Types = await GetGenresAsync()
+           // };
+           //// return View(model);
+
+           // return View(await PaginatedList<GeneralInfoModel>.CreateAsync(vehicles.AsNoTracking(), pageNumber ?? 1, pageSize));
+
         }
 
+        private async Task<IEnumerable<SelectListItem>> GetGenresAsync()
+        {
+            return await _context.ParkedVehicle
+                          .Select(m => m.VehicleType)
+                          .Distinct()
+                          .Select(g => new SelectListItem
+                          {
+                              Text = g.ToString(),
+                              Value = g.ToString()
+                          })
+                          .ToListAsync();
+        }
 
 
 
@@ -44,7 +132,7 @@ namespace Garage_G5.Controllers
             }
             else
             {
-                var nRM = new ReceiptModel()
+                var nRM = new ReceiptModel
                 {
                     RegistrationNum = parkedVehicle.RegistrationNum,
                     VehicleType = parkedVehicle.VehicleType,
