@@ -2,6 +2,9 @@
 {
     public enum VehicleType
     {
-        Car,Bus
+        Car,
+        Bus,
+        sh,
+        ba
     }
 }

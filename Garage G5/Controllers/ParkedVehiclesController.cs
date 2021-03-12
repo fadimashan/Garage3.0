@@ -60,21 +60,7 @@ namespace Garage_G5.Controllers
             }
         }
 
-        public IEnumerable<GeneralInfoModel> GeneralInfoModel()
-        {
-            var model = _context.ParkedVehicle.Select(x => new GeneralInfoModel
-            {
-                Id = x.Id,
-                RegistrationNum = x.RegistrationNum,
-                VehicleType = x.VehicleType,
-                EnteringTime = x.EnteringTime,
-                TotalTimeParked = DateTime.Now - x.EnteringTime,
-            });
-
-            //return View("GeneralInfoModel", await model.ToListAsync());
-            return (model);
-        }
-
+      
 
 
 
@@ -269,15 +255,17 @@ namespace Garage_G5.Controllers
         //    return View("SearchAndFilterView", list);
         //}
 
-        public async Task<IActionResult> SearchAndFilterView(GeneralInfoModel viewModel, string Reistration)
+        public async Task<IActionResult> SearchAndFilterView(VehicleFilterViewModel viewModel, string reistration)
         {
 
-            var vehicles = string.IsNullOrWhiteSpace(Reistration) ?
+            var vehicles = string.IsNullOrWhiteSpace(reistration) ?
             _context.ParkedVehicle :
-            _context.ParkedVehicle.Where(m => m.RegistrationNum.StartsWith(Reistration));
+            _context.ParkedVehicle.Where(m => m.RegistrationNum.StartsWith(reistration));
 
-            //vehicles =  vehicles.Where(m => m.VehicleType == viewModel.VehicleType).
-            //Where(x => x.EnteringTime == viewModel.EnteringTime);
+            vehicles = viewModel.VehicleType == null ?
+                vehicles :
+                vehicles.Where(m => m.VehicleType == viewModel.VehicleType);
+            
             var geniral = vehicles.Select(x => new GeneralInfoModel
             {
                 RegistrationNum = x.RegistrationNum,
@@ -286,7 +274,6 @@ namespace Garage_G5.Controllers
                 TotalTimeParked = DateTime.Now - x.EnteringTime
             });
 
-            //var model = GeneralInfoModel();
 
             var list = new VehicleFilterViewModel
             {
@@ -298,15 +285,19 @@ namespace Garage_G5.Controllers
         }
 
 
-        private IEnumerable<GeneralInfoModel> GetGenralVehicle()
+
+        public IEnumerable<GeneralInfoModel> GeneralInfoModel()
         {
+            var model = _context.ParkedVehicle.Select(x => new GeneralInfoModel
+            {
+                Id = x.Id,
+                RegistrationNum = x.RegistrationNum,
+                VehicleType = x.VehicleType,
+                EnteringTime = x.EnteringTime,
+                TotalTimeParked = DateTime.Now - x.EnteringTime,
+            }).ToList();
 
-            var list =
-            GeneralInfoModel();
-
-
-            return list.ToList();
-
+            return (model);
         }
 
 

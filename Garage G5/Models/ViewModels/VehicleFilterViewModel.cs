@@ -16,20 +16,9 @@ namespace Garage_G5.Models.ViewModels
 
         public List<GeneralInfoModel> GenralVehicles { get; set; }
 
-        public VehicleType VehicleType { get; set; }
+        public VehicleType? VehicleType { get; set; }
 
-        //    public VehicleType? Type { get; set; }
         public string RegistrationNum { get; set; }
 
-        //    public int Id { get; set; }
-        //public VehicleType VehicleType { get; set; }
-
-        //    public DateTime EnteringTime
-        //    {
-        //        get { return dateCreated ?? DateTime.Now; }
-        //        set { dateCreated = value; }
-        //    }
-        //    public TimeSpan TotalTimeParked { get; set; }
-        //}
     }
 }

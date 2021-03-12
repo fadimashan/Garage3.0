@@ -8,10 +8,10 @@
 
 <form asp-action="SearchAndFilterView">
     <div class="input-group mb-2">
-        <input type="text" class="form-control" asp-for="RegistrationNum" name="Registration" placeholder="Search on name" />
+        <input type="text" class="form-control" name="reistration" placeholder="Search on name" />
         <div class="input-group-append">
             <select asp-for="VehicleType" asp-items="@Html.GetEnumSelectList<VehicleType>()" onchange="this.form.submit()" class="form-control">
-                <option selected="selected" value="">Please select</option>
+                <option selected="selected" value=" ">Please select</option>
             </select>
         </div>
         <div class="input-group-append mb-2 ml-1">
@@ -22,5 +22,4 @@
 
 
 <partial name="GenralPartial" />
-
 

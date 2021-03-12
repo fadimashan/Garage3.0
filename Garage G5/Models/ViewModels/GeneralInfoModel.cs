@@ -15,7 +15,7 @@ namespace Garage_G5.Models.ViewModels
         private DateTime? dateCreated;
 
         public int Id { get; set; }
-        public VehicleType VehicleType { get; set; }
+        public VehicleType? VehicleType { get; set; }
         public string RegistrationNum { get; set; }
 
         public DateTime EnteringTime
