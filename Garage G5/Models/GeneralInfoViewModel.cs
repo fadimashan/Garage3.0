@@ -8,9 +8,9 @@ namespace Garage_G5.Models.ViewModels
 {
     public class GeneralInfoViewModel
     {
-        
+
         private DateTime? parkedTime;
-        public int Id{ get; set; }
+        public int Id { get; set; }
         public IEnumerable<ParkedVehicle> ParkedVehicles { get; set; }
         public IEnumerable<SelectListItem> Types { get; set; }
         public VehicleType? VehicleType { get; set; }

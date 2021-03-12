@@ -2,7 +2,6 @@
 {
     public enum VehicleType
     {
-        
         Sedan,
         Coupe,
         Van,

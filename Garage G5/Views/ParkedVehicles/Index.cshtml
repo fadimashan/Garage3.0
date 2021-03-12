@@ -1,5 +1,4 @@
 ﻿@model Garage_G5.Models.ViewModels.GeneralInfoViewModel
-@*@inject Garage_G5.Services.ITotalParkedTimeService service*@
 
 @{ ViewData["Title"] = "Index"; }
 
@@ -11,14 +10,13 @@
 <form asp-action="Index">
     <div class="input-group mb-3">
         <input type="text" class="form-control" asp-for="RegistrationNum" placeholder="Search on reg..." />
-
         <div class="input-group-append">
             <select asp-for="VehicleType" asp-items="@Model.Types" onchange="this.form.submit()" class="form-control">
                 <option selected="selected" value=""> Please select</option>
             </select>
         </div>
         <div class="input-group-append">
-            <button type="submit" class="btn btn-primary"><i class="fa fa-search">&emsp;Search</i></button>
+            <button type="submit" class="btn btn-dark ml-1" style="border-radius:4px"><i class="fa fa-search">&emsp;Search</i></button>
         </div>
     </div>
 </form>
@@ -40,30 +38,30 @@
                 @Html.DisplayNameFor(model => model.TotalParkedTime)
             </th>
             <th></th>
-            @foreach (var item in Model.ParkedVehicles)
-            {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.VehicleType)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.RegistrationNum)
-    </td>
+        </tr>
+        @foreach (var item in Model.ParkedVehicles)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VehicleType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegistrationNum)
+                </td>
 
-    <td>
-        @Html.DisplayFor(modelItem => item.EnteringTime)
-    </td>
-    <td>
-        @*@Html.DisplayFor(modelItem => item.TotalParkedTime)*@
-    </td>
-    <td>
-        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-        <a asp-action="ReceiptModel" asp-route-id="@item.Id">Check out</a> |
-        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-    </td>
-</tr>}
-            </tbody>
-    </table>
-
-
+                <td>
+                    @Html.DisplayFor(modelItem => item.EnteringTime)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.TotalParkedTime)*@
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="ReceiptModel" asp-route-id="@item.Id">Check out</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </thead>
+</table>

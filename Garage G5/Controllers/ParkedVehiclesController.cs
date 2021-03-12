@@ -20,10 +20,6 @@ namespace Garage_G5.Controllers
             _context = context;
         }
 
-
-
-
-
         public async Task<IActionResult> Index(GeneralInfoViewModel viewModel)
         {
             var vehicles = string.IsNullOrWhiteSpace(viewModel.RegistrationNum) ?
@@ -43,27 +39,6 @@ namespace Garage_G5.Controllers
             return View(model);
 
         }
-        //public async Task<IActionResult> Index(GeneralInfoViewModel viewModel)
-        //{
-        //    var vehicles = string.IsNullOrWhiteSpace(viewModel.RegistrationNum) ?
-        //       _context.ParkedVehicle :
-        //       _context.ParkedVehicle.Where(m => m.RegistrationNum.StartsWith(viewModel.RegistrationNum));
-
-        //    vehicles = viewModel.VehicleType == null ?
-        //     vehicles :
-        //     vehicles.Where(m => m.VehicleType == viewModel.VehicleType).
-        //    Where(x => x.EnteringTime == viewModel.EnteringTime);
-
-        //    var model = new GeneralInfoViewModel
-        //    {
-        //        ParkedVehicles = vehicles,
-        //        Types = await GetGenresAsync()
-        //    };
-
-        //    return View(model);
-
-
-        //}
 
         private async Task<IEnumerable<SelectListItem>> GetGenresAsync()
         {
@@ -78,11 +53,9 @@ namespace Garage_G5.Controllers
                           .ToListAsync();
         }
 
-
-
         public async Task<IActionResult> ReceiptModel(int id)
         {
-            
+
 
             if (id == 0)
             {
@@ -104,15 +77,11 @@ namespace Garage_G5.Controllers
                     EnteringTime = parkedVehicle.EnteringTime,
                     TotalTimeParked = DateTime.Now - parkedVehicle.EnteringTime,
                     Price = (int)(DateTime.Now - parkedVehicle.EnteringTime).TotalMinutes * 10 / 60,
-                    //Price = (int)
-                    
+
                 };
                 return View(nRM);
             }
         }
-
-   
-
 
         // GET: ParkedVehicles/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -239,29 +208,39 @@ namespace Garage_G5.Controllers
         {
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
-  
-        public bool IsRegisterNumberExists(string RegistrationNum)
-        {
-            return !_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum);
-        }
 
-        [AcceptVerbs("GET", "POST")]
-        public IActionResult IsRegExists(string RegistrationNum, int Id)
+        public bool IsRegisterNumberExists(string RegistrationNum, int Id)
         {
-            return Json(IsUnique(RegistrationNum, Id));
-        }
-
-        private bool IsUnique(string RegistrationNum, int Id)
-        {
-            if (Id == 0) // its a new object
+            if (Id == 0)
             {
                 return !_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum);
             }
-            else // its an existing object so exclude existing objects with the id
+            else
             {
                 return !_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum && x.Id != Id);
+
             }
         }
+
+        /* Anther way to check if the RegistrationNum is unique */
+
+        //[AcceptVerbs("GET", "POST")]
+        //public IActionResult IsRegExists(string RegistrationNum, int Id)
+        //{
+        //    return Json(IsUnique(RegistrationNum, Id));
+        //}
+
+        //private bool IsUnique(string RegistrationNum, int Id)
+        //{
+        //    if (Id == 0) // its a new object
+        //    {
+        //        return !_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum);
+        //    }
+        //    else 
+        //    {
+        //        return !_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum && x.Id != Id);
+        //    }
+        //}
     }
 
 }
