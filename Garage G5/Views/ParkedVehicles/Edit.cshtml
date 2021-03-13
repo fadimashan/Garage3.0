@@ -1,168 +1,97 @@
 ﻿@model Garage_G5.Models.ParkedVehicle
 
-@{
-    ViewData["Title"] = "Edit";
-}
+@{ ViewData["Title"] = "Edit"; }
 
-<h1>Receipt</h1>
+<!-- Section: Tables -->
+<section id="tables" class="my-5">
 
-<h4>Parked Vehicle</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="VehicleType" class="control-label"></label>
-                <select asp-for="VehicleType" asp-items="@Html.GetEnumSelectList<VehicleType>()" class="form-control"></select>
-                <span asp-validation-for="VehicleType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RegistrationNum" class="control-label"></label>
-                <input asp-for="RegistrationNum" class="form-control" />
-                <span asp-validation-for="RegistrationNum" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Color" class="control-label"></label>
-                <input asp-for="Color" class="form-control" />
-                <span asp-validation-for="Color" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Brand" class="control-label"></label>
-                <input asp-for="Brand" class="form-control" />
-                <span asp-validation-for="Brand" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Model" class="control-label"></label>
-                <input asp-for="Model" class="form-control" />
-                <span asp-validation-for="Model" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WheelsNum" class="control-label"></label> 
-                <input asp-for="WheelsNum" class="form-control" />
-                <span asp-validation-for="WheelsNum" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EnteringTime" class="control-label"></label>
-                <input asp-for="EnteringTime" class="form-control" />
-                <span asp-validation-for="EnteringTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                @*<input type="submit" value="Save" class="btn btn-primary" onclick="confirmationAlert()" />*@
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                    Confirm
-                </button>
-            </div>
+    <!-- Heading -->
+    <div id="h1"><h1 class="h1">Edit</h1></div>@*btn btn-primary btn-lg btn-block*@
+    <a asp-action="Create" type="button" class="btn btn-info btn">Park New</a>
 
-            <!-- Button trigger modal -->
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Confirm edit</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+    <div id="subHeading">
+        <!-- Subheading -->
+        <h2 class="sh2 mb-4" style="clear:both;">Edit @Html.DisplayFor(model => model.RegistrationNum)</h2>
+    </div>
+    <!-- Grid row -->
+    <div class="row mb-5">
+
+        <!-- Grid column -->
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <label asp-for="VehicleType" class="control-label"></label>
+                            <select asp-for="VehicleType" asp-items="@Html.GetEnumSelectList<VehicleType>()" class="form-control"></select>
+                            <span asp-validation-for="VehicleType" class="text-danger"></span>
                         </div>
-                        <div class="modal-body">
-                            Are you sure you want to save this edit to @Html.DisplayFor(model => model.VehicleType) @Html.DisplayFor(model => model.RegistrationNum).
+                        <div class="form-group">
+                            <label asp-for="RegistrationNum" class="control-label"></label>
+                            <input asp-for="RegistrationNum" class="form-control" />
+                            <span asp-validation-for="RegistrationNum" class="text-danger"></span>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            @*<button type="button" class="btn btn-primary">Save changes</button>*@
-                            <input type="submit" value="Save" class="btn btn-primary" />
+                        <div class="form-group">
+                            <label asp-for="Color" class="control-label"></label>
+                            <input asp-for="Color" class="form-control" />
+                            <span asp-validation-for="Color" class="text-danger"></span>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label asp-for="Brand" class="control-label"></label>
+                            <input asp-for="Brand" class="form-control" />
+                            <span asp-validation-for="Brand" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Model" class="control-label"></label>
+                            <input asp-for="Model" class="form-control" />
+                            <span asp-validation-for="Model" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="WheelsNum" class="control-label"></label>
+                            <input asp-for="WheelsNum" class="form-control" />
+                            <span asp-validation-for="WheelsNum" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            @*<input type="submit" value="Save" class="btn btn-primary" onclick="confirmationAlert()" />*@
+                            <a asp-action="Index" id="NoPrint" type="button" class="btn btn-outline-info noSpace">Back</a>
+                            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Confirm</button>
+                        </div>
+
+                        <!-- Button trigger modal -->
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Confirm edit</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to save this edit to @Html.DisplayFor(model => model.VehicleType) @Html.DisplayFor(model => model.RegistrationNum).
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                                        <input type="submit" value="Save" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
                 </div>
             </div>
 
-
-        </form>
+        </div>
+        <!-- Grid column -->
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-<!-- Main layout -->
-<main>
-
-    <div class="container">
-        <!-- Section: Tables -->
-        <section id="tables" class="my-5">
-
-            <!-- Heading -->
-            <h2 class="h1 mb-4">Garage G5</h2>
-
-            <!-- Subheading -->
-            <h2 class="sh2 mb-4">Vehicles currently in the garage:</h2>
-
-            <!-- Grid row -->
-            <div class="row mb-5">
-
-                <!-- Grid column -->
-                <div class="col-md-12">
-
-                    <!-- Basic Table -->
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>mdo</td>
-                                <td>
-                                    
-                                        <a href="/" type="button" class="btn btn-outline-info btn-sm">Details</a>
-                                        <a href="/" type="button" class="btn btn-outline-primary btn-sm">Edit</a>
-                                        <a href="/" type="button" class="btn btn-outline-warning btn-sm">Checkout</a>
-</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>fat</td>
-                                <td>
-                                    <a href="/" type="button" class="btn btn-outline-info btn-sm">Details</a>
-                                    <a href="/" type="button" class="btn btn-outline-primary btn-sm">Edit</a>
-                                    <a href="/" type="button" class="btn btn-outline-warning btn-sm">Checkout</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>twitter</td>
-                                <td>
-                                    <a href="/" type="button" class="btn btn-outline-info btn-sm">Details</a>
-                                    <a href="/" type="button" class="btn btn-outline-primary btn-sm">Edit</a>
-                                    <a href="/" type="button" class="btn btn-outline-warning btn-sm">Checkout</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <!-- Basic Table -->
-
-                </div>
-                <!-- Grid column -->
-
-            </div>
-            <!-- Grid row -->
-    </div>
-</main>
+    <!-- Grid row -->
+</section>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
