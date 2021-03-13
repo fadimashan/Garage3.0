@@ -6,18 +6,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.VehicleType)
+                <p> @Html.DisplayNameFor(model => model.VehicleType)</p>
             </th>
             <th>
-                Registration
-               @* @Html.DisplayNameFor(model => model.GenralVehicles[0].RegistrationNum)*@
+                <p>Registration</p>
             </th>
             <th>
-                Entering time
-              @*  @Html.DisplayNameFor(model => model.GenralVehicles[0].EnteringTime)*@
+                <p>Entering time</p>
             </th>
             <th>
-                Total time parked
+                <p>Total time parked</p>
             </th>
             <th>
 
@@ -35,15 +33,15 @@
                     @Html.DisplayFor(modelItem => item.RegistrationNum)
                 </td>
                 <td>
-                    <p> @{var enterTime = (item.EnteringTime).ToString("g");}  @Html.DisplayFor(modelItem => enterTime)</p>
+                    <p> @{var enterTime = (item.EnteringTime).ToString("dd'/'MMM'/'yy' 'hh':'mm");}  @Html.DisplayFor(modelItem => enterTime)</p>
                 </td>
                 <td>
-                    <p id="timer"> @{ var total = (item.TotalTimeParked).ToString("hh':'mm':'ss");}  @Html.DisplayFor(modelItem => total)</p>
-
+                    <p> @{ var total = (item.TotalTimeParked).ToString("hh'h 'mm'm'");}  @Html.DisplayFor(modelItem => total)</p>
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="ReceiptModel" asp-route-id="@item.Id">Check-out</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>

@@ -20,25 +20,25 @@ namespace Garage_G5.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(GeneralInfoViewModel viewModel)
-        {
-            var vehicles = string.IsNullOrWhiteSpace(viewModel.RegistrationNum) ?
-               _context.ParkedVehicle :
-               _context.ParkedVehicle.Where(m => m.RegistrationNum.StartsWith(viewModel.RegistrationNum));
+        //public async Task<IActionResult> Index(GeneralInfoViewModel viewModel)
+        //{
+        //    var vehicles = string.IsNullOrWhiteSpace(viewModel.RegistrationNum) ?
+        //       _context.ParkedVehicle :
+        //       _context.ParkedVehicle.Where(m => m.RegistrationNum.StartsWith(viewModel.RegistrationNum));
 
-            vehicles = viewModel.VehicleType == null ?
-             vehicles :
-             vehicles.Where(m => m.VehicleType == viewModel.VehicleType);
+        //    vehicles = viewModel.VehicleType == null ?
+        //     vehicles :
+        //     vehicles.Where(m => m.VehicleType == viewModel.VehicleType);
 
-            var model = new GeneralInfoViewModel
-            {
-                ParkedVehicles = vehicles,
-                Types = await GetGenresAsync()
-            };
+        //    var model = new GeneralInfoViewModel
+        //    {
+        //        ParkedVehicles = vehicles,
+        //        Types = await GetGenresAsync()
+        //    };
 
-            return View(model);
+        //    return View(model);
 
-        }
+        //}
 
         private async Task<IEnumerable<SelectListItem>> GetGenresAsync()
         {
@@ -119,7 +119,7 @@ namespace Garage_G5.Controllers
             {
                 _context.Add(parkedVehicle);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(SearchAndFilterView));
             }
             return View(parkedVehicle);
         }
@@ -170,7 +170,7 @@ namespace Garage_G5.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(SearchAndFilterView));
             }
             return View(parkedVehicle);
         }
@@ -201,7 +201,7 @@ namespace Garage_G5.Controllers
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
             _context.ParkedVehicle.Remove(parkedVehicle);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(SearchAndFilterView));
         }
 
         private bool ParkedVehicleExists(int id)
@@ -222,69 +222,21 @@ namespace Garage_G5.Controllers
             }
         }
 
-        }
 
-        //public async Task<IActionResult> SearchAndFilter(VehicleFilterViewModel viewModel)
-        //{
-        //    var vehicles = string.IsNullOrWhiteSpace(viewModel.RegistrationNum) ?
-        //        _context.ParkedVehicle :
-        //        _context.ParkedVehicle.Where(m => m.RegistrationNum.StartsWith(viewModel.RegistrationNum));
-
-        //    vehicles = viewModel.Type == null ?
-        //        vehicles :
-        //    vehicles.Where(m => m.VehicleType == viewModel.Type);
-
-        //    var model = new VehicleFilterViewModel
-        //    {
-        //        Vehicles = vehicles,
-        //        Types = await GetCategoryAsync()
-        //    };
-
-        //    return View(nameof(SearchAndFilterView), model);
-
-        //}
-
-        //public async Task<IActionResult> SearchAndFilterView(string Registration)
-        //{
-
-        //    var vehicles = string.IsNullOrWhiteSpace(Registration) ?
-        //    _context.ParkedVehicle :
-        //    _context.ParkedVehicle.Where(m => m.RegistrationNum.StartsWith(Registration));
-
-        //    //vehicles =  vehicles.Where(m => m.VehicleType == viewModel.VehicleType).
-        //    //Where(x => x.EnteringTime == viewModel.EnteringTime);
-        //    var geniral = vehicles.Select(x => new GeneralInfoModel
-        //    {
-        //        RegistrationNum = x.RegistrationNum,
-        //        VehicleType = x.VehicleType,
-        //        EnteringTime = x.EnteringTime,
-        //        TotalTimeParked = DateTime.Now - x.EnteringTime
-        //    });
-
-        //    //var model = GeneralInfoModel();
-
-        //    var list = new VehicleFilterViewModel
-        //    {
-        //        Types = await GetCategoryAsync(),
-        //        GenralVehicles = geniral.ToList()
-        //    };
-
-        //    return View("SearchAndFilterView", list);
-        //}
-
-        public async Task<IActionResult> SearchAndFilterView(VehicleFilterViewModel viewModel, string reistration)
+        public async Task<IActionResult> SearchAndFilterView(VehicleFilterViewModel viewModel, string RegistrationNum)
         {
 
-            var vehicles = string.IsNullOrWhiteSpace(reistration) ?
+            var vehicles = string.IsNullOrWhiteSpace(RegistrationNum) ?
             _context.ParkedVehicle :
-            _context.ParkedVehicle.Where(m => m.RegistrationNum.StartsWith(reistration));
+            _context.ParkedVehicle.Where(m => m.RegistrationNum.StartsWith(RegistrationNum));
 
             vehicles = viewModel.VehicleType == null ?
                 vehicles :
                 vehicles.Where(m => m.VehicleType == viewModel.VehicleType);
             
-            var geniral = vehicles.Select(x => new GeneralInfoModel
+            var geniral = vehicles.Select(x => new GeneralInfoViewModel
             {
+                Id = x.Id,
                 RegistrationNum = x.RegistrationNum,
                 VehicleType = x.VehicleType,
                 EnteringTime = x.EnteringTime,
@@ -296,16 +248,35 @@ namespace Garage_G5.Controllers
             {
                 Types = await GetCategoryAsync(),
                 GenralVehicles = geniral.ToList()
+
             };
 
             return View("SearchAndFilterView", list);
         }
 
-
-
-        public IEnumerable<GeneralInfoModel> GeneralInfoModel()
+        public IEnumerable<GeneralInfoViewModel> Reg( string reg = null)
         {
-            var model = _context.ParkedVehicle.Select(x => new GeneralInfoModel
+            var model = _context.ParkedVehicle.Select(x => new GeneralInfoViewModel
+            {
+                Id = x.Id,
+                RegistrationNum = x.RegistrationNum,
+                VehicleType = x.VehicleType,
+                EnteringTime = x.EnteringTime,
+                TotalTimeParked = DateTime.Now - x.EnteringTime,
+            }).ToList();
+
+            return from v in model
+                   where string.IsNullOrEmpty(reg) || v.RegistrationNum.StartsWith(reg)
+                   orderby v.RegistrationNum
+                   select v;
+
+             
+        }
+
+
+        public IEnumerable<GeneralInfoViewModel> GeneralInfoModel()
+        {
+            var model = _context.ParkedVehicle.Select(x => new GeneralInfoViewModel
             {
                 Id = x.Id,
                 RegistrationNum = x.RegistrationNum,
@@ -318,36 +289,6 @@ namespace Garage_G5.Controllers
         }
 
 
-        //public async Task<IActionResult> VehicleFilterViewModel(VehicleFilterViewModel viewModel)
-        //{
-
-        //    var model =  new GeneralInfoModel
-        //    {
-
-        //        Vehicles = SearchAndFilterView();
-        //        vehicles,
-        //        Types = await GetCategoryAsync()
-        //    };
-
-        //    return View(nameof(GeneralInfoModel), model);
-        //}
-
-
-
-
-        //public async Task<IActionResult> SearchAndFilterView()
-        //{
-
-        //    var vehicles = await _context.ParkedVehicle.ToArrayAsync();
-        //    var model = new VehicleFilterViewModel()
-        //    {
-        //        Vehicles = vehicles,
-        //        Types = await GetCategoryAsync()
-
-        //    };
-
-        //    return View(model);
-        //}
 
         private async Task<IEnumerable<SelectListItem>> GetCategoryAsync()
         {

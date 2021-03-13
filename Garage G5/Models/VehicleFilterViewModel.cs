@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,16 @@ namespace Garage_G5.Models.ViewModels
     [Keyless]
     public class VehicleFilterViewModel
     {
-        //private DateTime? dateCreated;
-        //public IEnumerable<ParkedVehicle> Vehicles { get; set; }
+    
+        public int Id { get; set; }
         public IEnumerable<SelectListItem> Types { get; set; }
 
-        public List<GeneralInfoModel> GenralVehicles { get; set; }
+        public List<GeneralInfoViewModel> GenralVehicles { get; set; }
+        public IEnumerable<GeneralInfoViewModel> GenralRegistration { get; set; }
 
         public VehicleType? VehicleType { get; set; }
 
+        [BindProperty(SupportsGet = true)]
         public string RegistrationNum { get; set; }
 
     }

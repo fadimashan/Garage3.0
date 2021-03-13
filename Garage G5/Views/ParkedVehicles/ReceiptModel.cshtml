@@ -17,16 +17,16 @@
             <p>10kr / h</p>@*@Html.DisplayFor(model => model.Price)*@
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CheckoutTime)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CheckoutTime)
-        </dd>
-        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.EnteringTime)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.EnteringTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CheckoutTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CheckoutTime)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.RegistrationNum)
@@ -45,13 +45,43 @@
             <p> Total TimeParked</p>
         </dt>
         <dd class="col-sm-10">
-            <p> @Html.DisplayFor(model => (model.TotalTimeParked.TotalMinutes))</p>
+            <p id="timer" hidden>@{ var time = Model.EnteringTime.ToString("MMM' 'dd', 'yyyy' 'hh':'mm':'ss"); }  @Html.DisplayFor(model => time)</p>
+            <p id="timeResult"></p>
+
+            <script>
+                    var timer = document.getElementById("timer").innerHTML
+                    console.log(timer)
+
+                    // Set the date we're counting down to
+                    var countUpDate = new Date(timer).getTime();
+
+                    // Update the count down every 1 second
+                    var x = setInterval(function () {
+
+                        // Get today's date and time
+                        var now = new Date().getTime();
+
+                        // Find the distance between now and the count down date
+                        var distance = now - countUpDate;
+
+                        // Time calculations for days, hours, minutes and seconds
+                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                        // Output the result in an element with id="demo"
+                        document.getElementById("timeResult").innerHTML = hours - 12 + "h "
+                            + minutes + "m " + seconds + "s ";
+
+                    }, 1000);
+                
+            </script>
         </dd>
         <dt class="col-sm-2">
             <p> Total Price</p>
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => (model.Price) )
+            @Html.DisplayFor(model => (model.Price))
         </dd>
     </dl>
 </div>
@@ -60,7 +90,7 @@
     @*  <a asp-action="Delete" asp-route-id="@Model.Id">Confirm Check out</a> |*@
 
     <div class="row">
-        <form asp-action="Index" class="col col-md-2">
+        <form asp-action="SearchAndFilterView" class="col col-md-2">
             <input type="submit" value="Back to List" class="btn btn-outline-success" />
         </form>
 

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage_G5.Migrations
 {
     [DbContext(typeof(Garage_G5Context))]
-    [Migration("20210312104904_PartialView")]
-    partial class PartialView
+    [Migration("20210312182821_newInit2")]
+    partial class newInit2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
