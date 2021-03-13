@@ -9,6 +9,7 @@ using Garage_G5.Data;
 using Garage_G5.Models;
 using Garage_G5.ViewModels;
 using Garage_G5.Models.ViewModels;
+using System.Net;
 
 namespace Garage_G5.Controllers
 {
@@ -19,26 +20,6 @@ namespace Garage_G5.Controllers
         {
             _context = context;
         }
-
-        //public async Task<IActionResult> Index(GeneralInfoViewModel viewModel)
-        //{
-        //    var vehicles = string.IsNullOrWhiteSpace(viewModel.RegistrationNum) ?
-        //       _context.ParkedVehicle :
-        //       _context.ParkedVehicle.Where(m => m.RegistrationNum.StartsWith(viewModel.RegistrationNum));
-
-        //    vehicles = viewModel.VehicleType == null ?
-        //     vehicles :
-        //     vehicles.Where(m => m.VehicleType == viewModel.VehicleType);
-
-        //    var model = new GeneralInfoViewModel
-        //    {
-        //        ParkedVehicles = vehicles,
-        //        Types = await GetGenresAsync()
-        //    };
-
-        //    return View(model);
-
-        //}
 
         private async Task<IEnumerable<SelectListItem>> GetGenresAsync()
         {
@@ -117,6 +98,7 @@ namespace Garage_G5.Controllers
 
             if (ModelState.IsValid)
             {
+                parkedVehicle.EnteringTime = DateTime.Now;
                 _context.Add(parkedVehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(SearchAndFilterView));
@@ -133,6 +115,7 @@ namespace Garage_G5.Controllers
             }
 
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
+
             if (parkedVehicle == null)
             {
                 return NotFound();
@@ -140,9 +123,7 @@ namespace Garage_G5.Controllers
             return View(parkedVehicle);
         }
 
-        // POST: ParkedVehicles/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,VehicleType,RegistrationNum,Color,Brand,Model,WheelsNum,EnteringTime")] ParkedVehicle parkedVehicle)
@@ -154,8 +135,10 @@ namespace Garage_G5.Controllers
 
             if (ModelState.IsValid)
             {
+          
                 try
                 {
+                    
                     _context.Update(parkedVehicle);
                     await _context.SaveChangesAsync();
                 }
@@ -229,7 +212,7 @@ namespace Garage_G5.Controllers
 
             var vehicles = string.IsNullOrWhiteSpace(RegistrationNum) ?
             _context.ParkedVehicle :
-            _context.ParkedVehicle.Where(m => m.RegistrationNum.StartsWith(RegistrationNum));
+            _context.ParkedVehicle.Where(v => v.RegistrationNum.StartsWith(RegistrationNum) || v.Model.StartsWith(RegistrationNum));
 
             vehicles = viewModel.VehicleType == null ?
                 vehicles :

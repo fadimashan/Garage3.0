@@ -7,7 +7,7 @@
 
     <!-- Heading -->
     <div id="h1"><h1 class="h1">Edit</h1></div>@*btn btn-primary btn-lg btn-block*@
-    <a asp-action="Create" type="button" class="btn btn-info btn">Park New</a>
+    @*<a asp-action="Create" type="button" class="btn btn-info btn">Park New</a>*@
 
     <div id="subHeading">
         <!-- Subheading -->
@@ -53,9 +53,10 @@
                             <input asp-for="WheelsNum" class="form-control" />
                             <span asp-validation-for="WheelsNum" class="text-danger"></span>
                         </div>
+                   
                         <div class="form-group">
                             @*<input type="submit" value="Save" class="btn btn-primary" onclick="confirmationAlert()" />*@
-                            <a asp-action="Index" id="NoPrint" type="button" class="btn btn-outline-info noSpace">Back</a>
+                            <a asp-action="SearchAndFilterView" id="NoPrint" type="button" class="btn btn-outline-info noSpace">Back</a>
                             <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Confirm</button>
                         </div>
 

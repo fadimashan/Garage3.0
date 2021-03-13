@@ -1,28 +1,41 @@
 ﻿@model Garage_G5.Models.ViewModels.VehicleFilterViewModel
 
 @{
-    ViewData["Title"] = "SearchAndFilterView";
+    ViewData["Title"] = "Garage";
 }
 
-<h1 class="modal-title mt-md-5 mb-md-5">Garage Group 5</h1>
+<section id="tables" class="my-5">
 
-<form asp-action="SearchAndFilterView">
-    <div class="input-group mb-2">
-        <input type="text" class="form-control" asp-for="RegistrationNum" onchange="this.form.submit()" placeholder="Search on name" />
-        <div class="input-group-append">
-            <select asp-for="VehicleType" asp-items="@Html.GetEnumSelectList<VehicleType>()" onchange="this.form.submit()" class="form-control">
-                <option selected="selected" value=" ">Please select</option>
-            </select>
-        </div>
-        <div class="input-group-append mb-2 ml-1">
-            <button type="submit" onchange="this.form.submit()" class="btn btn-dark" style="border-radius:4px"><i class="fa fa-search"> &emsp;Search</i></button>
-        </div>
+    <!-- Heading -->
+    <div id="h1"><h1 class="h1">Garage G5</h1></div>
+    <a asp-action="Create" type="button" class="btn btn-info btn">Park New</a>
+
+    <div id="subHeading">
+        <!-- Subheading -->
+        <h2 class="sh2 mb-4" style="clear:both;">Vehicles currently in the garage:</h2>
     </div>
-</form>
+    <div class="row mb-5">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+        <!-- Grid column -->
+        <div class="col-md-12">
+            <form asp-action="SearchAndFilterView">
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control" asp-for="RegistrationNum" onchange="this.form.submit()" placeholder="Search on Registration No. or Vehicle model" />
+                    <div class="input-group-append">
+                        <select asp-for="VehicleType" asp-items="@Html.GetEnumSelectList<VehicleType>()" onchange="this.form.submit()" class="form-control">
+                            <option selected="selected" value=" ">Please select</option>
+                        </select>
+                    </div>
+                    <div class="input-group-append  ">
+                         <button type="submit" onchange="this.form.submit()" class="btn btn-dark" style="border-radius: 4px;margin-top: 0; padding: 6px 18px;"><i class="fa fa-search"> &emsp;Search</i></button>
+                    </div>
+                </div>
+            </form>
 
-<partial name="GenralPartial" />
+            <partial name="GenralPartial" />
 
+        </div>
+        <!-- Grid column -->
+    </div>
+    <!-- Grid row -->
+</section>

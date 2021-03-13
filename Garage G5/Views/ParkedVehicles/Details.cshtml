@@ -9,7 +9,7 @@
 
     <!-- Heading -->
     <div id="h1"><h1 class="h1">Details</h1></div>@*btn btn-primary btn-lg btn-block*@
-    <a asp-action="Create" type="button" class="btn btn-info btn">Park New</a>
+    @*<a asp-action="Create" type="button" class="btn btn-info btn">Park New</a>*@
 
     <div id="subHeading">
         <!-- Subheading -->
@@ -66,13 +66,8 @@
             </dl>
         </div>
         <div id="endButtons">
-            <a asp-action="Index" id="NoPrint" type="button" class="btn btn-outline-info">Back</a>
+            <a asp-action="SearchAndFilterView" id="NoPrint" type="button" class="btn btn-outline-info">Back</a>
             <a id="NoPrint" asp-action="Edit" asp-route-id="@Model.Id" type="button" class="btn btn-outline-primary">Edit</a>
         </div>
-
-
-
-        @*<button id="NoPrint" type="button" class="btn btn-outline-info btn-sm" onclick="window.print()">Print</button>*@
-        @*<button id="NoPrint" type="button" class="btn btn-outline-info btn-sm" onclick="$.notify('Hello World','success');">Hello</button>*@
     </div>
 </section>
