@@ -98,7 +98,6 @@ namespace Garage_G5.Controllers
 
             if (ModelState.IsValid)
             {
-                parkedVehicle.EnteringTime = DateTime.Now;
                 _context.Add(parkedVehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(SearchAndFilterView));

@@ -31,9 +31,9 @@ namespace Garage_G5.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EnteringTime
         {
-            get; set;
-            //get { return dateCreated ?? DateTime.Now; }
-            //set { dateCreated = value; }
+            
+            get { return dateCreated ?? DateTime.Now; }
+            set { dateCreated = value; }
 
         }
 
