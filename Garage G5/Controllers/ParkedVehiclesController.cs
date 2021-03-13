@@ -107,6 +107,12 @@ namespace Garage_G5.Controllers
             return View();
         }
 
+        // GET: ParkedVehicles/Statistics
+        public IActionResult Statistics()
+        {
+            return View();
+        }
+
         // POST: ParkedVehicles/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
