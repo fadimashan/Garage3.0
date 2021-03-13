@@ -101,7 +101,7 @@ namespace Garage_G5.Controllers
                 parkedVehicle.EnteringTime = DateTime.Now;
                 _context.Add(parkedVehicle);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(SearchAndFilterView));
+                return RedirectToAction(nameof(GenralInfoViewModel));
             }
             return View(parkedVehicle);
         }
@@ -153,7 +153,7 @@ namespace Garage_G5.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(SearchAndFilterView));
+                return RedirectToAction(nameof(GenralInfoViewModel));
                 //return RedirectToAction(nameof(EditConfirm));
             }
             return View(parkedVehicle);
@@ -185,7 +185,7 @@ namespace Garage_G5.Controllers
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
             _context.ParkedVehicle.Remove(parkedVehicle);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(SearchAndFilterView));
+            return RedirectToAction(nameof(GenralInfoViewModel));
         }
 
         private bool ParkedVehicleExists(int id)
@@ -207,7 +207,7 @@ namespace Garage_G5.Controllers
         }
 
 
-        public async Task<IActionResult> SearchAndFilterView(VehicleFilterViewModel viewModel, string RegistrationNum)
+        public async Task<IActionResult> GenralInfoViewModel(VehicleFilterViewModel viewModel, string RegistrationNum)
         {
 
             var vehicles = string.IsNullOrWhiteSpace(RegistrationNum) ?
@@ -235,7 +235,7 @@ namespace Garage_G5.Controllers
 
             };
 
-            return View("SearchAndFilterView", list);
+            return View("GenralInfoViewModel", list);
         }
 
         public IEnumerable<GeneralInfoViewModel> Reg( string reg = null)
