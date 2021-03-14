@@ -12,10 +12,6 @@ namespace Garage_G5.Models.ViewModels
     public class GeneralInfoViewModel
     {
 
-    
-
-        private DateTime? dateCreated;
-
         public int Id { get; set; }
         public IEnumerable<ParkedVehicle> ParkedVehicles { get; set; }
         public IEnumerable<SelectListItem> Types { get; set; }
@@ -26,8 +22,7 @@ namespace Garage_G5.Models.ViewModels
         [Display(Name = "Arrival")]
         public DateTime EnteringTime
         {
-            get { return dateCreated ?? DateTime.Now; }
-            set { dateCreated = value; }
+            get; set;
         }
         public TimeSpan TotalTimeParked { get; set; }
 

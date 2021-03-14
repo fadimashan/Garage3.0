@@ -7,11 +7,11 @@
 
     <!-- Heading -->
     <div id="h1"><h1 class="h1">Edit</h1></div>@*btn btn-primary btn-lg btn-block*@
-    @*<a asp-action="Create" type="button" class="btn btn-info btn">Park New</a>*@
+    @{Html.RenderPartial("NavButtonsPartial");}
 
     <div id="subHeading">
         <!-- Subheading -->
-        <h2 class="sh2 mb-4" style="clear:both;">Edit @Html.DisplayFor(model => model.RegistrationNum)</h2>
+        <h2 class="sh2 mb-4" style="clear:both;">Modifying the details for @Html.DisplayFor(model => model.RegistrationNum)</h2>
     </div>
     <!-- Grid row -->
     <div class="row mb-5">

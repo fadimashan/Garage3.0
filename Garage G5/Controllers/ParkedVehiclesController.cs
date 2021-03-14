@@ -34,7 +34,7 @@ namespace Garage_G5.Controllers
                           .ToListAsync();
         }
 
-        public async Task<IActionResult> ReceiptModel(int id)
+        public async Task<IActionResult> Receipt(int id)
         {
 
 
@@ -84,6 +84,12 @@ namespace Garage_G5.Controllers
 
         // GET: ParkedVehicles/Create
         public IActionResult Create()
+        {
+            return View();
+        }
+
+        // GET: ParkedVehicles/Statistics
+        public IActionResult Statistics()
         {
             return View();
         }

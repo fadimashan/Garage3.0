@@ -8,7 +8,7 @@
 
     <!-- Heading -->
     <div id="h1"><h1 class="h1">Garage G5</h1></div>
-    <a asp-action="Create" type="button" class="btn btn-info btn">Park New</a>
+    @{Html.RenderPartial("NavButtonsPartial");}
 
     <div id="subHeading">
         <!-- Subheading -->
@@ -27,7 +27,7 @@
                         </select>
                     </div>
                     <div class="input-group-append  ">
-                         <button type="submit" onchange="this.form.submit()" class="btn btn-dark" style="border-radius: 4px;margin-top: 0; padding: 6px 18px;"><i class="fa fa-search"> &emsp;Search</i></button>
+                        <button type="submit" onchange="this.form.submit()" class="btn btn-dark" style="border-radius: 4px;margin-top: 0; padding: 6px 18px;"><i class="fa fa-search"> &emsp;Search</i></button>
                     </div>
                 </div>
             </form>

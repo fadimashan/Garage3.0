@@ -8,8 +8,6 @@ namespace Garage_G5.Models
     public class ParkedVehicle
     {
         [Key]
-        private DateTime? dateCreated;
-
         public int Id { get; set; }
         [Display(Name = "Type")]
         public VehicleType VehicleType { get; set; }
@@ -25,10 +23,9 @@ namespace Garage_G5.Models
         [Display(Name = "Wheels")]
         public int WheelsNum { get; set; }
 
-        [Editable(false)]
         [Display(Name = "Arrival")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        //[DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EnteringTime
         {
             
@@ -36,8 +33,5 @@ namespace Garage_G5.Models
             set { dateCreated = value; }
 
         }
-
-
-
     }
 }
