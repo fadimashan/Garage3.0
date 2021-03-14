@@ -24,14 +24,14 @@ namespace Garage_G5.Models
         [Display(Name = "Wheels")]
         public int WheelsNum { get; set; }
 
-        [Display(Name = "Arrival")]
-        //[DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Required]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime EnteringTime
         {
+            get;set;
             
-            get { return dateCreated ?? DateTime.Now; }
-            set { dateCreated = value; }
+            //get { return dateCreated ?? DateTime.Now; }
+            //set { dateCreated = value; }
 
         }
     }
