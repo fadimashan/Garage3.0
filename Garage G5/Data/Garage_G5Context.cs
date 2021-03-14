@@ -17,6 +17,5 @@ namespace Garage_G5.Data
         }
 
         public DbSet<ParkedVehicle> ParkedVehicle { get; set; }
-
     }
 }

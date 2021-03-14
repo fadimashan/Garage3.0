@@ -1,8 +1,6 @@
 ﻿@model IEnumerable<Garage_G5.Models.ViewModels.GeneralInfoViewModel>
 
 
-
-
 <table class="table" modal>
     <thead>
         <tr>
@@ -17,7 +15,7 @@
                 @Html.DisplayNameFor(model => model.EnteringTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TotalParkedTime)
+                @Html.DisplayNameFor(model => model.TotalTimeParked)
             </th>
             <th></th>
             @foreach (var item in Model)
@@ -34,7 +32,7 @@
                     @Html.DisplayFor(modelItem => item.EnteringTime)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TotalParkedTime)
+                    @Html.DisplayFor(modelItem => item.TotalTimeParked)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -43,6 +41,6 @@
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
-}
-            </tbody>
+        }
+        </thead>
     </table>

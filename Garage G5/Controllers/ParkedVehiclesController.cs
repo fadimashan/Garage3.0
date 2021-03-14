@@ -9,6 +9,7 @@ using Garage_G5.Data;
 using Garage_G5.Models;
 using Garage_G5.ViewModels;
 using Garage_G5.Models.ViewModels;
+using System.Net;
 
 namespace Garage_G5.Controllers
 {
@@ -18,26 +19,6 @@ namespace Garage_G5.Controllers
         public ParkedVehiclesController(Garage_G5Context context)
         {
             _context = context;
-        }
-
-        public async Task<IActionResult> Index(GeneralInfoViewModel viewModel)
-        {
-            var vehicles = string.IsNullOrWhiteSpace(viewModel.RegistrationNum) ?
-               _context.ParkedVehicle :
-               _context.ParkedVehicle.Where(m => m.RegistrationNum.StartsWith(viewModel.RegistrationNum));
-
-            vehicles = viewModel.VehicleType == null ?
-             vehicles :
-             vehicles.Where(m => m.VehicleType == viewModel.VehicleType);
-
-            var model = new GeneralInfoViewModel
-            {
-                ParkedVehicles = vehicles,
-                Types = await GetGenresAsync()
-            };
-
-            return View(model);
-
         }
 
         private async Task<IEnumerable<SelectListItem>> GetGenresAsync()
@@ -53,7 +34,7 @@ namespace Garage_G5.Controllers
                           .ToListAsync();
         }
 
-        public async Task<IActionResult> ReceiptModel(int id)
+        public async Task<IActionResult> Receipt(int id)
         {
 
 
@@ -107,6 +88,12 @@ namespace Garage_G5.Controllers
             return View();
         }
 
+        // GET: ParkedVehicles/Statistics
+        public IActionResult Statistics()
+        {
+            return View();
+        }
+
         // POST: ParkedVehicles/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -119,7 +106,7 @@ namespace Garage_G5.Controllers
             {
                 _context.Add(parkedVehicle);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(GeneralInfoGragae));
             }
             return View(parkedVehicle);
         }
@@ -133,6 +120,7 @@ namespace Garage_G5.Controllers
             }
 
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
+
             if (parkedVehicle == null)
             {
                 return NotFound();
@@ -140,9 +128,7 @@ namespace Garage_G5.Controllers
             return View(parkedVehicle);
         }
 
-        // POST: ParkedVehicles/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,VehicleType,RegistrationNum,Color,Brand,Model,WheelsNum,EnteringTime")] ParkedVehicle parkedVehicle)
@@ -154,8 +140,10 @@ namespace Garage_G5.Controllers
 
             if (ModelState.IsValid)
             {
+          
                 try
                 {
+                    
                     _context.Update(parkedVehicle);
                     await _context.SaveChangesAsync();
                 }
@@ -170,7 +158,8 @@ namespace Garage_G5.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(GeneralInfoGragae));
+                //return RedirectToAction(nameof(EditConfirm));
             }
             return View(parkedVehicle);
         }
@@ -201,7 +190,7 @@ namespace Garage_G5.Controllers
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
             _context.ParkedVehicle.Remove(parkedVehicle);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(GeneralInfoGragae));
         }
 
         private bool ParkedVehicleExists(int id)
@@ -222,6 +211,86 @@ namespace Garage_G5.Controllers
             }
         }
 
+
+        public async Task<IActionResult> GeneralInfoGragae(VehicleFilterViewModel viewModel, string RegistrationNum)
+        {
+
+            var vehicles = string.IsNullOrWhiteSpace(RegistrationNum) ?
+            _context.ParkedVehicle :
+            _context.ParkedVehicle.Where(v => v.RegistrationNum.StartsWith(RegistrationNum) || v.Model.StartsWith(RegistrationNum));
+
+            vehicles = viewModel.VehicleType == null ?
+                vehicles :
+                vehicles.Where(m => m.VehicleType == viewModel.VehicleType);
+            
+            var geniral = vehicles.Select(x => new GeneralInfoViewModel
+            {
+                Id = x.Id,
+                RegistrationNum = x.RegistrationNum,
+                VehicleType = x.VehicleType,
+                EnteringTime = x.EnteringTime,
+                TotalTimeParked = DateTime.Now - x.EnteringTime
+            });
+
+
+            var list = new VehicleFilterViewModel
+            {
+                Types = await GetCategoryAsync(),
+                GenralVehicles = geniral.ToList()
+
+            };
+
+            return View("GeneralInfoGragae", list);
+        }
+
+        public IEnumerable<GeneralInfoViewModel> Reg( string reg = null)
+        {
+            var model = _context.ParkedVehicle.Select(x => new GeneralInfoViewModel
+            {
+                Id = x.Id,
+                RegistrationNum = x.RegistrationNum,
+                VehicleType = x.VehicleType,
+                EnteringTime = x.EnteringTime,
+                TotalTimeParked = DateTime.Now - x.EnteringTime,
+            }).ToList();
+
+            return from v in model
+                   where string.IsNullOrEmpty(reg) || v.RegistrationNum.StartsWith(reg)
+                   orderby v.RegistrationNum
+                   select v;
+
+             
+        }
+
+
+        public IEnumerable<GeneralInfoViewModel> GeneralInfoModel()
+        {
+            var model = _context.ParkedVehicle.Select(x => new GeneralInfoViewModel
+            {
+                Id = x.Id,
+                RegistrationNum = x.RegistrationNum,
+                VehicleType = x.VehicleType,
+                EnteringTime = x.EnteringTime,
+                TotalTimeParked = DateTime.Now - x.EnteringTime,
+            }).ToList();
+
+            return (model);
+        }
+
+
+
+        private async Task<IEnumerable<SelectListItem>> GetCategoryAsync()
+        {
+            return await _context.ParkedVehicle
+                .Select(p => p.VehicleType)
+                .Distinct()
+                .Select(g => new SelectListItem
+                {
+                    Text = g.ToString(),
+                    Value = g.ToString()
+                })
+                .ToListAsync();
+        }
         /* Anther way to check if the RegistrationNum is unique */
 
         //[AcceptVerbs("GET", "POST")]
