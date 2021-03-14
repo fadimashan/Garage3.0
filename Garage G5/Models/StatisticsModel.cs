@@ -14,10 +14,10 @@ namespace Garage_G5.Models
         [Display(Name = "Revenue from currently parked vehicles")]
         public int TotalRevenue { get; set; }
         [Display(Name = "Date when the first vehicle arrived")]
-        public DateTime LongestParkedVehicleDate { get; set; }
+        public DateTime? LongestParkedVehicleDate { get; set; }
         public int LongestParkedVehicleId { get; set; }
         [Display(Name = "Date when the latest vehicle arrived")]
-        public DateTime LatestParkedVehicleDate { get; set; }
+        public DateTime? LatestParkedVehicleDate { get; set; }
         public int LatestParkedVehicleId { get; set; }
     }
 }
