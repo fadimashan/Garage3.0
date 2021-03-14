@@ -11,8 +11,8 @@ namespace Garage_G5.Models
         public int VehicleTypeCounter { get; set; }
         [Display(Name = "Total amount of wheels in the garage")]
         public int TotalAmountOfWheels { get; set; }
-        [Display(Name = "Revenue from currently parked vehicles (SEK)")]
-        public decimal TotalRevenue { get; set; }
+        [Display(Name = "Revenue from currently parked vehicles")]
+        public int TotalRevenue { get; set; }
         [Display(Name = "Date when the first vehicle arrived")]
         public DateTime LongestParkedVehicleDate { get; set; }
         public int LongestParkedVehicleId { get; set; }
