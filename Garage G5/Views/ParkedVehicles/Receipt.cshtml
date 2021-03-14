@@ -1,7 +1,7 @@
 ﻿@model Garage_G5.ViewModels.ReceiptModel
 
 @{
-    ViewData["Title"] = "ReceiptModel";
+    ViewData["Title"] = "Receipt";
 }
 
 <!-- Section: Tables -->
@@ -10,10 +10,11 @@
     <!-- Heading -->
     <div id="h1"><h1 class="h1" id="NoPrint">Checkout</h1></div>
     <div id="OnlyPrint"><h1 class="h1">Your Receipt</h1></div>
+    @{Html.RenderPartial("NavButtonsPartial");}
 
     <div id="subHeading">
         <!-- Subheading -->
-        <h2 id="NoPrint" class="sh2 mb-4" style="clear:both;">Confirm checkout of vehicle @Html.DisplayFor(model => model.RegistrationNum)</h2>
+        <h2 id="NoPrint" class="sh2 mb-4" style="clear:both;">Confirm checkout of <strong>@Html.DisplayFor(model => model.VehicleType)</strong> @Html.DisplayFor(model => model.RegistrationNum)</h2>
         <div id="OnlyPrint">Thank you for parking with group 5, please come back soon.</div>
     </div>
     <!-- Grid row -->
@@ -119,12 +120,13 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            Are you sure you want to check out @Html.DisplayFor(model => model.VehicleType) @Html.DisplayFor(model => model.RegistrationNum).
+                            Are you sure you want to check out the <strong>@Html.DisplayFor(model => model.VehicleType)</strong> @Html.DisplayFor(model => model.RegistrationNum)?
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             <input type="hidden" asp-for="Id" />
-                            <input type="submit" value="Confirm Check out" class="btn btn-danger" />
+                            <input type="submit" value="Confirm" class="btn btn-danger" />
+
                         </div>
                     </div>
                 </div>

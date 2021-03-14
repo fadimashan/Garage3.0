@@ -8,6 +8,7 @@ namespace Garage_G5.Models
     public class ParkedVehicle
     {
         [Key]
+        private DateTime? dateCreated;
         public int Id { get; set; }
         [Display(Name = "Type")]
         public VehicleType VehicleType { get; set; }

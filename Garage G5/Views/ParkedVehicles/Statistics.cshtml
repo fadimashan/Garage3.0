@@ -1,0 +1,49 @@
+﻿@model Garage_G5.Models.StatisticsModel
+
+@{
+    ViewData["Title"] = "Statistics";
+}
+
+<!-- Section: Tables -->
+<section id="tables" class="my-5">
+
+    <!-- Heading -->
+    <div id="h1"><h1 class="h1">Statistics</h1></div>
+    @{Html.RenderPartial("NavButtonsPartial");}
+
+    <div id="subHeading">
+        <!-- Subheading -->
+        <h2 class="sh2 mb-4" style="clear:both;">A snapshot of the current Garage statistics: </h2>
+    </div>
+    <!-- Grid row -->
+    <div class="row mb-5">
+
+        <!-- Grid column -->
+        <div class="col-md-12">
+            <dl class="row">
+                <dt class="col-sm-7">
+                    @Html.DisplayNameFor(model => model.TotalAmountOfWheels)
+                </dt>
+                <dd class="col-sm-5">
+                    @Html.DisplayFor(model => model.TotalAmountOfWheels)
+                </dd>
+                <dt class="col-sm-7">
+                    @Html.DisplayNameFor(model => model.TotalRevenue)
+                </dt>
+                <dd class="col-sm-5">
+                    @Html.DisplayFor(model => model.TotalAmountOfWheels)
+                </dd>
+
+            </dl>
+        </div>
+        <div id="endButtons">
+            <a asp-action="GenralInfoViewModel" id="NoPrint" type="button" class="btn btn-outline-info">Back</a>
+        </div>
+
+
+
+        @*<button id="NoPrint" type="button" class="btn btn-outline-info btn-sm" onclick="window.print()">Print</button>*@
+        @*<button id="NoPrint" type="button" class="btn btn-outline-info btn-sm" onclick="$.notify('Hello World','success');">Hello</button>*@
+    </div>
+</section>
+    

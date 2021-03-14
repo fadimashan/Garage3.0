@@ -56,7 +56,7 @@
                    
                         <div class="form-group">
                             @*<input type="submit" value="Save" class="btn btn-primary" onclick="confirmationAlert()" />*@
-                            <a asp-action="SearchAndFilterView" id="NoPrint" type="button" class="btn btn-outline-info noSpace">Back</a>
+                            <a asp-action="GeneralInfoGragae" id="NoPrint" type="button" class="btn btn-outline-info noSpace">Back</a>
                             <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Confirm</button>
                         </div>
 
@@ -95,7 +95,7 @@
     </div>
     <!-- Grid row -->
 </section>
-    <a asp-action="SearchAndFilterView">Back to List</a>
+    <a asp-action="GeneralInfoGragae">Back to List</a>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
