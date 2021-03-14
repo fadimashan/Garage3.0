@@ -9,7 +9,7 @@
 
     <!-- Heading -->
     <div id="h1"><h1 class="h1">Statistics</h1></div>
-    @{Html.RenderPartial("NavButtonsPartial");}
+    @await Html.PartialAsync("NavButtonsPartial")
 
     <div id="subHeading">
         <!-- Subheading -->
@@ -21,19 +21,30 @@
         <!-- Grid column -->
         <div class="col-md-12">
             <dl class="row">
-                <dt class="col-sm-7">
+                <dt class="col-sm-6">
                     @Html.DisplayNameFor(model => model.TotalAmountOfWheels)
                 </dt>
-                <dd class="col-sm-5">
+                <dd class="col-sm-6">
                     @Html.DisplayFor(model => model.TotalAmountOfWheels)
                 </dd>
-                <dt class="col-sm-7">
+                <dt class="col-sm-6">
                     @Html.DisplayNameFor(model => model.TotalRevenue)
                 </dt>
-                <dd class="col-sm-5">
-                    @Html.DisplayFor(model => model.TotalAmountOfWheels)
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.TotalRevenue)kr
                 </dd>
-
+                <dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.LongestParkedVehicleDate)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.LongestParkedVehicleDate)
+                </dd>
+                @*<dt class="col-sm-6">
+                    @Html.DisplayNameFor(model => model.LongestParkedVehicleId)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.LongestParkedVehicleId)
+                </dd>*@
             </dl>
         </div>
         <div id="endButtons">
