@@ -9,33 +9,33 @@
 
 
 @await Html.PartialAsync("NavButtonsPartial", "Garage G5")
-
+<a id="NoPrint" asp-action="Create" type="button" class="btn btn-info btn">Park New</a>
 
 <div id="subHeading">
     <!-- Subheading -->
-    <div class="row">
+    @*<div class="row">
         <div class="col-sm-2">
             <h3 class="sh2 mb-4" style="clear:both;">Number of Free places in the garage:</h3>
         </div>
         <div class="col-sm-10">
-            <svg xmlns="http://www.w3.org/2000/svg">
+            <svg
                 <g>
                     <rect x="0" y="0" width="50" height="50" fill="#4d2d43"></rect>
                     <text x="5" y="30" font-family="Verdana" font-size="20" fill="White">@Context.Session.GetInt32("FreePlaces")</text>
                 </g>
             </svg>
         </div>
-    </div>
+    </div>*@
 
-    <h2 class="sh2 mb-4" style="clear:both;">Vehicles currently in the garage:</h2>
+    <h2 class="sh2 mb-4" style="clear:both;">Spaces currently in the garage: <strong style="text-decoration:underline"> @Context.Session.GetInt32("FreePlaces") </strong></h2>
 </div>
 <div class="row mb-5">
 
     <!-- Grid column -->
-    <div class="col-md-12">
+    <div class="col-md-8">
         <form asp-action="GeneralInfoGarage">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" asp-for="RegistrationNum" onchange="this.form.submit()" placeholder="Search on Registration No. or Vehicle model" />
+                <input type="text" class="form-control textboxGeneralInfo" asp-for="RegistrationNum" onchange="this.form.submit()" placeholder="Search Registration No. or Vehicle Model" />
                 <div class="input-group-append">
                     <select asp-for="VehicleType" asp-items="@Html.GetEnumSelectList<VehicleType>()" onchange="this.form.submit()" class="form-control">
                         <option selected="selected" value=" ">Please select</option>
@@ -47,7 +47,8 @@
                 </div>
             </div>
         </form>
-
+    </div>
+    <div class="col-md-12">
         <partial name="GeneralPartial" />
 
     </div>

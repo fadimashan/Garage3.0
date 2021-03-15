@@ -4,7 +4,8 @@
     ViewData["Title"] = "Details";
 }
 
-@await Html.PartialAsync("NavButtonsPartial", "Details")
+@await Html.PartialAsync("NavButtonsPartial", "Vehicle Details")
+<a id="NoPrint" asp-action="Create" type="button" class="btn btn-info btn">Park New</a>
 
 <div id="subHeading">
     <!-- Subheading -->
@@ -61,6 +62,6 @@
         </dl>
     </div>
     <div id="endButtons">
-        <a asp-action="GeneralInfoGarage" id="NoPrint" type="button" class="btn btn-outline-info">Back</a>
         <a id="NoPrint" asp-action="Edit" asp-route-id="@Model.Id" type="button" class="btn btn-outline-primary">Edit</a>
+        <a asp-action="GeneralInfoGarage" id="NoPrint" type="button" class="btn btn-outline-info">Back</a>
     </div>

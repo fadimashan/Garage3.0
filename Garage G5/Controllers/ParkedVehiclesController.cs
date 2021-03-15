@@ -189,7 +189,7 @@ namespace Garage_G5.Controllers
                 parkedVehicle.EnteringTime = DateTime.Now;
                 _context.Add(parkedVehicle);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(GeneralInfoGarage));
+                return RedirectToAction(nameof(GeneralInfoGarage), new { @notify = "parked" });
             }
             return View(parkedVehicle);
         }
@@ -243,7 +243,8 @@ namespace Garage_G5.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(GeneralInfoGarage));
+                return RedirectToAction(nameof(GeneralInfoGarage), new { @notify = "edit" });
+                //return RedirectToAction(nameof(EditConfirm));
             }
             return View(parkedVehicle);
         }
@@ -274,7 +275,7 @@ namespace Garage_G5.Controllers
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
             _context.ParkedVehicle.Remove(parkedVehicle);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(GeneralInfoGarage));
+            return RedirectToAction(nameof(GeneralInfoGarage), new { @notify = "checkout" });
         }
 
         private bool ParkedVehicleExists(int id)

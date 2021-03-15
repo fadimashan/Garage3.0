@@ -4,7 +4,10 @@
     ViewData["Title"] = "Statistics";
 }
 
-@await Html.PartialAsync("NavButtonsPartial", "Statistics")
+<!-- Heading -->
+<div style="min-width: 10%;max-width:15%;padding-bottom:1em;margin:0em;float:left;"><img style="width:80%" src="/img/g5.png"></div>
+<div id="h1"><h1 class="h1" id="NoPrint">Statistics</h1></div>
+<a id="NoPrint" asp-action="GeneralInfoGarage" type="button" class="btn btn-default btn">Back to Garage</a>
 
 <div id="subHeading">
     <!-- Subheading -->
@@ -42,32 +45,28 @@
             </dd>
             <dt class="col-sm-6">
                 @Html.DisplayNameFor(model => model.TotalAmountOfWheels)
-            </dt>
-            <dd class="col-sm-6">
+            </th>
+            <td>
                 @Html.DisplayFor(model => model.TotalAmountOfWheels)
-            </dd>
-            <dt class="col-sm-6">
+            </td>
+        </tr>
+        <tr>
+            <th>
                 @Html.DisplayNameFor(model => model.TotalRevenue)
-            </dt>
-            <dd class="col-sm-6">
+            </th>
+            <td>
                 @Html.DisplayFor(model => model.TotalRevenue)kr
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.LongestParkedVehicleDate)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.LongestParkedVehicleDate)
-            </dd>
-            <dt class="col-sm-6">
-                @Html.DisplayNameFor(model => model.LongestParkedVehicleRegNo)
-            </dt>
-            <dd class="col-sm-6">
-                @Html.DisplayFor(model => model.LongestParkedVehicleRegNo)
-            </dd>
-        </dl>
-    </div>
-    <div id="endButtons">
-        <a asp-action="GeneralInfoGarage" id="NoPrint" type="button" class="btn btn-outline-info">Back</a>
-    </div>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Longest parked vehicle data
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.LongestParkedVehicleRegNo), parked since @Html.DisplayFor(model => model.LongestParkedVehicleDate)
+            </td>
+
+        </tr>
+    </table>
 
 

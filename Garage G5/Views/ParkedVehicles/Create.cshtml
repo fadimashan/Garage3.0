@@ -5,7 +5,7 @@
     ViewData["Title"] = "Park";
 }
 
-@await Html.PartialAsync("NavButtonsPartial", "Create")
+@await Html.PartialAsync("NavButtonsPartial", "Park a vehicle")
 
 <div id="subHeading">
     <!-- Subheading -->
@@ -45,10 +45,10 @@
 
 
             </div>
-            <div class="form-group">
-                <a asp-action="GeneralInfoGarage" type="button" class="btn btn-info btn  noSpace">Cancel</a>
-                <input type="submit" type="button" value="Create" class="btn btn-primary btn" />
-            </div>
+
+                <input type="submit" value="Park" class="btn btn-primary btn noSpace" />
+                <a asp-action="GeneralInfoGarage" type="button" class="btn btn-info btn">Cancel</a>
+
         </form>
     </div>
 </div>
@@ -56,5 +56,3 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
-

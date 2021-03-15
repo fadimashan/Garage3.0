@@ -11,12 +11,12 @@ namespace Garage_G5.Models
         public Dictionary<string,int> VehicleTypeCounter { get; set; }
         [Display(Name = "Total amount of wheels in the garage")]
         public int TotalAmountOfWheels { get; set; }
-        [Display(Name = "Revenue from currently parked vehicles")]
+        [Display(Name = "Total revenue")]
         public int TotalRevenue { get; set; }
-        [Display(Name = "Date when the first vehicle arrived")]
+        [Display(Name = "First vehicle arrival")]
         public DateTime? LongestParkedVehicleDate { get; set; }
         public string LongestParkedVehicleRegNo { get; set; }
-        [Display(Name = "Date when the latest vehicle arrived")]
+        [Display(Name = "Latest vehicle arrival")]
         public DateTime? LatestParkedVehicleDate { get; set; }
         public string LatestParkedVehicleRegNo { get; set; }
     }

@@ -96,11 +96,11 @@ body {
 }
 
 #h1 {
-    width: 6em;
-    vertical-align: top;
+/*    min-width: 25%;
+    vertical-align: middle;
     font-weight: bold;
-    font-size: 3em;
-    float: left;
+    font-size: 5em;
+    float: left;*/
 }
 
 #RegistrationNum {
@@ -124,6 +124,23 @@ body {
     visibility: hidden;
     display: none
 }
+
+.notifyjs-foo-base {
+    opacity: 0.85;
+    width: 200px;
+    background: #F5F5F5;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.notifyjs-foo-base .title {
+    float: left;
+    margin: 0px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+
 /* Print styles */
 @media print {
     div {
