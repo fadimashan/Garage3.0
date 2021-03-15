@@ -11,7 +11,6 @@ namespace Garage_G5.Models.ViewModels
     [Keyless]
     public class GeneralInfoViewModel
     {
-
         public int Id { get; set; }
         public IEnumerable<ParkedVehicle> ParkedVehicles { get; set; }
         public IEnumerable<SelectListItem> Types { get; set; }
@@ -24,9 +23,7 @@ namespace Garage_G5.Models.ViewModels
         {
             get; set;
         }
+        [Display(Name = "Parked")]
         public TimeSpan TotalTimeParked { get; set; }
-
-
-
     }
 }
