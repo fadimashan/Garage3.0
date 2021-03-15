@@ -4,71 +4,63 @@
     ViewData["Title"] = "Details";
 }
 
-<!-- Section: Tables -->
-<section id="tables" class="my-5">
+@await Html.PartialAsync("NavButtonsPartial", "Details")
 
-    <!-- Heading -->
-    <div id="h1"><h1 class="h1">Details</h1></div>@*btn btn-primary btn-lg btn-block*@
+<div id="subHeading">
+    <!-- Subheading -->
+    <h2 class="sh2 mb-4" style="clear:both;">Details for @Html.DisplayFor(model => model.RegistrationNum)</h2>
+</div>
+<!-- Grid row -->
+<div class="row mb-5">
 
-    @{Html.RenderPartial("NavButtonsPartial");}
-
-    <div id="subHeading">
-        <!-- Subheading -->
-        <h2 class="sh2 mb-4" style="clear:both;">Details for @Html.DisplayFor(model => model.RegistrationNum)</h2>
+    <!-- Grid column -->
+    <div class="col-md-12">
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.VehicleType)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.VehicleType)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.RegistrationNum)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.RegistrationNum)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Color)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Color)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Brand)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Brand)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Model)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Model)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WheelsNum)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.WheelsNum)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.EnteringTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EnteringTime)
+            </dd>
+        </dl>
     </div>
-    <!-- Grid row -->
-    <div class="row mb-5">
-
-        <!-- Grid column -->
-        <div class="col-md-12">
-            <dl class="row">
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.VehicleType)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.VehicleType)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.RegistrationNum)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.RegistrationNum)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Color)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Color)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Brand)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Brand)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Model)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Model)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.WheelsNum)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.WheelsNum)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.EnteringTime)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.EnteringTime)
-                </dd>
-            </dl>
-        </div>
-        <div id="endButtons">
-            <a asp-action="GeneralInfoGragae" id="NoPrint" type="button" class="btn btn-outline-info">Back</a>
-            <a id="NoPrint" asp-action="Edit" asp-route-id="@Model.Id" type="button" class="btn btn-outline-primary">Edit</a>
-        </div>
+    <div id="endButtons">
+        <a asp-action="GeneralInfoGragae" id="NoPrint" type="button" class="btn btn-outline-info">Back</a>
+        <a id="NoPrint" asp-action="Edit" asp-route-id="@Model.Id" type="button" class="btn btn-outline-primary">Edit</a>
     </div>
-</section>

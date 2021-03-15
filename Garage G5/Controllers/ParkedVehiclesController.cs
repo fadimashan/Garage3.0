@@ -93,22 +93,29 @@ namespace Garage_G5.Controllers
         {
             var vehicles = await _context.ParkedVehicle.ToListAsync();
             var nSM = new StatisticsModel();
-            DateTime? longestParked = DateTime.MaxValue;
-                
-                foreach (var vehicle in vehicles)
+            //ToDo: this will be a bug in case there is nothing else in the garage:
+            DateTime longestParked = DateTime.MaxValue;
+            string longestParkedRegNo = "";
+            foreach (var vehicle in vehicles)
+            {
+                nSM.TotalAmountOfWheels += vehicle.WheelsNum;
+                var price = (int)(DateTime.Now - vehicle.EnteringTime).TotalMinutes * 10 / 60;
+                nSM.TotalRevenue += price;
+                if(longestParked > vehicle.EnteringTime)
                 {
-                    nSM.TotalAmountOfWheels += vehicle.WheelsNum;
-                    var price = (int)(DateTime.Now - vehicle.EnteringTime).TotalMinutes * 10 / 60;
-                    nSM.TotalRevenue += price;
-                    if (longestParked > vehicle.EnteringTime)
-                    {
-                        longestParked = vehicle.EnteringTime;
-                    }
-                    nSM.LongestParkedVehicleDate = longestParked;
+                    longestParked = vehicle.EnteringTime;
+                    longestParkedRegNo = vehicle.RegistrationNum;
+
                 }
-          
+                nSM.LongestParkedVehicleDate = longestParked;
+                nSM.LongestParkedVehicleRegNo = longestParkedRegNo;
+
+            }
+
             return View(nSM);
 
+
+        
         }
 
         // POST: ParkedVehicles/Create

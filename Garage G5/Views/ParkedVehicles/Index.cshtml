@@ -2,89 +2,79 @@
 
 @{ ViewData["Title"] = "Garage G5"; }
 
-            <!-- Section: Tables -->
-<section id="tables" class="my-5">
+@await Html.PartialAsync("NavButtonsPartial", "Garage G5")
 
-    <!-- Heading -->
-    <div id="h1"><h1 class="h1">Garage G5</h1></div>@*btn btn-primary btn-lg btn-block*@
+<div id="subHeading">
+    <!-- Subheading -->
+    <h2 class="sh2 mb-4" style="clear:both;">Vehicles currently in the garage:</h2>
+</div>
+<!-- Grid row -->
+<div class="row mb-5">
 
-    @await Html.PartialAsync("NavButtonsPartial")
+    <!-- Grid column -->
+    <div class="col-md-12">
 
-    <div id="subHeading">
-        <!-- Subheading -->
-        <h2 class="sh2 mb-4" style="clear:both;">Vehicles currently in the garage:</h2>
-    </div>
-    <!-- Grid row -->
-    <div class="row mb-5">
+        <form asp-action="Index">
+            <div class="input-group mb-3">
 
-        <!-- Grid column -->
-        <div class="col-md-12">
-
-            <form asp-action="Index">
-                <div class="input-group mb-3">
-
-                    <input class="form-control" type="text" asp-for="RegistrationNum" placeholder="Search by registration number" />
-                    <div class="input-group-append">
-                        <select asp-for="VehicleType" asp-items="@Model.Types" onchange="this.form.submit()" class="form-control">
-                            <option selected="selected" value=""> Please select</option>
-                        </select>
-                    </div>
-                    <div class="input-group-append">
-                        @*<button type="submit" class="form-control btn btn-outline-info btn-sm"><i class="fa fa-search">&emsp;Search</i></button>*@
-                        <button type="submit" class="form-control">Search</button>
-
-                    </div>
+                <input class="form-control" type="text" asp-for="RegistrationNum" placeholder="Search by registration number" />
+                <div class="input-group-append">
+                    <select asp-for="VehicleType" asp-items="@Model.Types" onchange="this.form.submit()" class="form-control">
+                        <option selected="selected" value=""> Please select</option>
+                    </select>
                 </div>
-            </form>
+                <div class="input-group-append">
+                    @*<button type="submit" class="form-control btn btn-outline-info btn-sm"><i class="fa fa-search">&emsp;Search</i></button>*@
+                    <button type="submit" class="form-control">Search</button>
 
-            <table class="table">
-                <thead>
+                </div>
+            </div>
+        </form>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VehicleType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RegistrationNum)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.EnteringTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TotalParkedTime)
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model.ParkedVehicles)
+                {
                     <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.VehicleType)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.RegistrationNum)
-                        </th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VehicleType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RegistrationNum)
+                        </td>
 
-                        <th>
-                            @Html.DisplayNameFor(model => model.EnteringTime)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.TotalParkedTime)
-                        </th>
-                        <th></th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EnteringTime)
+                        </td>
+                        <td>
+                            @*@Html.DisplayFor(modelItem => item.TotalParkedTime)*@
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.Id" type="button" class="btn btn-outline-info btn-sm">Details</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" type="button" class="btn btn-outline-primary btn-sm">Edit</a>
+                            <a asp-action="Receipt" asp-route-id="@item.Id" type="button" class="btn btn-outline-warning btn-sm">Checkout</a>
+
+
+                        </td>
                     </tr>
-                    @foreach (var item in Model.ParkedVehicles)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.VehicleType)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.RegistrationNum)
-                            </td>
+                }
+            </thead>
+        </table>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EnteringTime)
-                            </td>
-                            <td>
-                                @*@Html.DisplayFor(modelItem => item.TotalParkedTime)*@
-                            </td>
-                            <td>
-                                <a asp-action="Details" asp-route-id="@item.Id" type="button" class="btn btn-outline-info btn-sm">Details</a>
-                                <a asp-action="Edit" asp-route-id="@item.Id" type="button" class="btn btn-outline-primary btn-sm">Edit</a>
-                                <a asp-action="Receipt" asp-route-id="@item.Id" type="button" class="btn btn-outline-warning btn-sm">Checkout</a>
-
-
-                            </td>
-                        </tr>
-                    }
-                </thead>
-            </table>
-
-        </div>
-        <!-- Grid column -->
     </div>
-    <!-- Grid row -->
-</section>
