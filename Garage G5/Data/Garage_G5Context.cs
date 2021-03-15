@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 using Microsoft.EntityFrameworkCore;
 using Garage_G5.Models;
-using Garage_G5.ViewModels;
-using Garage_G5.Models.ViewModels;
 
 namespace Garage_G5.Data
 {

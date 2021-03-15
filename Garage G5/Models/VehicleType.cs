@@ -8,6 +8,9 @@
         Truck,
         BigTruck,
         Roaster,
-        MiniVan
+        MiniVan,
+        Boat,
+        Airplane
+
     }
 }

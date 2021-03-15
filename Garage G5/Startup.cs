@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Garage_G5.Data;
+using System;
 
 namespace Garage_G5
 {
@@ -20,12 +21,16 @@ namespace Garage_G5
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-           // services.AddScoped<ITotalParkedTimeService, TotalParkedTimeService>();
 
+            services.AddControllersWithViews();
+            // services.AddScoped<ITotalParkedTimeService, TotalParkedTimeService>();
+            //services.AddSession(options => {
+            //    options.IdleTimeout = TimeSpan.FromMinutes(1);//You can set Time
+            //});
 
             services.AddDbContext<Garage_G5Context>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Garage_G5Context")));
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,9 +46,9 @@ namespace Garage_G5
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseAuthorization();
