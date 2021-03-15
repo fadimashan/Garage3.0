@@ -4,7 +4,7 @@
     ViewData["Title"] = "Park";
 }
 
-@await Html.PartialAsync("NavButtonsPartial", "Create")
+@await Html.PartialAsync("NavButtonsPartial", "Park")
 
 <div id="subHeading">
     <!-- Subheading -->
@@ -16,22 +16,21 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="VehicleType" class="control-label"></label>
-                <select asp-for="VehicleType" asp-items="@Html.GetEnumSelectList<VehicleType>()" class="form-control"></select>
-                <span asp-validation-for="VehicleType" class="text-danger"></span>
+            <label asp-for="VehicleType" class="control-label"></label>
+            <select asp-for="VehicleType" asp-items="@Html.GetEnumSelectList<VehicleType>()" class="form-control"></select>
+            <span asp-validation-for="VehicleType" class="text-danger"></span>
             
-                            <label asp-for="RegistrationNum" class="control-label"></label>
-                <input asp-for="RegistrationNum" name="RegistrationNum" class="form-control" />
-                <span asp-validation-for="RegistrationNum" class="text-danger"></span>
+            <label asp-for="RegistrationNum" class="control-label"></label>
+            <input asp-for="RegistrationNum" name="RegistrationNum" class="form-control" />
+            <span asp-validation-for="RegistrationNum" class="text-danger"></span>
             
-                            <label asp-for="Color" class="control-label"></label>
-                <input asp-for="Color" class="form-control" />
-                <span asp-validation-for="Color" class="text-danger"></span>
+            <label asp-for="Color" class="control-label"></label>
+            <input asp-for="Color" class="form-control" />
+            <span asp-validation-for="Color" class="text-danger"></span>
             
-                            <label asp-for="Brand" class="control-label"></label>
-                <input asp-for="Brand" class="form-control" />
-                <span asp-validation-for="Brand" class="text-danger"></span>
-
+            <label asp-for="Brand" class="control-label"></label>
+            <input asp-for="Brand" class="form-control" />
+            <span asp-validation-for="Brand" class="text-danger"></span>
 
             <label asp-for="Model" class="control-label"></label>
             <input asp-for="Model" class="form-control" />
@@ -43,10 +42,10 @@
 
 
             </div>
-            <div class="form-group">
-                <a asp-action="GeneralInfoGarage" type="button" class="btn btn-info btn  noSpace">Cancel</a>
-                <input type="submit" type="button" value="Create" class="btn btn-primary btn" />
-            </div>
+
+                <input type="submit" value="Park" class="btn btn-primary btn noSpace" />
+                <a asp-action="GeneralInfoGarage" type="button" class="btn btn-info btn">Cancel</a>
+
         </form>
     </div>
 </div>

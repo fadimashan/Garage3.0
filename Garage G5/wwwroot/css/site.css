@@ -99,7 +99,7 @@ body {
     float: left;
 }
 
-#RegistrationNum{
+#RegistrationNum {
     font-size: 1em;
 }
 
@@ -117,8 +117,25 @@ body {
     visibility: hidden;
     display: none
 }
+
+.notifyjs-foo-base {
+    opacity: 0.85;
+    width: 200px;
+    background: #F5F5F5;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.notifyjs-foo-base .title {
+    float: left;
+    margin: 0px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+
 /* Print styles */
-@media print {    
+@media print {
     div{
         font-size: 1.2em;
     }

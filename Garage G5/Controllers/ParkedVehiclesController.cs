@@ -244,7 +244,7 @@ namespace Garage_G5.Controllers
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
             _context.ParkedVehicle.Remove(parkedVehicle);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(GeneralInfoGarage));
+            return RedirectToAction(nameof(GeneralInfoGarage), "?notify=checkout");
         }
 
         private bool ParkedVehicleExists(int id)

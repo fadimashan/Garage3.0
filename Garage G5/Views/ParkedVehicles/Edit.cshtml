@@ -6,7 +6,7 @@
 
 <div id="subHeading">
     <!-- Subheading -->
-    <h2 class="sh2 mb-4" style="clear:both;">Modifying the details for @Html.DisplayFor(model => model.RegistrationNum)</h2>
+    <h2 class="sh2 mb-4" style="clear:both;">Modifying the details for <strong style="text-decoration:underline">@Html.DisplayFor(model => model.RegistrationNum)</strong></h2>
 </div>
 <!-- Grid row -->
 <div class="row mb-5">
@@ -42,18 +42,19 @@
                         <label asp-for="WheelsNum" class="control-label"></label>
                         <input asp-for="WheelsNum" class="form-control" />
                         <span asp-validation-for="WheelsNum" class="text-danger"></span>
+
                     </div>
 
-                    <div class="form-group" type="hidden">
+                    <div type="hidden">
                         <input id="EnteringTime" name="EnteringTime" type="hidden" asp-for="EnteringTime" />
                         <span type="hidden" asp-validation-for="EnteringTime" class="text-danger"></span>
                     </div>
 
-                    <div class="form-group">
-                        @*<input type="submit" value="Save" class="btn btn-primary" onclick="confirmationAlert()" />*@
-                        <a asp-action="GeneralInfoGarage" id="NoPrint" type="button" class="btn btn-outline-info noSpace">Cancel</a>
-                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Confirm</button>
-                    </div>
+                    
+                    @*<input type="submit" value="Save" class="btn btn-primary" onclick="confirmationAlert()" />*@
+                    <button type="button" class="btn btn-outline-danger noSpace" data-toggle="modal" data-target="#exampleModalCenter">Confirm</button>
+                    <a asp-action="GeneralInfoGarage" id="NoPrint" type="button" class="btn btn-outline-info">Cancel</a>
+                    
 
                     <!-- Button trigger modal -->
                     <!-- Modal -->
@@ -70,8 +71,8 @@
                                     Are you sure you want to save this edit to @Html.DisplayFor(model => model.VehicleType) @Html.DisplayFor(model => model.RegistrationNum).
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                     <input type="submit" value="Save" class="btn btn-primary" />
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 </div>
                             </div>
                         </div>

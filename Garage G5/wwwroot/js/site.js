@@ -7,3 +7,29 @@
 //const editSubmitBtn = document.getElementById('editSubmitBtn');
 //editSubmitBtn.addEventListener('onClick', alert("Björn e bäst"));
 
+//add a new style 'foo'
+$.notify.addStyle('foo', {
+    html:
+        "<div>" +
+        "<div class='clearfix'>" +
+        "<div class='title' data-notify-html='title'/>" +
+        "</div>" +
+        "</div>" +
+        "</div>"
+});
+
+
+
+const urlParams = new URLSearchParams(window.location.search);
+const notification = urlParams.get('notify');
+
+if (notification == "checkout") {
+    $.notify({
+        title: 'Vehicle successfully checked out.',
+    }, {
+        style: 'foo',
+        autoHide: true,
+        clickToHide: true
+    });
+
+}

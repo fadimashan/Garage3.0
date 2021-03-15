@@ -15,6 +15,7 @@ namespace Garage_G5.Models.ViewModels
         public IEnumerable<ParkedVehicle> ParkedVehicles { get; set; }
         public IEnumerable<SelectListItem> Types { get; set; }
         public VehicleType? VehicleType { get; set; }
+        [Display(Name = "Time in garage")]
         public TimeSpan TotalParkedTime { get; set; }
         [Display(Name = "Registration")]
         public string RegistrationNum { get; set; }
