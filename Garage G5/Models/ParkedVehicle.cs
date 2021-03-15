@@ -4,16 +4,16 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Garage_G5.Models
 {
-    [Keyless]
     public class ParkedVehicle
     {
         [Key]
         public int Id { get; set; }
+
         [Display(Name = "Type")]
-        //[Remote("", "ParkedVehicles")]
         public VehicleType? VehicleType { get; set; }
         [Display(Name = "Registration")]
         [Remote("IsRegisterNumberExists", "ParkedVehicles", ErrorMessage = "Registration Number already in use", AdditionalFields = "Id")]
@@ -32,12 +32,10 @@ namespace Garage_G5.Models
         public DateTime EnteringTime
         {
             get;set;
-            
-            //get { return dateCreated ?? DateTime.Now; }
-            //set { dateCreated = value; }
 
         }
 
+        [NotMapped]
         public IEnumerable<SelectListItem> GetVehiclesType { get; set; }
 
     }
