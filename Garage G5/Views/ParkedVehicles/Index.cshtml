@@ -13,10 +13,8 @@
 
     <!-- Grid column -->
     <div class="col-md-12">
-
         <form asp-action="Index">
             <div class="input-group mb-3">
-
                 <input class="form-control" type="text" asp-for="RegistrationNum" placeholder="Search by registration number" />
                 <div class="input-group-append">
                     <select asp-for="VehicleType" asp-items="@Model.Types" onchange="this.form.submit()" class="form-control">
