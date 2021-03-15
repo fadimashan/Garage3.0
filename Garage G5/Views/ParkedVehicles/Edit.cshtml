@@ -43,9 +43,15 @@
                         <input asp-for="WheelsNum" class="form-control" />
                         <span asp-validation-for="WheelsNum" class="text-danger"></span>
                     </div>
+
+                    <div class="form-group" type="hidden">
+                        <input id="EnteringTime" name="EnteringTime" type="hidden" asp-for="EnteringTime" />
+                        <span type="hidden" asp-validation-for="EnteringTime" class="text-danger"></span>
+                    </div>
+
                     <div class="form-group">
                         @*<input type="submit" value="Save" class="btn btn-primary" onclick="confirmationAlert()" />*@
-                        <a asp-action="GeneralInfoGragae" id="NoPrint" type="button" class="btn btn-outline-info noSpace">Cancel</a>
+                        <a asp-action="GeneralInfoGarage" id="NoPrint" type="button" class="btn btn-outline-info noSpace">Cancel</a>
                         <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Confirm</button>
                     </div>
 

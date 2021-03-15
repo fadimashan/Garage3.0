@@ -21,23 +21,8 @@ namespace Garage_G5.Controllers
             _context = context;
         }
 
-        private async Task<IEnumerable<SelectListItem>> GetGenresAsync()
-        {
-            return await _context.ParkedVehicle
-                          .Select(m => m.VehicleType)
-                          .Distinct()
-                          .Select(g => new SelectListItem
-                          {
-                              Text = g.ToString(),
-                              Value = g.ToString()
-                          })
-                          .ToListAsync();
-        }
-
         public async Task<IActionResult> Receipt(int id)
         {
-
-
             if (id == 0)
             {
                 return NotFound();
@@ -131,7 +116,7 @@ namespace Garage_G5.Controllers
                 parkedVehicle.EnteringTime = DateTime.Now;
                 _context.Add(parkedVehicle);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(GeneralInfoGragae));
+                return RedirectToAction(nameof(GeneralInfoGarage));
             }
             return View(parkedVehicle);
         }
@@ -183,7 +168,7 @@ namespace Garage_G5.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(GeneralInfoGragae));
+                return RedirectToAction(nameof(GeneralInfoGarage));
                 //return RedirectToAction(nameof(EditConfirm));
             }
             return View(parkedVehicle);
@@ -215,7 +200,7 @@ namespace Garage_G5.Controllers
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
             _context.ParkedVehicle.Remove(parkedVehicle);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(GeneralInfoGragae));
+            return RedirectToAction(nameof(GeneralInfoGarage));
         }
 
         private bool ParkedVehicleExists(int id)
@@ -223,21 +208,7 @@ namespace Garage_G5.Controllers
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
 
-        public bool IsRegisterNumberExists(string RegistrationNum, int Id)
-        {
-            if (Id == 0)
-            {
-                return !_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum);
-            }
-            else
-            {
-                return !_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum && x.Id != Id);
-
-            }
-        }
-
-
-        public async Task<IActionResult> GeneralInfoGragae(VehicleFilterViewModel viewModel, string RegistrationNum)
+        public async Task<IActionResult> GeneralInfoGarage(VehicleFilterViewModel viewModel, string RegistrationNum)
         {
 
             var vehicles = string.IsNullOrWhiteSpace(RegistrationNum) ?
@@ -260,12 +231,12 @@ namespace Garage_G5.Controllers
 
             var list = new VehicleFilterViewModel
             {
-                Types = await GetCategoryAsync(),
+                Types = await GetVehicleTypeAsync(),
                 GenralVehicles = geniral.ToList()
 
             };
 
-            return View("GeneralInfoGragae", list);
+            return View("GeneralInfoGarage", list);
         }
 
         public IEnumerable<GeneralInfoViewModel> Reg( string reg = null)
@@ -304,7 +275,7 @@ namespace Garage_G5.Controllers
 
 
 
-        private async Task<IEnumerable<SelectListItem>> GetCategoryAsync()
+        private async Task<IEnumerable<SelectListItem>> GetVehicleTypeAsync()
         {
             return await _context.ParkedVehicle
                 .Select(p => p.VehicleType)
@@ -316,6 +287,20 @@ namespace Garage_G5.Controllers
                 })
                 .ToListAsync();
         }
+
+        public bool IsRegisterNumberExists(string RegistrationNum, int Id)
+        {
+            if (Id == 0)
+            {
+                return !_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum);
+            }
+            else
+            {
+                return !_context.ParkedVehicle.Any(x => x.RegistrationNum == RegistrationNum && x.Id != Id);
+
+            }
+        }
+
         /* Anther way to check if the RegistrationNum is unique */
 
         //[AcceptVerbs("GET", "POST")]
