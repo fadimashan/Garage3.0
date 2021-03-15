@@ -18,8 +18,6 @@ $.notify.addStyle('foo', {
         "</div>"
 });
 
-
-
 const urlParams = new URLSearchParams(window.location.search);
 const notification = urlParams.get('notify');
 
@@ -31,5 +29,24 @@ if (notification == "checkout") {
         autoHide: true,
         clickToHide: true
     });
+}
 
+if (notification == "edit") {
+    $.notify({
+        title: 'The vehicle was successfully edited.',
+    }, {
+        style: 'foo',
+        autoHide: true,
+        clickToHide: true
+    });
+}
+
+if (notification == "parked") {
+    $.notify({
+        title: 'The vehicle was successfully parked.',
+    }, {
+        style: 'foo',
+        autoHide: true,
+        clickToHide: true
+    });
 }
