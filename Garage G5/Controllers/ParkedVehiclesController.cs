@@ -38,7 +38,7 @@ namespace Garage_G5.Controllers
         //        }); 
         //        }
         //    return vehicleTypes;
-          
+
         //}
         //private bool CheckFreePlaces(int val)
         //{
