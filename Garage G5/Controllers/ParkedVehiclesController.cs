@@ -10,6 +10,7 @@ using Garage_G5.Models;
 using Garage_G5.ViewModels;
 using Garage_G5.Models.ViewModels;
 using System.Net;
+using Microsoft.AspNetCore.Http;
 
 namespace Garage_G5.Controllers
 {
@@ -20,6 +21,49 @@ namespace Garage_G5.Controllers
         {
             _context = context;
         }
+
+        //private IEnumerable<SelectListItem> GetVehiclesType()
+        //{
+        //    //boocle on enum
+        //    IEnumerable<SelectListItem> vehicleTypes = new List<SelectListItem>();
+        //        foreach (var type in Enum.GetNames(typeof(VehicleType)))
+        //        {
+        //        //var value2 = Enum.GetValues(typeof(VehicleType));
+        //        int value = (int)Enum.Parse(typeof(VehicleType), type);
+        //        vehicleTypes.Append(new SelectListItem
+        //        {
+        //            Text = type.ToString(),
+        //            Value = value.ToString(),
+        //            Disabled = CheckFreePlaces(value),
+        //        }); 
+        //        }
+        //    return vehicleTypes;
+          
+        //}
+        //private bool CheckFreePlaces(int val)
+        //{
+        //    var freePlaces = HttpContext.Session.GetInt32("FreePlaces");
+        //    switch (val)
+        //    {
+        //        case VehicleType.Sedan:
+        //        case VehicleType.Coupe:
+        //        case VehicleType.Roaster:
+        //        case VehicleType.MiniVan:
+        //        case VehicleType.Van:
+        //            break;
+
+        //        case VehicleType.Truck:
+        //        case VehicleType.BigTruck:
+        //            break;
+        //        case VehicleType.Boat:
+        //        case VehicleType.Airplane:
+        //            break;
+        //        default:
+        //            break;
+        //    }
+
+        //}
+
 
         public async Task<IActionResult> Receipt(int id)
         {
@@ -210,7 +254,40 @@ namespace Garage_G5.Controllers
 
         public async Task<IActionResult> GeneralInfoGarage(VehicleFilterViewModel viewModel, string RegistrationNum)
         {
+            int garageCapacity = 40;
+            int freePlaces = 0;
+            var listAllVehicles = _context.ParkedVehicle.ToList();
+            if (listAllVehicles.Count < garageCapacity)
+            {
+                int placeCounter = 0;
+                foreach (var vehicle in listAllVehicles)
+                {
+                    switch (vehicle.VehicleType)
+                    {
+                        case VehicleType.Sedan:
+                        case VehicleType.Coupe:
+                        case VehicleType.Roaster:
+                        case VehicleType.MiniVan:
+                        case VehicleType.Van:
+                            placeCounter++;
+                            break;
 
+                        case VehicleType.Truck:
+                        case VehicleType.BigTruck:
+                            placeCounter = placeCounter + 2;
+                            break;
+                        case VehicleType.Boat:
+                        case VehicleType.Airplane:
+                            placeCounter = placeCounter + 3;
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+                freePlaces = garageCapacity - placeCounter;
+            }
+            HttpContext.Session.SetInt32("FreePlaces", freePlaces);
             var vehicles = string.IsNullOrWhiteSpace(RegistrationNum) ?
             _context.ParkedVehicle :
             _context.ParkedVehicle.Where(v => v.RegistrationNum.StartsWith(RegistrationNum) || v.Model.StartsWith(RegistrationNum));
@@ -283,7 +360,7 @@ namespace Garage_G5.Controllers
                 .Select(g => new SelectListItem
                 {
                     Text = g.ToString(),
-                    Value = g.ToString()
+                    Value = g.ToString(),
                 })
                 .ToListAsync();
         }
