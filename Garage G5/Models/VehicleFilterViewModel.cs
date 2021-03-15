@@ -22,6 +22,8 @@ namespace Garage_G5.Models.ViewModels
 
         [BindProperty(SupportsGet = true)]
         public string RegistrationNum { get; set; }
+      
+
 
     }
 }

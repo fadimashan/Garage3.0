@@ -1,18 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Garage_G5.Models
 {
-
+    [Keyless]
     public class ParkedVehicle
     {
         [Key]
-        private DateTime? dateCreated;
         public int Id { get; set; }
         [Display(Name = "Type")]
         //[Remote("", "ParkedVehicles")]
-        public VehicleType VehicleType { get; set; }
+        public VehicleType? VehicleType { get; set; }
         [Display(Name = "Registration")]
         [Remote("IsRegisterNumberExists", "ParkedVehicles", ErrorMessage = "Registration Number already in use", AdditionalFields = "Id")]
         public string RegistrationNum { get; set; }
@@ -35,5 +37,8 @@ namespace Garage_G5.Models
             //set { dateCreated = value; }
 
         }
+
+        public IEnumerable<SelectListItem> GetVehiclesType { get; set; }
+
     }
 }

@@ -25,6 +25,7 @@ namespace Garage_G5.Models.ViewModels
             get; set;
         }
         public TimeSpan TotalTimeParked { get; set; }
+        public string  Brand { get; }
 
 
 

@@ -17,6 +17,30 @@
     <div class="col-md-12">
         <dl class="row">
             <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.VehicleTypeCounter)
+            </dt>
+            <dd class="col-sm-6">
+
+                @{ var list = Model.VehicleTypeCounter;}
+                @{ var listKeys = Model.VehicleTypeCounter.Keys;}
+
+                @{ foreach (var dict in list)
+                    {
+                        if (dict.Value != 0)
+                        {
+                            <table>
+                                <tr>
+                                    <td>@dict.Value# </td>
+                                    <td>@dict.Key</td>
+                                </tr>
+                            </table>
+                        }
+
+                    } }
+
+
+            </dd>
+            <dt class="col-sm-6">
                 @Html.DisplayNameFor(model => model.TotalAmountOfWheels)
             </dt>
             <dd class="col-sm-6">
@@ -35,11 +59,11 @@
                 @Html.DisplayFor(model => model.LongestParkedVehicleDate)
             </dd>
             <dt class="col-sm-6">
-                    @Html.DisplayNameFor(model => model.LongestParkedVehicleRegNo)
-                </dt>
-                <dd class="col-sm-6">
-                    @Html.DisplayFor(model => model.LongestParkedVehicleRegNo)
-                </dd>
+                @Html.DisplayNameFor(model => model.LongestParkedVehicleRegNo)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.LongestParkedVehicleRegNo)
+            </dd>
         </dl>
     </div>
     <div id="endButtons">

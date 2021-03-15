@@ -4,7 +4,9 @@
 
 @{
     ViewData["Title"] = "Garage";
+
 }
+
 
 @await Html.PartialAsync("NavButtonsPartial", "Garage G5")
 
@@ -18,8 +20,8 @@
         <div class="col-sm-10">
             <svg xmlns="http://www.w3.org/2000/svg">
                 <g>
-                    <rect x="0" y="0" width="50" height="50" @*fill="#1b6ec2"*@ fill="#4d2d43"></rect>
-                    <text x="5" y="30" font-family="Verdana" font-size="20" fill="White" @*fill="aquamarine"*@>@Context.Session.GetInt32("FreePlaces")</text>
+                    <rect x="0" y="0" width="50" height="50" fill="#4d2d43"></rect>
+                    <text x="5" y="30" font-family="Verdana" font-size="20" fill="White">@Context.Session.GetInt32("FreePlaces")</text>
                 </g>
             </svg>
         </div>
@@ -52,4 +54,3 @@
     <!-- Grid column -->
 </div>
 <!-- Grid row -->
-    
