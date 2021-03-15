@@ -55,7 +55,29 @@
                 Time parked
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => (model.TotalTimeParked.TotalMinutes))
+                @*@Html.DisplayFor(model => (model.TotalTimeParked.TotalMinutes))*@
+                <p id="timer" hidden>@{ var time = Model.EnteringTime.ToString("MMM' 'dd', 'yyyy' 'HH':'mm':'ss"); }  @Html.DisplayFor(model => time)</p>
+                <p id="timeResult"></p>
+
+                <script>
+                    var timer = document.getElementById("timer").innerHTML
+                    console.log(timer)
+                    var countUpDate = new Date(timer).getTime();
+                    var x = setInterval(function () {
+
+                        var now = new Date().getTime();
+                        var distance = now - countUpDate;
+                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                        document.getElementById("timeResult").innerHTML = days + "d " + hours + "h "
+                            + minutes + "m " + seconds + "s ";
+
+                    }, 1000);
+
+                </script>
             </dd>
             <dt class="col-sm-2">
                 Amount to pay
