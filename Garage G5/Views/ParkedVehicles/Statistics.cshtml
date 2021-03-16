@@ -16,13 +16,12 @@
 <!-- Grid row -->
 <div class="row mb-5">
 
-    <!-- Grid column -->
-    <div class="col-md-12">
-        <dl class="row">
-            <dt class="col-sm-6">
+    <table class="table table-striped">
+        <tr>
+            <th class="col-sm-6">
                 @Html.DisplayNameFor(model => model.VehicleTypeCounter)
-            </dt>
-            <dd class="col-sm-6">
+            </th>
+            <td class="col-sm-6">
 
                 @{ var list = Model.VehicleTypeCounter;}
                 @{ var listKeys = Model.VehicleTypeCounter.Keys;}
@@ -31,19 +30,18 @@
                     {
                         if (dict.Value != 0)
                         {
-                            <table>
-                                <tr>
-                                    <td>@dict.Value# </td>
-                                    <td>@dict.Key</td>
-                                </tr>
-                            </table>
+                            
+                                <span>@dict.Key: @dict.Value </span>   
+                           
                         }
 
                     } }
 
 
-            </dd>
-            <dt class="col-sm-6">
+            </td>
+        </tr>
+        <tr>
+            <th class="col-sm-6">
                 @Html.DisplayNameFor(model => model.TotalAmountOfWheels)
             </th>
             <td>
