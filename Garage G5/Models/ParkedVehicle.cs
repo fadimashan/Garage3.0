@@ -33,15 +33,9 @@ namespace Garage_G5.Models
         [Display(Name = "Wheels")]
         [Range(2,12)]
         public int WheelsNum { get; set; }
-
         [Required]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime EnteringTime
-        {
-            get;set;
-
-        }
-
+        public DateTime EnteringTime { get;set; }
         [NotMapped]
         public IEnumerable<SelectListItem> GetVehiclesType { get; set; }
 
