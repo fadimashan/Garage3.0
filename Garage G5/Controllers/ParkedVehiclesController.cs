@@ -46,6 +46,7 @@ namespace Garage_G5.Controllers
             switch (val)
             {
                 case (int)VehicleType.Sedan:
+                case (int)VehicleType.Combi:
                 case (int)VehicleType.Coupe:
                 case (int)VehicleType.Roadster:
                 case (int)VehicleType.MiniVan:
@@ -287,15 +288,16 @@ namespace Garage_G5.Controllers
         {
             int garageCapacity = 10;
             int freePlaces = 0;
-            int motorcycleFreePlaces = 0;
+            int motorcyclePlaces = 0;
             var listAllVehicles = _context.ParkedVehicle.ToList();
             int placeCounter = 0;
+            int motorCapasty;
             foreach (var vehicle in listAllVehicles)
             {
                 switch (vehicle.VehicleType)
                 {
                     case VehicleType.Motorcycle:
-                        motorcycleFreePlaces = motorcycleFreePlaces + 1;
+                        motorcyclePlaces = motorcyclePlaces + 1;
                         break;
 
                     case VehicleType.Sedan:
@@ -320,22 +322,32 @@ namespace Garage_G5.Controllers
                 }
             }
 
-            if (motorcycleFreePlaces != 0 && motorcycleFreePlaces > 3 && motorcycleFreePlaces % 3 != 0)
+            if (motorcyclePlaces != 0 && motorcyclePlaces > 3 && motorcyclePlaces % 3 != 0)
             {
-                placeCounter = placeCounter + (int)(motorcycleFreePlaces / 3);
+                placeCounter = placeCounter + (int)(motorcyclePlaces / 3);
             }
-            if (motorcycleFreePlaces != 0 && motorcycleFreePlaces % 3 == 0)
+            if (motorcyclePlaces != 0 && motorcyclePlaces % 3 == 0)
             {
-                placeCounter = placeCounter + (motorcycleFreePlaces / 3);
+                placeCounter = placeCounter + (motorcyclePlaces / 3);
             }
 
-            if (motorcycleFreePlaces != 0 && motorcycleFreePlaces % 3 > 0)
+            if (motorcyclePlaces != 0 && motorcyclePlaces % 3 > 0)
             {
                 placeCounter++;
             }
+
+            if (garageCapacity == (placeCounter -1) && motorcyclePlaces % 3 > 0)
+            {
+                placeCounter++;
+            }
+
+            var restOftheMotor = motorcyclePlaces % 3;
             freePlaces = garageCapacity - placeCounter;
+            motorCapasty = (restOftheMotor != 0) ? freePlaces * 3 + (3 - restOftheMotor) : freePlaces * 3 ;
+
 
             HttpContext.Session.SetInt32("FreePlaces", freePlaces);
+            HttpContext.Session.SetInt32("MotorFreePlaces", motorCapasty);
             var vehicles = string.IsNullOrWhiteSpace(RegistrationNum) ?
             _context.ParkedVehicle :
             _context.ParkedVehicle.Where(v => v.RegistrationNum.StartsWith(RegistrationNum) || v.Brand.StartsWith(RegistrationNum));

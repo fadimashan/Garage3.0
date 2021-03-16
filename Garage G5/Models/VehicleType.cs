@@ -2,6 +2,7 @@
 {
     public enum VehicleType
     {
+        Motorcycle,
         Combi,
         Sedan,
         Coupe,
@@ -11,8 +12,6 @@
         Roadster,
         MiniVan,
         Boat,
-        Motorcycle,
         Airplane
-
     }
 }
