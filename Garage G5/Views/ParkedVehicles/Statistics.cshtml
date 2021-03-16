@@ -1,5 +1,5 @@
 ﻿@model Garage_G5.Models.StatisticsModel
-
+@using Microsoft.AspNetCore.Http;
 @{
     ViewData["Title"] = "Statistics";
 }
@@ -16,13 +16,12 @@
 <!-- Grid row -->
 <div class="row mb-5">
 
-    <!-- Grid column -->
-    <div class="col-md-12">
-        <dl class="row">
-            <dt class="col-sm-6">
+    <table class="table table-striped">
+        <tr>
+            <th style="width:25%;">
                 @Html.DisplayNameFor(model => model.VehicleTypeCounter)
-            </dt>
-            <dd class="col-sm-6">
+            </th>
+            <td class="col-sm-6">
 
                 @{ var list = Model.VehicleTypeCounter;}
                 @{ var listKeys = Model.VehicleTypeCounter.Keys;}
@@ -31,19 +30,17 @@
                     {
                         if (dict.Value != 0)
                         {
-                            <table>
-                                <tr>
-                                    <td>@dict.Value# </td>
-                                    <td>@dict.Key</td>
-                                </tr>
-                            </table>
+
+                            <span>@dict.Key: @dict.Value </span>
+
                         }
 
                     } }
 
-
-            </dd>
-            <dt class="col-sm-6">
+            </td>
+        </tr>
+        <tr>
+            <th>
                 @Html.DisplayNameFor(model => model.TotalAmountOfWheels)
             </th>
             <td>
@@ -67,6 +64,73 @@
             </td>
 
         </tr>
+        <tr>
+            <th>
+                Total space in garage:
+            </th>
+            <td>
+                @Context.Session.GetInt32("FreePlaces") spots
+            </td>
+
+        </tr>
+        <tr>
+            <th>
+                @{
+                    decimal percentage = (decimal)Context.Session.GetInt32("FreePlaces") / 10 * 100;
+                    percentage = (int)percentage;
+                }
+                Availability @percentage%
+            </th>
+            <td>
+                <div class="progress progress-fluent my-3">
+
+
+                    <div class="progress-bar bg-warning" role="progressbar" style="width:@percentage%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <th style="width:25%; vertical-align:top;">
+                Vehicles charted
+            </th>
+            <td class="col-sm-6">
+                <div class="card-body">
+
+                    @{
+                        var totalCount = 0;
+                        foreach (var dict in list)
+                        {
+                            if (dict.Value != 0)
+                            {
+                                totalCount += dict.Value;
+                            }
+                        }
+
+                        foreach (var dict in list)
+                        {
+                            if (dict.Value != 0)
+                            {
+                                string classCSS = "bg-info";
+                                decimal percentageLocal = dict.Value / (decimal)totalCount * 100;
+                                if (percentageLocal > 15)
+                                {
+                                    classCSS = "bg-warning";
+                                }
+                                if (percentageLocal > 20)
+                                {
+                                    classCSS = "bg-success";
+                                }
+                                percentageLocal = (int)percentageLocal;
+                                <h4 class="small font-weight-bold">@dict.Key: @percentageLocal%</h4>
+
+                                <div class="progress mb-4">
+                                    <div class="progress-bar @classCSS" role="progressbar" style="width:@percentageLocal%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+            </td>
+        </tr>
     </table>
-
-

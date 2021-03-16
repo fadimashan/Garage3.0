@@ -8,6 +8,7 @@ namespace Garage_G5.Models
 {
     public class StatisticsModel
     {
+        [Display(Name = "Amount of parked per vehicle type")]
         public Dictionary<string,int> VehicleTypeCounter { get; set; }
         [Display(Name = "Total amount of wheels in the garage")]
         public int TotalAmountOfWheels { get; set; }

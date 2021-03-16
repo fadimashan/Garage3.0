@@ -36,7 +36,7 @@
                     <p> @{var enterTime = (item.EnteringTime).ToString("dd'/'MMM'/'yy' 'hh':'mm");}  @Html.DisplayFor(modelItem => enterTime)</p>
                 </td>
                 <td>
-                    <p> @{ var total =  item.TotalTimeParked.Days +("d " ) + (item.TotalTimeParked).ToString("hh'h 'mm'm'");}  @Html.DisplayFor(modelItem => total)</p>
+                    <p> @{ var total = item.TotalTimeParked.Days + ("d ") + (item.TotalTimeParked).ToString("hh'h 'mm'm'");} @Html.DisplayFor(modelItem => total)</p>
                 </td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.Id" type="button" class="btn btn-outline-info btn-sm">Details</a>
