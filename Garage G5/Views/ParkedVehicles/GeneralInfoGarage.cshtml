@@ -22,7 +22,7 @@
     <div class="col-md-8">
         <form asp-action="GeneralInfoGarage">
             <div class="input-group mb-3">
-                <input type="text" class="form-control textboxGeneralInfo" asp-for="RegistrationNum" onchange="this.form.submit()" placeholder="Search Registration No. or Vehicle Model" />
+                <input type="text" class="form-control textboxGeneralInfo" asp-for="RegistrationNum" onchange="this.form.submit()" placeholder="Search Registration No. or Vehicle Brand" />
                 <div class="input-group-append">
                     <select asp-for="VehicleType" asp-items="@Html.GetEnumSelectList<VehicleType>()" onchange="this.form.submit()" class="form-control">
                         <option selected="selected" value=" ">Please select</option>
@@ -30,7 +30,6 @@
                 </div>
                 <div class="input-group-append  ">
                     <button onchange="this.form.submit()" type="submit" class="form-control">Search</button>
-                    @*<button type="submit" onchange="this.form.submit()" class="btn btn-dark" style="border-radius: 4px;margin-top: 0; padding: 6px 18px;"><i class="fa fa-search"> &emsp;Search</i></button>*@
                 </div>
             </div>
         </form>
