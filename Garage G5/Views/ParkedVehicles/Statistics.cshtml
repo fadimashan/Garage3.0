@@ -18,30 +18,30 @@
 
     <table class="table table-striped">
         <tr>
-            <th class="col-sm-6">
+            <th style="min-width:25%;">
                 @Html.DisplayNameFor(model => model.VehicleTypeCounter)
             </th>
             <td class="col-sm-6">
 
                 @{ var list = Model.VehicleTypeCounter;}
                 @{ var listKeys = Model.VehicleTypeCounter.Keys;}
-
-                @{ foreach (var dict in list)
-                    {
-                        if (dict.Value != 0)
+                <ul>
+                    @{ foreach (var dict in list)
                         {
-                            
-                                <span>@dict.Key: @dict.Value </span>   
-                           
-                        }
+                            if (dict.Value != 0)
+                            {
 
-                    } }
+                                <li>@dict.Key: @dict.Value </li>
 
+                            }
+
+                        } }
+                </ul>
 
             </td>
         </tr>
         <tr>
-            <th class="col-sm-6">
+            <th>
                 @Html.DisplayNameFor(model => model.TotalAmountOfWheels)
             </th>
             <td>
