@@ -2,7 +2,7 @@
 
 @{ ViewData["Title"] = "Edit"; }
 
-@await Html.PartialAsync("NavButtonsPartial", "Edit a vehicle") 
+@await Html.PartialAsync("NavButtonsPartial", "Edit a vehicle")
 
 <div id="subHeading">
     <!-- Subheading -->
@@ -22,26 +22,32 @@
                         <label asp-for="VehicleType" class="control-label"></label>
                         <select asp-for="VehicleType" asp-items="@Model.GetVehiclesType" class="form-control"></select>
                         <span asp-validation-for="VehicleType" class="text-danger"></span>
+                        <p></p>
 
                         <label asp-for="RegistrationNum" class="control-label"></label>
                         <input asp-for="RegistrationNum" class="form-control" />
                         <span asp-validation-for="RegistrationNum" class="text-danger"></span>
+                        <p></p>
 
                         <label asp-for="Color" class="control-label"></label>
                         <input asp-for="Color" class="form-control" />
                         <span asp-validation-for="Color" class="text-danger"></span>
+                        <p></p>
 
                         <label asp-for="Brand" class="control-label"></label>
                         <input asp-for="Brand" class="form-control" />
                         <span asp-validation-for="Brand" class="text-danger"></span>
+                        <p></p>
 
                         <label asp-for="Model" class="control-label"></label>
                         <input asp-for="Model" class="form-control" />
                         <span asp-validation-for="Model" class="text-danger"></span>
+                        <p></p>
 
                         <label asp-for="WheelsNum" class="control-label"></label>
                         <input asp-for="WheelsNum" class="form-control" />
                         <span asp-validation-for="WheelsNum" class="text-danger"></span>
+                        <p></p>
 
                     </div>
 
@@ -50,11 +56,10 @@
                         <span type="hidden" asp-validation-for="EnteringTime" class="text-danger"></span>
                     </div>
 
-                    
-                    @*<input type="submit" value="Save" class="btn btn-primary" onclick="confirmationAlert()" />*@
+
                     <button type="button" class="btn btn-outline-danger noSpace" data-toggle="modal" data-target="#exampleModalCenter">Confirm</button>
                     <a asp-action="GeneralInfoGarage" id="NoPrint" type="button" class="btn btn-outline-info">Cancel</a>
-                    
+
 
                     <!-- Button trigger modal -->
                     <!-- Modal -->
@@ -89,5 +94,5 @@
 <!-- Grid row -->
 
 @section Scripts {
-@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -21,27 +21,33 @@
                 @*<select asp-for="VehicleType" asp-items="@Html.GetEnumSelectList<VehicleType>()" class="form-control"></select>*@
                 <select id="select" asp-for="VehicleType" asp-items="@Model.GetVehiclesType" class="form-control"></select>
                 <span asp-validation-for="VehicleType" class="text-danger"></span>
+                <p></p>
 
                 <label asp-for="RegistrationNum" class="control-label"></label>
                 <input asp-for="RegistrationNum" name="RegistrationNum" class="form-control" />
                 <span asp-validation-for="RegistrationNum" class="text-danger"></span>
+                <p></p>
 
                 <label asp-for="Color" class="control-label"></label>
                 <input asp-for="Color" class="form-control" />
                 <span asp-validation-for="Color" class="text-danger"></span>
+                <p></p>
 
                 <label asp-for="Brand" class="control-label"></label>
                 <input asp-for="Brand" class="form-control" />
                 <span asp-validation-for="Brand" class="text-danger"></span>
+                <p></p>
 
 
                 <label asp-for="Model" class="control-label"></label>
                 <input asp-for="Model" class="form-control" />
                 <span asp-validation-for="Model" class="text-danger"></span>
+                <p></p>
 
                 <label asp-for="WheelsNum" class="control-label"></label>
                 <input asp-for="WheelsNum" class="form-control" />
                 <span asp-validation-for="WheelsNum" class="text-danger"></span>
+                <p></p>
 
 
             </div>
