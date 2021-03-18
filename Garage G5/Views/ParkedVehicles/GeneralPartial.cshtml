@@ -6,19 +6,38 @@
     <thead>
         <tr>
             <th>
-                <p>@Html.DisplayNameFor(model => model.VehicleType)</p>
-            </th>
-            <th>
-                <p>@Html.DisplayNameFor(model => model.GenralRegistration)</p>
-            </th>
-            <th>
-                <p>Arrival</p>
-            </th>
-            <th>
-                <p>Time in garage</p>
-            </th>
-            <th>
 
+                <p>
+                    <a style="color:black" href="@Url.Action("GeneralInfoGarage", new { sortOrder = ViewBag.VehicleTypeSortParm, CurrentSort = ViewBag.VehicleTypeSortParm })">
+                        Vehicle Type <i class="fa fa-sort" aria-hidden="true"> </i>
+                    </a>
+                </p>
+                @*<p>@Html.DisplayNameFor(model => model.VehicleType)</p>*@
+                @*@Html.ActionLink("Vehicle Type", "GeneralInfoGarage", new { sortOrder = ViewBag.VehicleTypeSortParm, CurrentSort = "VehicleType" }) <i class="fa fa-sort" aria-hidden="true"></i>*@
+            </th>
+            <th>
+                <p>
+                    <a style="color:black" href="@Url.Action("GeneralInfoGarage", new { sortOrder = ViewBag.RegSortParm, CurrentSort = ViewBag.RegSortParm })">
+                        License <i class="fa fa-sort" aria-hidden="true"> </i>
+                    </a>
+                </p>
+            </th>
+            <th>
+                <p>
+                    <a style="color:black" href="@Url.Action("GeneralInfoGarage", new { sortOrder = ViewBag.DateSortParm, CurrentSort = ViewBag.DateSortParm })">
+                        Arrival <i class="fa fa-sort" aria-hidden="true"> </i>
+                    </a>
+                </p>
+
+            </th>
+            <th>
+                <p>
+                    <a style="color:black" href="@Url.Action("GeneralInfoGarage", new { sortOrder = ViewBag.TotalTimeSortParm, CurrentSort = ViewBag.TotalTimeSortParm })">
+                        Total Parking Time <i class="fa fa-sort" aria-hidden="true"> </i>
+                    </a>
+                </p>
+            </th>
+            <th>
             </th>
         </tr>
     </thead>

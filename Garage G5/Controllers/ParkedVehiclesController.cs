@@ -175,6 +175,7 @@ namespace Garage_G5.Controllers
                 GetVehiclesType = GetVehiclesType()
 
             };
+
             return View(model);
         }
         // POST: ParkedVehicles/Create
@@ -245,7 +246,6 @@ namespace Garage_G5.Controllers
                     }
                 }
                 return RedirectToAction(nameof(GeneralInfoGarage), new { @notify = "edit" });
-                //return RedirectToAction(nameof(EditConfirm));
             }
             return View(parkedVehicle);
         }
@@ -284,7 +284,7 @@ namespace Garage_G5.Controllers
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
 
-        public async Task<IActionResult> GeneralInfoGarage(VehicleFilterViewModel viewModel, string RegistrationNum)
+        public async Task<IActionResult> GeneralInfoGarage(VehicleFilterViewModel viewModel, string RegistrationNum, string sortOrder)
         {
             int garageCapacity = 10;
             int freePlaces = 0;
@@ -292,6 +292,7 @@ namespace Garage_G5.Controllers
             var listAllVehicles = _context.ParkedVehicle.ToList();
             int placeCounter = 0;
             int motorCapasty;
+
             foreach (var vehicle in listAllVehicles)
             {
                 switch (vehicle.VehicleType)
@@ -336,14 +337,14 @@ namespace Garage_G5.Controllers
                 placeCounter++;
             }
 
-            if (garageCapacity == (placeCounter -1) && motorcyclePlaces % 3 > 0)
+            if (garageCapacity == (placeCounter - 1) && motorcyclePlaces % 3 > 0)
             {
                 placeCounter++;
             }
 
             var restOftheMotor = motorcyclePlaces % 3;
             freePlaces = garageCapacity - placeCounter;
-            motorCapasty = (restOftheMotor != 0) ? freePlaces * 3 + (3 - restOftheMotor) : freePlaces * 3 ;
+            motorCapasty = (restOftheMotor != 0) ? freePlaces * 3 + (3 - restOftheMotor) : freePlaces * 3;
 
 
             HttpContext.Session.SetInt32("FreePlaces", freePlaces);
@@ -356,6 +357,43 @@ namespace Garage_G5.Controllers
                 vehicles :
                 vehicles.Where(m => m.VehicleType == viewModel.VehicleType);
 
+
+            ViewBag.RegSortParm = (sortOrder == "RegistrationNum") ? $"{sortOrder}_desc" : "RegistrationNum"; ;
+            ViewBag.DateSortParm = (sortOrder == "EntryDate") ? $"{sortOrder}_desc" : "EntryDate"; ;
+            ViewBag.VehicleTypeSortParm = (sortOrder == "VehicleType") ? $"{sortOrder}_desc" : "VehicleType"; ;
+            ViewBag.TotalTimeSortParm = (sortOrder == "TotalTime") ? $"{sortOrder}_desc" : "TotalTime"; ;
+
+            vehicles = from v in _context.ParkedVehicle
+                       select v;
+            switch (sortOrder)
+            {
+                case "RegistrationNum":
+                    vehicles = vehicles.OrderBy(v => v.RegistrationNum);
+                    break;
+                case "RegistrationNum_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.RegistrationNum);
+                    break;
+
+                case "EntryDate":
+                    vehicles = vehicles.OrderBy(v => v.EnteringTime);
+                    break;
+                case "EntryDate_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.EnteringTime);
+                    break;
+                case "VehicleType":
+                    vehicles = vehicles.OrderBy(v => v.VehicleType);
+                    break;
+                case "VehicleType_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.VehicleType);
+                    break;
+                case "TotalTime":
+                    vehicles = vehicles.OrderBy(v => v.EnteringTime);
+                    break;
+                case "TotalTime_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.EnteringTime);
+                    break;
+
+            }
             var geniral = vehicles.Select(x => new GeneralInfoViewModel
             {
                 Id = x.Id,
@@ -370,11 +408,13 @@ namespace Garage_G5.Controllers
             {
                 Types = await GetVehicleTypeAsync(),
                 GenralVehicles = geniral.ToList()
-
             };
+
 
             return View("GeneralInfoGarage", list);
         }
+
+
 
         public IEnumerable<GeneralInfoViewModel> Reg(string reg = null)
         {

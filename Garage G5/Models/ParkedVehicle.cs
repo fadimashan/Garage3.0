@@ -21,17 +21,17 @@ namespace Garage_G5.Models
         [StringLength(10, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 4)]
         public string RegistrationNum { get; set; }
         [Required]
-        [StringLength(10, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 4)]
+        [StringLength(10, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 1)]
         public string Color { get; set; }
         [Required]
-        [StringLength(10, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 4)]
+        [StringLength(10, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 1)]
         public string Brand { get; set; }
         [Required]
         [StringLength(10, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 1)]
         public string Model { get; set; }
         [Required]
         [Display(Name = "Wheels")]
-        [Range(2,12)]
+        [Range(0,12)]
         public int WheelsNum { get; set; }
         [Required]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
