@@ -1,5 +1,7 @@
+using Garage_G5.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,7 +15,26 @@ namespace Garage_G5
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+
+            using (var scope = host.Services.CreateScope())
+            {
+
+                var services = scope.ServiceProvider;
+
+                try
+                {
+                    SeedDate.IntiAsync(services).Wait();
+
+                }
+                catch (Exception e)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(e.Message, "Seed Down");
+                }
+
+            }
+            host.Run();
         }
 
 
@@ -24,4 +45,5 @@ namespace Garage_G5
                     webBuilder.UseStartup<Startup>();
                 });
     }
+
 }

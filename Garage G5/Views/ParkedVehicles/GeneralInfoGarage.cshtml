@@ -1,4 +1,7 @@
 ﻿@model Garage_G5.Models.ViewModels.VehicleFilterViewModel
+@*@model PagedList.IPagedList<GeneralInfoViewModel>
+@inject VehicleFilterViewModel vmodel*@
+
 @using Microsoft.AspNetCore.Http;
 
 
@@ -13,7 +16,7 @@
 <div id="subHeading">
 
     <h2 class="sh2 mb-4" style="clear:both;">Space in the garage: <strong style="text-decoration:underline"> @Context.Session.GetInt32("FreePlaces")</strong>. Space for Motorcycles: <strong style="text-decoration:underline"> @Context.Session.GetInt32("MotorFreePlaces")</strong>.</h2>
-    
+
 </div>
 <div class="row mb-5">
 
@@ -40,3 +43,4 @@
     <!-- Grid column -->
 </div>
 <!-- Grid row -->
+@*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of Model.PageCount*@

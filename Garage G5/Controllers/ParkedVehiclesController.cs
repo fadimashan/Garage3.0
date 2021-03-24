@@ -9,17 +9,23 @@ using Garage_G5.Data;
 using Garage_G5.Models;
 using Garage_G5.ViewModels;
 using Garage_G5.Models.ViewModels;
-using System.Net;
 using Microsoft.AspNetCore.Http;
+using AutoMapper;
+using PagedList;
+using Garage_G5.Extension;
 
 namespace Garage_G5.Controllers
 {
     public class ParkedVehiclesController : Controller
     {
         private readonly Garage_G5Context _context;
-        public ParkedVehiclesController(Garage_G5Context context)
+        private readonly IMapper mapper;
+
+        public ParkedVehiclesController(Garage_G5Context context, IMapper mapper)
         {
             _context = context;
+            this.mapper = mapper;
+
         }
 
         public IEnumerable<SelectListItem> GetVehiclesType()
@@ -93,7 +99,6 @@ namespace Garage_G5.Controllers
 
         public async Task<IActionResult> Receipt(int id)
         {
-
 
             if (id == 0)
             {
@@ -232,6 +237,7 @@ namespace Garage_G5.Controllers
                 {
 
                     _context.Update(parkedVehicle);
+                   // _context.Entry(parkedVehicle).Property(x => x.EnteringTime).IsModified = false;
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -284,9 +290,9 @@ namespace Garage_G5.Controllers
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
 
-        public async Task<IActionResult> GeneralInfoGarage(VehicleFilterViewModel viewModel, string RegistrationNum, string sortOrder)
+        private void CheckAvailability()
         {
-            int garageCapacity = 10;
+            int garageCapacity = 158;
             int freePlaces = 0;
             int motorcyclePlaces = 0;
             var listAllVehicles = _context.ParkedVehicle.ToList();
@@ -349,6 +355,13 @@ namespace Garage_G5.Controllers
 
             HttpContext.Session.SetInt32("FreePlaces", freePlaces);
             HttpContext.Session.SetInt32("MotorFreePlaces", motorCapasty);
+
+        }
+
+        public async Task<IActionResult> GeneralInfoGarage(VehicleFilterViewModel viewModel, string RegistrationNum)
+        {
+            CheckAvailability();
+         
             var vehicles = string.IsNullOrWhiteSpace(RegistrationNum) ?
             _context.ParkedVehicle :
             _context.ParkedVehicle.Where(v => v.RegistrationNum.StartsWith(RegistrationNum) || v.Brand.StartsWith(RegistrationNum));
@@ -357,18 +370,32 @@ namespace Garage_G5.Controllers
                 vehicles :
                 vehicles.Where(m => m.VehicleType == viewModel.VehicleType);
 
+            var geniral = mapper.ProjectTo<GeneralInfoViewModel>(vehicles);
 
-            ViewBag.RegSortParm = (sortOrder == "RegistrationNum") ? $"{sortOrder}_desc" : "RegistrationNum"; ;
-            ViewBag.DateSortParm = (sortOrder == "EntryDate") ? $"{sortOrder}_desc" : "EntryDate"; ;
-            ViewBag.VehicleTypeSortParm = (sortOrder == "VehicleType") ? $"{sortOrder}_desc" : "VehicleType"; ;
-            ViewBag.TotalTimeSortParm = (sortOrder == "TotalTime") ? $"{sortOrder}_desc" : "TotalTime"; ;
+            var list = new VehicleFilterViewModel
+            {
+                Types = await GetVehicleTypeAsync(),
+                GenralVehicles = geniral.ToList()
+            };
 
-            vehicles = from v in _context.ParkedVehicle
-                       select v;
+            return View("GeneralInfoGarage", list); 
+        }
+
+
+        public async Task<IActionResult> Sorting(string sortOrder)
+        {
+
+            ViewBag.RegSortParm = (sortOrder == "RegistrationNum") ? $"{sortOrder}_desc" : "RegistrationNum";
+            ViewBag.DateSortParm = (sortOrder == "EntryDate") ? $"{sortOrder}_desc" : "EntryDate";
+            ViewBag.VehicleTypeSortParm = (sortOrder == "VehicleType") ? $"{sortOrder}_desc" : "VehicleType";
+            ViewBag.TotalTimeSortParm = (sortOrder == "TotalTime") ? $"{sortOrder}_desc" : "TotalTime";
+
+            var vehicles = from v in _context.ParkedVehicle
+                           select v;
             switch (sortOrder)
             {
                 case "RegistrationNum":
-                    vehicles = vehicles.OrderBy(v => v.RegistrationNum);
+                    vehicles =  vehicles.OrderBy(v => v.RegistrationNum);
                     break;
                 case "RegistrationNum_desc":
                     vehicles = vehicles.OrderByDescending(v => v.RegistrationNum);
@@ -394,22 +421,14 @@ namespace Garage_G5.Controllers
                     break;
 
             }
-            var geniral = vehicles.Select(x => new GeneralInfoViewModel
-            {
-                Id = x.Id,
-                RegistrationNum = x.RegistrationNum,
-                VehicleType = x.VehicleType,
-                EnteringTime = x.EnteringTime,
-                TotalTimeParked = DateTime.Now - x.EnteringTime
-            });
 
+            var geniral = mapper.ProjectTo<GeneralInfoViewModel>(vehicles);
 
             var list = new VehicleFilterViewModel
             {
                 Types = await GetVehicleTypeAsync(),
                 GenralVehicles = geniral.ToList()
             };
-
 
             return View("GeneralInfoGarage", list);
         }
@@ -424,14 +443,12 @@ namespace Garage_G5.Controllers
                 RegistrationNum = x.RegistrationNum,
                 VehicleType = x.VehicleType,
                 EnteringTime = x.EnteringTime,
-                TotalTimeParked = DateTime.Now - x.EnteringTime,
             }).ToList();
 
             return from v in model
                    where string.IsNullOrEmpty(reg) || v.RegistrationNum.StartsWith(reg)
                    orderby v.RegistrationNum
                    select v;
-
 
         }
 
@@ -444,7 +461,6 @@ namespace Garage_G5.Controllers
                 RegistrationNum = x.RegistrationNum,
                 VehicleType = x.VehicleType,
                 EnteringTime = x.EnteringTime,
-                TotalTimeParked = DateTime.Now - x.EnteringTime,
             }).ToList();
 
             return (model);
@@ -454,6 +470,7 @@ namespace Garage_G5.Controllers
 
         private async Task<IEnumerable<SelectListItem>> GetVehicleTypeAsync()
         {
+            var g = _context.ParkedVehicle;
             return await _context.ParkedVehicle
                 .Select(p => p.VehicleType)
                 .Distinct()

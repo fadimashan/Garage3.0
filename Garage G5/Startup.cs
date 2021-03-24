@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Garage_G5.Data;
 using System;
+using Microsoft.Extensions.Logging;
+using Garage_G5.Models.ViewModels;
 
 namespace Garage_G5
 {
@@ -28,9 +30,15 @@ namespace Garage_G5
             //    options.IdleTimeout = TimeSpan.FromMinutes(1);//You can set Time
             //});
 
-            services.AddDbContext<Garage_G5Context>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("Garage_G5Context")));
+            services.AddScoped<VehicleFilterViewModel>();
+
             services.AddSession();
+
+            services.AddDbContext<Garage_G5Context>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Garage_G5Context"))
+                    .LogTo(Console.WriteLine,LogLevel.Information));
+
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +65,7 @@ namespace Garage_G5
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=ParkedVehicles}/{action=GeneralInfoGarage}/{id?}");
+                    pattern: "{controller=ParkedVehicles}/{action=Sorting}/{id?}");
             });
         }
     }

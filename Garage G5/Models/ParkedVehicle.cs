@@ -27,7 +27,7 @@ namespace Garage_G5.Models
         [StringLength(10, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 1)]
         public string Brand { get; set; }
         [Required]
-        [StringLength(10, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 1)]
+        [StringLength(20, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 1)]
         public string Model { get; set; }
         [Required]
         [Display(Name = "Wheels")]
