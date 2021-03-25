@@ -384,7 +384,7 @@ namespace Garage_G5.Controllers
 
         public async Task<IActionResult> Sorting(string sortOrder)
         {
-
+            CheckAvailability();
             ViewBag.RegSortParm = (sortOrder == "RegistrationNum") ? $"{sortOrder}_desc" : "RegistrationNum";
             ViewBag.DateSortParm = (sortOrder == "EntryDate") ? $"{sortOrder}_desc" : "EntryDate";
             ViewBag.VehicleTypeSortParm = (sortOrder == "VehicleType") ? $"{sortOrder}_desc" : "VehicleType";
