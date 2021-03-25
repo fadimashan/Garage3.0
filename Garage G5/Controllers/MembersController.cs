@@ -20,10 +20,10 @@ namespace Garage_G5.Controllers
         }
 
         // GET: Members
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Member.ToListAsync());
-        }
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Member.ToListAsync());
+        //}
 
         // GET: Members/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -151,5 +151,64 @@ namespace Garage_G5.Controllers
         {
             return _context.Member.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> Index(string sortOrder)
+        {
+            ViewBag.FullNameSortParm = (sortOrder == "FullName") ? $"{sortOrder}_desc" : "FullName";
+            ViewBag.AgeSortParm = (sortOrder == "Age") ? $"{sortOrder}_desc" : "Age";
+            ViewBag.DateAddedSortParm = (sortOrder == "DateAdded") ? $"{sortOrder}_desc" : "DateAdded";
+            ViewBag.MembershipTypeSortParm = (sortOrder == "MembershipType") ? $"{sortOrder}_desc" : "MembershipType";
+            ViewBag.PersonalIdNumberSortParm = (sortOrder == "PersonalIdNumber") ? $"{sortOrder}_desc" : "PersonalIdNumber";
+
+            var vehicles = from v in _context.Member
+                           select v;
+            switch (sortOrder)
+            {
+                case "FullName":
+                    vehicles = vehicles.OrderBy(v => v.FullName);
+                    break;
+                case "FullName_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.FullName);
+                    break;
+
+                case "Age":
+                    vehicles = vehicles.OrderBy(v => v.Age);
+                    break;
+                case "Age_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.Age);
+                    break;
+                case "DateAdded":
+                    vehicles = vehicles.OrderBy(v => v.DateAdded);
+                    break;
+                case "DateAdded_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.DateAdded);
+                    break;
+                case "MembershipType":
+                    vehicles = vehicles.OrderBy(v => v.MembershipType);
+                    break;
+                case "MembershipType_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.MembershipType);
+                    break; 
+                case "PersonalIdNumber":
+                    vehicles = vehicles.OrderBy(v => v.PersonalIdNumber);
+                    break;
+                case "PersonalIdNumber_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.PersonalIdNumber);
+                    break;          
+              
+
+            }
+
+            //var geniral = mapper.ProjectTo<GeneralInfoViewModel>(vehicles);
+
+            //var list = new VehicleFilterViewModel
+            //{
+            //    Types = await GetVehicleTypeAsync(),
+            //    GenralVehicles = geniral.ToList()
+            //};
+
+            return View("Index", await vehicles.ToListAsync());
+        }
+
     }
 }

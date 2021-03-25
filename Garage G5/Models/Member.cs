@@ -21,5 +21,7 @@ namespace Garage_G5.Models
         public DateTime DateAdded { get ; set; }
         public DateTime BonusAccountExpires { get; set; }
 
+        public string FullName { get => FirstName + " " + LastName; }
+
     }
 }
