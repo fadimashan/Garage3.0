@@ -14,6 +14,7 @@ namespace Garage_G5.Models
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public MembershipType MembershipType { get; set; }
         public string Phone { get; set; }
         public int Age { get; set; }
         public string PersonalIdNumber { get; set; }
