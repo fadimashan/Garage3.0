@@ -236,7 +236,7 @@ namespace Garage_G5.Controllers
                 return NotFound();
             }
 
-            parkedVehicle.GetVehiclesType = GetVehiclesType();
+            parkedVehicle.GetVehiclesType = GetTypeOfVehicle();
             return View(parkedVehicle);
         }
 

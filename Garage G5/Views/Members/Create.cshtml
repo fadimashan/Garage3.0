@@ -13,7 +13,7 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <select asp-for="MembershipType" asp-items="@Html.GetEnumSelectList<MembershipType>()" onchange="this.form.submit()" class="form-control">
+                <select asp-for="MembershipType" asp-items="@Html.GetEnumSelectList<MembershipType>()" class="form-control">
                     <option selected="selected" value=" ">Please select</option>
                 </select>
             </div>
@@ -42,11 +42,12 @@
                 <input asp-for="PersonalIdNumber" class="form-control" />
                 <span asp-validation-for="PersonalIdNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div hidden="hidden" class="form-group">
                 <label asp-for="DateAdded" class="control-label"></label>
                 <input asp-for="DateAdded" class="form-control" />
                 <span asp-validation-for="DateAdded" class="text-danger"></span>
             </div>
+            @*Todo: add option for add 3,6 or 12 month*@
             <div class="form-group">
                 <label asp-for="BonusAccountExpires" class="control-label"></label>
                 <input asp-for="BonusAccountExpires" class="form-control" />
