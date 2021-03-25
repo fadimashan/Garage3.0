@@ -65,7 +65,7 @@ namespace Garage_G5
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=ParkedVehicles}/{action=Sorting}/{id?}");
+                    pattern: "{controller=ParkedVehicles}/{action=Index}/{id?}");
             });
         }
     }

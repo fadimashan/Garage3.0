@@ -38,6 +38,13 @@ namespace Garage_G5.Models
         public DateTime EnteringTime { get;set; }
         [NotMapped]
         public IEnumerable<SelectListItem> GetVehiclesType { get; set; }
+        public int? TypeOfVehicleId { get; set; }
+        [Display(Name = "Type")]
+        public TypeOfVehicle? TypeOfVehicle { get; set; }
+        public int? MemberId { get; set; }
 
+        public Member? Member { get; set; }
+
+        public bool? IsInGarage { get; set; }
     }
 }

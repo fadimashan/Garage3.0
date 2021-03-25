@@ -177,12 +177,32 @@ namespace Garage_G5.Controllers
         {
             var model = new ParkedVehicle
             {
-                GetVehiclesType = GetVehiclesType()
+                //GetVehiclesType = GetVehiclesType()
+                GetVehiclesType = GetTypeOfVehicle()
 
             };
 
             return View(model);
         }
+
+        //New Method
+        private IEnumerable<SelectListItem> GetTypeOfVehicle()
+        {
+            var TypeName = _context.TypeOfVehicle;
+            var GetTypeOfVehicle = new List<SelectListItem>();
+            foreach (var type in TypeName)
+            {
+                var newType = (new SelectListItem
+                {
+                    Text = type.TypeName,
+                    Value = type.Id.ToString(),
+                    Disabled = CheckFreePlaces(type.Id),
+                });
+                GetTypeOfVehicle.Add(newType);
+            }
+            return (GetTypeOfVehicle);
+        }
+
         // POST: ParkedVehicles/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -381,8 +401,8 @@ namespace Garage_G5.Controllers
             return View("GeneralInfoGarage", list); 
         }
 
-
-        public async Task<IActionResult> Sorting(string sortOrder)
+        //This is a sorting function
+        public async Task<IActionResult> Index(string sortOrder)
         {
             CheckAvailability();
             ViewBag.RegSortParm = (sortOrder == "RegistrationNum") ? $"{sortOrder}_desc" : "RegistrationNum";

@@ -12,5 +12,7 @@ namespace Garage_G5.Data
         }
 
         public DbSet<ParkedVehicle> ParkedVehicle { get; set; }
+
+        public DbSet<Garage_G5.Models.TypeOfVehicle> TypeOfVehicle { get; set; }
     }
 }
