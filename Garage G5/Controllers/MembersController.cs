@@ -7,23 +7,77 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Garage_G5.Data;
 using Garage_G5.Models;
+using AutoMapper;
+using Garage_G5.Models.ViewModels;
 
 namespace Garage_G5.Controllers
 {
     public class MembersController : Controller
     {
         private readonly Garage_G5Context _context;
+        private readonly IMapper mapper;
 
-        public MembersController(Garage_G5Context context)
+
+        public MembersController(Garage_G5Context context, IMapper mapper)
         {
             _context = context;
+            this.mapper = mapper;
         }
 
-        // GET: Members
-        //public async Task<IActionResult> Index()
-        //{
-        //    return View(await _context.Member.ToListAsync());
-        //}
+        public async Task<IActionResult> Index(string sortOrder)
+        {
+            ViewBag.FullNameSortParm = (sortOrder == "FullName") ? $"{sortOrder}_desc" : "FullName";
+            ViewBag.AgeSortParm = (sortOrder == "Age") ? $"{sortOrder}_desc" : "Age";
+            ViewBag.DateAddedSortParm = (sortOrder == "DateAdded") ? $"{sortOrder}_desc" : "DateAdded";
+            ViewBag.MembershipTypeSortParm = (sortOrder == "MembershipType") ? $"{sortOrder}_desc" : "MembershipType";
+            ViewBag.PersonalIdNumberSortParm = (sortOrder == "PersonalIdNumber") ? $"{sortOrder}_desc" : "PersonalIdNumber";
+            ViewBag.DateExpiredSortParm = (sortOrder == "DateExpired") ? $"{sortOrder}_desc" : "DateExpired";
+
+            var vehicles = from v in _context.Member
+                           select v;
+            switch (sortOrder)
+            {
+                case "FullName":
+                    vehicles = vehicles.OrderBy(v => v.FullName);
+                    break;
+                case "FullName_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.FullName);
+                    break;
+
+                case "Age":
+                    vehicles = vehicles.OrderBy(v => v.Age);
+                    break;
+                case "Age_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.Age);
+                    break;
+                case "DateAdded":
+                    vehicles = vehicles.OrderBy(v => v.DateAdded);
+                    break;
+                case "DateAdded_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.DateAdded);
+                    break;
+                case "MembershipType":
+                    vehicles = vehicles.OrderBy(v => v.MembershipType);
+                    break;
+                case "MembershipType_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.MembershipType);
+                    break;
+                case "PersonalIdNumber":
+                    vehicles = vehicles.OrderBy(v => v.PersonalIdNumber);
+                    break;
+                case "PersonalIdNumber_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.PersonalIdNumber);
+                    break;
+                case "DateExpired":
+                    vehicles = vehicles.OrderBy(v => v.BonusAccountExpires);
+                    break;
+                case "DateExpired_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.BonusAccountExpires);
+                    break;
+            }
+
+            return View("Index", await vehicles.ToListAsync());
+        }
 
         // GET: Members/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -152,62 +206,62 @@ namespace Garage_G5.Controllers
             return _context.Member.Any(e => e.Id == id);
         }
 
-        public async Task<IActionResult> Index(string sortOrder)
+
+        public async Task<IActionResult> MemberCheckIn(int id)
         {
-            ViewBag.FullNameSortParm = (sortOrder == "FullName") ? $"{sortOrder}_desc" : "FullName";
-            ViewBag.AgeSortParm = (sortOrder == "Age") ? $"{sortOrder}_desc" : "Age";
-            ViewBag.DateAddedSortParm = (sortOrder == "DateAdded") ? $"{sortOrder}_desc" : "DateAdded";
-            ViewBag.MembershipTypeSortParm = (sortOrder == "MembershipType") ? $"{sortOrder}_desc" : "MembershipType";
-            ViewBag.PersonalIdNumberSortParm = (sortOrder == "PersonalIdNumber") ? $"{sortOrder}_desc" : "PersonalIdNumber";
 
-            var vehicles = from v in _context.Member
-                           select v;
-            switch (sortOrder)
-            {
-                case "FullName":
-                    vehicles = vehicles.OrderBy(v => v.FullName);
-                    break;
-                case "FullName_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.FullName);
-                    break;
+            var member = _context.Member.Find(id);
+            var vehicles = _context.ParkedVehicle;
+            var memberVehicles = await vehicles.Where(v => v.MemberId == member.Id).ToListAsync();
 
-                case "Age":
-                    vehicles = vehicles.OrderBy(v => v.Age);
-                    break;
-                case "Age_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.Age);
-                    break;
-                case "DateAdded":
-                    vehicles = vehicles.OrderBy(v => v.DateAdded);
-                    break;
-                case "DateAdded_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.DateAdded);
-                    break;
-                case "MembershipType":
-                    vehicles = vehicles.OrderBy(v => v.MembershipType);
-                    break;
-                case "MembershipType_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.MembershipType);
-                    break; 
-                case "PersonalIdNumber":
-                    vehicles = vehicles.OrderBy(v => v.PersonalIdNumber);
-                    break;
-                case "PersonalIdNumber_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.PersonalIdNumber);
-                    break;          
-              
+            member.MemberVehicles = memberVehicles;
 
-            }
+            return View("MemberCheckIn", member);
+        }
 
-            //var geniral = mapper.ProjectTo<GeneralInfoViewModel>(vehicles);
+        public async Task<IActionResult> CheckOutConfirmed(int id)
+        {
+            var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
+            parkedVehicle.IsInGarage = false;
+            parkedVehicle.EnteringTime = DateTime.Now;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
-            //var list = new VehicleFilterViewModel
-            //{
-            //    Types = await GetVehicleTypeAsync(),
-            //    GenralVehicles = geniral.ToList()
-            //};
+        public async Task<IActionResult> CheckInConfirmed(int id)
+        {
+            var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
+            parkedVehicle.IsInGarage = true;
+            parkedVehicle.EnteringTime = DateTime.Now;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        public async Task<IActionResult> Search(string FullName)
+        {
+
+            var vehicles = string.IsNullOrWhiteSpace(FullName) ?
+            _context.Member :
+            _context.Member.Where(v => v.FirstName.StartsWith(FullName) || v.LastName.StartsWith(FullName));
+
+
 
             return View("Index", await vehicles.ToListAsync());
+        }
+
+        private async Task<IEnumerable<SelectListItem>> GetVehicleTypeAsync()
+        {
+            var g = _context.ParkedVehicle;
+            return await _context.ParkedVehicle
+                .Select(p => p.VehicleType)
+                .Distinct()
+                .Select(g => new SelectListItem
+                {
+                    Text = g.ToString(),
+                    Value = g.ToString(),
+                })
+                .ToListAsync();
         }
 
     }

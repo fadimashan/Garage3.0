@@ -243,7 +243,7 @@ namespace Garage_G5.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,VehicleType,RegistrationNum,Color,Brand,Model,WheelsNum,EnteringTime")] ParkedVehicle parkedVehicle)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,VehicleType,RegistrationNum,Color,Brand,Model,WheelsNum,EnteringTime,MemberId,IsInGarage")] ParkedVehicle parkedVehicle)
         {
             if (id != parkedVehicle.Id)
             {
@@ -255,9 +255,10 @@ namespace Garage_G5.Controllers
 
                 try
                 {
-
+                    parkedVehicle.MemberId = 1;
+                    parkedVehicle.IsInGarage = true;
                     _context.Update(parkedVehicle);
-                   // _context.Entry(parkedVehicle).Property(x => x.EnteringTime).IsModified = false;
+                    // _context.Entry(parkedVehicle).Property(x => x.EnteringTime).IsModified = false;
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -304,6 +305,17 @@ namespace Garage_G5.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(GeneralInfoGarage), new { @notify = "checkout" });
         }
+
+        public async Task<IActionResult> CheckOutConfirmed(int id)
+        {
+            var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
+            parkedVehicle.IsInGarage = false;
+            parkedVehicle.EnteringTime = DateTime.Now;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(GeneralInfoGarage), new { @notify = "checkout" });
+        }
+
+
 
         private bool ParkedVehicleExists(int id)
         {
@@ -381,16 +393,19 @@ namespace Garage_G5.Controllers
         public async Task<IActionResult> GeneralInfoGarage(VehicleFilterViewModel viewModel, string RegistrationNum)
         {
             CheckAvailability();
-         
+
             var vehicles = string.IsNullOrWhiteSpace(RegistrationNum) ?
             _context.ParkedVehicle :
             _context.ParkedVehicle.Where(v => v.RegistrationNum.StartsWith(RegistrationNum) || v.Brand.StartsWith(RegistrationNum));
+
 
             vehicles = viewModel.VehicleType == null ?
                 vehicles :
                 vehicles.Where(m => m.VehicleType == viewModel.VehicleType);
 
-            var geniral = mapper.ProjectTo<GeneralInfoViewModel>(vehicles);
+            vehicles.Where(v => v.IsInGarage == true).ToList();
+
+            var geniral = mapper.ProjectTo<GeneralInfoViewModel>(vehicles).Where(v => v.IsInGarage == true);
 
             var list = new VehicleFilterViewModel
             {
@@ -398,7 +413,7 @@ namespace Garage_G5.Controllers
                 GenralVehicles = geniral.ToList()
             };
 
-            return View("GeneralInfoGarage", list); 
+            return View("GeneralInfoGarage", list);
         }
 
         //This is a sorting function
@@ -411,11 +426,12 @@ namespace Garage_G5.Controllers
             ViewBag.TotalTimeSortParm = (sortOrder == "TotalTime") ? $"{sortOrder}_desc" : "TotalTime";
 
             var vehicles = from v in _context.ParkedVehicle
+                           where v.IsInGarage == true
                            select v;
             switch (sortOrder)
             {
                 case "RegistrationNum":
-                    vehicles =  vehicles.OrderBy(v => v.RegistrationNum);
+                    vehicles = vehicles.OrderBy(v => v.RegistrationNum);
                     break;
                 case "RegistrationNum_desc":
                     vehicles = vehicles.OrderByDescending(v => v.RegistrationNum);

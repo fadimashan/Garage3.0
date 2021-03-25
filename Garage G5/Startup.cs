@@ -8,6 +8,7 @@ using Garage_G5.Data;
 using System;
 using Microsoft.Extensions.Logging;
 using Garage_G5.Models.ViewModels;
+using Garage_G5.Models;
 
 namespace Garage_G5
 {

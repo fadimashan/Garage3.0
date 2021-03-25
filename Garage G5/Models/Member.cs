@@ -17,11 +17,14 @@ namespace Garage_G5.Models
         public MembershipType MembershipType { get; set; }
         public string Phone { get; set; }
         public int Age { get; set; }
+        [Required]
         public string PersonalIdNumber { get; set; }
-        public DateTime DateAdded { get ; set; }
+        public DateTime? DateAdded { get; set; }
         public DateTime BonusAccountExpires { get; set; }
 
         public string FullName { get => FirstName + " " + LastName; }
+
+        public List<ParkedVehicle> MemberVehicles { get; set; }
 
     }
 }
