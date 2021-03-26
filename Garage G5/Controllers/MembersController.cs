@@ -48,35 +48,35 @@ namespace Garage_G5.Controllers
 
             ViewData["CurrentFilter"] = searchString;
 
-            var students = from s in _context.Member
+            var members = from s in _context.Member
                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
-                students = students.Where(s => s.LastName.Contains(searchString)
+                members = members.Where(s => s.LastName.Contains(searchString)
                                        || s.LastName.Contains(searchString));
             }
             switch (sortOrder)
             {
                 case "name_desc":
-                    students = students.OrderByDescending(s => s.LastName);
+                    members = members.OrderByDescending(s => s.LastName);
                     break;
                 case "Date":
-                    students = students.OrderBy(s => s.LastName);
+                    members = members.OrderBy(s => s.LastName);
                     break;
                 case "date_desc":
-                    students = students.OrderByDescending(s => s.FirstName);
+                    members = members.OrderByDescending(s => s.FirstName);
                     break;
                 default:
-                    students = students.OrderBy(s => s.LastName);
+                    members = members.OrderBy(s => s.LastName);
                     break;
             }
 
-            int pageSize = 10;
+            int pageSize = 5;
             if(userPageSize != null)
             {
                 pageSize = (int)userPageSize;
             }
-            return View(await PaginatedList<Member>.CreateAsync(students.AsNoTracking(), pageNumber ?? 1, pageSize));
+            return View(await PaginatedList<Member>.CreateAsync(members.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Members/Details/5
