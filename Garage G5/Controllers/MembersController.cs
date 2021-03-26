@@ -33,10 +33,12 @@ namespace Garage_G5.Controllers
 
         public async Task<IActionResult> Index(
             string sortOrder,
-           
+            string searchString,
+            string currentFilter,
             int? pageNumber, 
             int? userPageSize)
         {
+
 
             if (searchString != null)
             {
@@ -49,16 +51,20 @@ namespace Garage_G5.Controllers
 
             ViewData["CurrentFilter"] = searchString;
 
-            var members = from s in _context.Member
-                           select s;
+
+            var members = from v in _context.Member
+                           select v;
 
             int pageSize = 5;
             if(userPageSize != null)
             {
                 pageSize = (int)userPageSize;
             }
-            return View(await PaginatedList<Member>.CreateAsync(members.AsNoTracking(), pageNumber ?? 1, pageSize));
-        
+
+            //members = string.IsNullOrWhiteSpace(FullName) ?
+            //   _context.Member :
+            //   _context.Member.Where(v => v.FirstName.StartsWith(FullName) || v.LastName.StartsWith(FullName));
+
             ViewBag.FullNameSortParm = (sortOrder == "FullName") ? $"{sortOrder}_desc" : "FullName";
             ViewBag.AgeSortParm = (sortOrder == "Age") ? $"{sortOrder}_desc" : "Age";
             ViewBag.DateAddedSortParm = (sortOrder == "DateAdded") ? $"{sortOrder}_desc" : "DateAdded";
@@ -66,50 +72,49 @@ namespace Garage_G5.Controllers
             ViewBag.PersonalIdNumberSortParm = (sortOrder == "PersonalIdNumber") ? $"{sortOrder}_desc" : "PersonalIdNumber";
             ViewBag.DateExpiredSortParm = (sortOrder == "DateExpired") ? $"{sortOrder}_desc" : "DateExpired";
 
-            var vehicles = from v in _context.Member
-                           select v;
             switch (sortOrder)
             {
                 case "FullName":
-                    vehicles = vehicles.OrderBy(v => v.FullName);
+                    members = members.OrderBy(v => v.FullName);
                     break;
                 case "FullName_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.FullName);
+                    members = members.OrderByDescending(v => v.FullName);
                     break;
 
                 case "Age":
-                    vehicles = vehicles.OrderBy(v => v.Age);
+                    members = members.OrderBy(v => v.Age);
                     break;
                 case "Age_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.Age);
+                    members = members.OrderByDescending(v => v.Age);
                     break;
                 case "DateAdded":
-                    vehicles = vehicles.OrderBy(v => v.DateAdded);
+                    members = members.OrderBy(v => v.DateAdded);
                     break;
                 case "DateAdded_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.DateAdded);
+                    members = members.OrderByDescending(v => v.DateAdded);
                     break;
                 case "MembershipType":
-                    vehicles = vehicles.OrderBy(v => v.MembershipType);
+                    members = members.OrderBy(v => v.MembershipType);
                     break;
                 case "MembershipType_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.MembershipType);
+                    members = members.OrderByDescending(v => v.MembershipType);
                     break;
                 case "PersonalIdNumber":
-                    vehicles = vehicles.OrderBy(v => v.PersonalIdNumber);
+                    members = members.OrderBy(v => v.PersonalIdNumber);
                     break;
                 case "PersonalIdNumber_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.PersonalIdNumber);
+                    members = members.OrderByDescending(v => v.PersonalIdNumber);
                     break;
                 case "DateExpired":
-                    vehicles = vehicles.OrderBy(v => v.BonusAccountExpires);
+                    members = members.OrderBy(v => v.BonusAccountExpires);
                     break;
                 case "DateExpired_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.BonusAccountExpires);
+                    members = members.OrderByDescending(v => v.BonusAccountExpires);
                     break;
             }
+            //return View(/*await PaginatedList<Member>.CreateAsync(members.AsNoTracking(), pageNumber ?? 1, pageSize)*/);
 
-            return View("Index", await vehicles.ToListAsync());
+            return View(await PaginatedList<Member>.CreateAsync(members.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Members/Details/5
@@ -312,10 +317,10 @@ namespace Garage_G5.Controllers
 
         public async Task<IActionResult> Search(string FullName)
         {
-            var vehicles = string.IsNullOrWhiteSpace(FullName) ?
+            var membes = string.IsNullOrWhiteSpace(FullName) ?
             _context.Member :
             _context.Member.Where(v => v.FirstName.StartsWith(FullName) || v.LastName.StartsWith(FullName));
-            return View("Index", await vehicles.ToListAsync());
+            return View("Index", await membes.ToListAsync());
         }
 
         private async Task<IEnumerable<SelectListItem>> GetVehicleTypeAsync()
