@@ -9,6 +9,7 @@ using Garage_G5.Data;
 using Garage_G5.Models;
 using AutoMapper;
 using Garage_G5.Models.ViewModels;
+using Microsoft.AspNetCore.Http;
 
 namespace Garage_G5.Controllers
 {
@@ -179,7 +180,6 @@ namespace Garage_G5.Controllers
             {
                 return NotFound();
             }
-
             var member = await _context.Member
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (member == null)
@@ -234,6 +234,49 @@ namespace Garage_G5.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult CreateNewVehicle(int id)
+        {
+            var model = new ParkedVehicle
+            {
+                GetVehiclesType = GetTypeOfVehicle()
+            };
+            model.MemberId = id;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateNewVehicle([Bind("VehicleType,RegistrationNum,Color,Brand,Model,WheelsNum,EnteringTime,MemberId")] ParkedVehicle parkedVehicle)
+        {
+
+            if (ModelState.IsValid)
+            {
+                parkedVehicle.EnteringTime = DateTime.Now;
+                parkedVehicle.IsInGarage = false;
+                _context.ParkedVehicle.Add(parkedVehicle);
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(parkedVehicle);
+        }
+
+        private IEnumerable<SelectListItem> GetTypeOfVehicle()
+        {
+            var TypeName = _context.TypeOfVehicle;
+            var GetTypeOfVehicle = new List<SelectListItem>();
+            foreach (var type in TypeName)
+            {
+                var newType = (new SelectListItem
+                {
+                    Text = type.TypeName,
+                    Value = type.Id.ToString(),
+                });
+                GetTypeOfVehicle.Add(newType);
+            }
+            return (GetTypeOfVehicle);
+        }
 
         public async Task<IActionResult> Search(string FullName)
         {

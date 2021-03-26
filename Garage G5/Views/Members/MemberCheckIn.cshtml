@@ -52,8 +52,11 @@
         <dd class="col-sm-9">
             @{var expired = (Model.BonusAccountExpires).ToString("dd/MMM/yyyy");}  @Html.DisplayFor(modelItem => expired)
         </dd>
+
     </dl>
 </div>
+
+<a asp-action="CreateNewVehicle" asp-route-id="@Model.Id" type="button" class="btn btn-outline-success btn-sm">Create new Vehicle</a>
 
 <table class="table">
     <thead>
@@ -83,11 +86,10 @@
                 </td>
                 <td>
 
-                    @{ var hide = (item.IsInGarage == true) ? false : true ;}
+                    @{ var hide = (item.IsInGarage == true) ? false : true;}
                     <a asp-action="CheckInConfirmed" asp-route-id="@item.Id" type="button" hidden="@item.IsInGarage" class="btn btn-outline-success btn-sm pl-3 pr-3">Check-in </a>
-                    <a asp-action="CheckOutConfirmed" asp-route-id="@item.Id" type="button" hidden="@hide"  class="btn btn-outline-danger btn-sm">Check-out</a>
-                    @*create new car*@
-
+                    <a asp-action="CheckOutConfirmed" asp-route-id="@item.Id" type="button" hidden="@hide" class="btn btn-outline-danger btn-sm">Check-out</a>
+                    @*<a asp-controller="" asp-action="CheckOutConfirmed" asp-route-id="@item.Id" type="button" hidden="@hide" class="btn btn-outline-danger btn-sm">Check-out</a>*@
                 </td>
 
             </tr>
