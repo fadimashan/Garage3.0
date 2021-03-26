@@ -21,7 +21,7 @@ namespace Garage_G5.Extension
             var list = new VehicleFilterViewModel
             {
                 Types =  GetVehicleTypeAsync(listOfPV),
-                GenralVehicles = geniral.ToList()
+                GeneralVehicles = geniral.ToList()
             };
 
             return list;

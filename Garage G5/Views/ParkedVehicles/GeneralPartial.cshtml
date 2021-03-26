@@ -1,70 +1,81 @@
 ﻿@model VehicleFilterViewModel
 @*@model PagedList.IPagedList<GeneralInfoViewModel>
-@inject PagedList.IPagedList<VehicleFilterViewModel> pageing*@
+    @inject PagedList.IPagedList<VehicleFilterViewModel> pageing*@
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>
 
-                <p>
-                    <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.VehicleTypeSortParm, CurrentSort = ViewBag.VehicleTypeSortParm })">
-                        Vehicle Type <i class="fa fa-sort" aria-hidden="true"> </i>
-                    </a>
-                </p>
-                @*<p>@Html.DisplayNameFor(model => model.VehicleType)</p>*@
-                @*@Html.ActionLink("Vehicle Type", "GeneralInfoGarage", new { sortOrder = ViewBag.VehicleTypeSortParm, CurrentSort = "VehicleType" }) <i class="fa fa-sort" aria-hidden="true"></i>*@
-            </th>
-            <th>
-                <p>
-                    <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.RegSortParm, CurrentSort = ViewBag.RegSortParm })">
-                        License <i class="fa fa-sort" aria-hidden="true"> </i>
-                    </a>
-                </p>
-            </th>
-            <th>
-                <p>
-                    <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.DateSortParm, CurrentSort = ViewBag.DateSortParm })">
-                        Arrival <i class="fa fa-sort" aria-hidden="true"> </i>
-                    </a>
-                </p>
-
-            </th>
-            <th>
-                <p>
-                    <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.TotalTimeSortParm, CurrentSort = ViewBag.TotalTimeSortParm })">
-                        Total Parking Time <i class="fa fa-sort" aria-hidden="true"> </i>
-                    </a>
-                </p>
-            </th>
-            <th>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.GenralVehicles)
-        {
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.VehicleType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RegistrationNum)
-                </td>
-                <td>
-                    <p> @{var enterTime = (item.EnteringTime).ToString("dd'/'MMM'/'yy' 'hh':'mm");}  @Html.DisplayFor(modelItem => enterTime)</p>
-                </td>
-                <td>
-                    <p> @{ var total = item.TotalTimeParked.Days + ("d ") + (item.TotalTimeParked).ToString("hh'h 'mm'm'");} @Html.DisplayFor(modelItem => total)</p>
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id" type="button" class="btn btn-outline-info btn-sm">Details</a>
-                    <a asp-action="Edit" asp-route-id="@item.Id" type="button" class="btn btn-outline-primary btn-sm">Edit</a>
-                    <a asp-action="Receipt" asp-route-id="@item.Id" type="button" class="btn btn-outline-warning btn-sm">Checkout</a>
-                </td>
+                <th>
+
+                    <p>
+                        <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.MemberSortParm, CurrentSort = ViewBag.MemberSortParm })">
+                            Member <i class="fa fa-sort" aria-hidden="true"> </i>
+                        </a>
+                    </p>
+                    @*<p>@Html.DisplayNameFor(model => model.VehicleType)</p>*@
+                    @*@Html.ActionLink("Vehicle Type", "GeneralInfoGarage", new { sortOrder = ViewBag.VehicleTypeSortParm, CurrentSort = "VehicleType" }) <i class="fa fa-sort" aria-hidden="true"></i>*@
+                </th>
+                <th>
+                    <p>
+                        <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.MemberTypeSortParm, CurrentSort = ViewBag.MemberTypeSortParm })">
+                            Member Type <i class="fa fa-sort" aria-hidden="true"> </i>
+                        </a>
+                    </p>
+
+                </th>
+                <th>
+                    <p>
+                        <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.VehicleTypeSortParm, CurrentSort = ViewBag.VehicleTypeSortParm })">
+                            Vehicle Type <i class="fa fa-sort" aria-hidden="true"> </i>
+                        </a>
+                    </p>
+                </th>
+                <th>
+                    <p>
+                        <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.RegSortParm, CurrentSort = ViewBag.RegSortParm })">
+                            License <i class="fa fa-sort" aria-hidden="true"> </i>
+                        </a>
+                    </p>
+                </th>
+                <th>
+                    <p>
+                        <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.TotalTimeSortParm, CurrentSort = ViewBag.TotalTimeSortParm })">
+                            Time parked <i class="fa fa-sort" aria-hidden="true"> </i>
+                        </a>
+                    </p>
+                </th>
+                <th>
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.GeneralVehicles)
+            {
+                <tr>
+                    <td>
+                        <a data-trigger="hover" data-toggle="popover" data-html="true" data-content="Phone: @item.Member.Phone<br/> Member since: @item.Member.DateAdded" asp-controller="Members" asp-action="Details" asp-route-id="@item.Member.Id" type="button" class="btn btn-outline-info btn-sm">@Html.DisplayFor(modelItem => item.Member.FullName)</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Member.MembershipType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VehicleType)
+                    </td>
+                    <td>
+                        <a data-placement="left" data-trigger="hover" data-toggle="popover" data-html="true" data-content="Type: @Html.DisplayFor(modelItem => item.VehicleType)<br/>" asp-action="Details" asp-route-id="@item.Id" type="button" class="btn btn-outline-info btn-sm">@Html.DisplayFor(modelItem => item.RegistrationNum)</a>
+                    </td>
+                    <td>
+                        @{ var total = item.TotalTimeParked.Days + ("d ") + (item.TotalTimeParked).ToString("hh'h 'mm'm'");} @Html.DisplayFor(modelItem => total)
+                    </td>
+                    <td>
+                        @*<a asp-action="Details" asp-route-id="@item.Id" type="button" class="btn btn-outline-info btn-sm">Details</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" type="button" class="btn btn-outline-primary btn-sm">Edit</a>*@
+                        <a asp-action="Receipt" asp-route-id="@item.Id" type="button" class="btn btn-outline-warning btn-sm">Checkout</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
 

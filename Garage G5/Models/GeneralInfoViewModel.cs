@@ -26,7 +26,7 @@ namespace Garage_G5.Models.ViewModels
         }
         [Display(Name = "Parked")]
         public TimeSpan TotalTimeParked { get => DateTime.Now - EnteringTime;  }
-        public string  Brand { get; }
+        public string Brand { get; }
         public bool? IsInGarage { get; set; }
 
         public Member Member { get; set; }

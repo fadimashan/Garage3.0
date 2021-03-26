@@ -410,7 +410,7 @@ namespace Garage_G5.Controllers
             var list = new VehicleFilterViewModel
             {
                 Types = await GetVehicleTypeAsync(),
-                GenralVehicles = geniral.ToList()
+                GeneralVehicles = geniral.ToList()
             };
 
             return View("GeneralInfoGarage", list);
@@ -423,6 +423,8 @@ namespace Garage_G5.Controllers
             ViewBag.RegSortParm = (sortOrder == "RegistrationNum") ? $"{sortOrder}_desc" : "RegistrationNum";
             ViewBag.DateSortParm = (sortOrder == "EntryDate") ? $"{sortOrder}_desc" : "EntryDate";
             ViewBag.VehicleTypeSortParm = (sortOrder == "VehicleType") ? $"{sortOrder}_desc" : "VehicleType";
+            ViewBag.MemberSortParm = (sortOrder == "Member") ? $"{sortOrder}_desc" : "Member";
+            ViewBag.MemberTypeSortParm = (sortOrder == "MemberType") ? $"{sortOrder}_desc" : "MemberType";
             ViewBag.TotalTimeSortParm = (sortOrder == "TotalTime") ? $"{sortOrder}_desc" : "TotalTime";
 
             var vehicles = from v in _context.ParkedVehicle
@@ -436,18 +438,23 @@ namespace Garage_G5.Controllers
                 case "RegistrationNum_desc":
                     vehicles = vehicles.OrderByDescending(v => v.RegistrationNum);
                     break;
-
-                case "EntryDate":
-                    vehicles = vehicles.OrderBy(v => v.EnteringTime);
-                    break;
-                case "EntryDate_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.EnteringTime);
-                    break;
                 case "VehicleType":
                     vehicles = vehicles.OrderBy(v => v.VehicleType);
                     break;
                 case "VehicleType_desc":
                     vehicles = vehicles.OrderByDescending(v => v.VehicleType);
+                    break;
+                case "MemberType":
+                    vehicles = vehicles.OrderBy(v => v.Member.MembershipType);
+                    break;
+                case "MemberType_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.Member.MembershipType);
+                    break;
+                case "Member":
+                    vehicles = vehicles.OrderBy(v => v.Member.FirstName);
+                    break;
+                case "Member_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.Member.FirstName);
                     break;
                 case "TotalTime":
                     vehicles = vehicles.OrderBy(v => v.EnteringTime);
@@ -458,12 +465,12 @@ namespace Garage_G5.Controllers
 
             }
 
-            var geniral = mapper.ProjectTo<GeneralInfoViewModel>(vehicles);
+            var general = mapper.ProjectTo<GeneralInfoViewModel>(vehicles);
 
             var list = new VehicleFilterViewModel
             {
                 Types = await GetVehicleTypeAsync(),
-                GenralVehicles = geniral.ToList()
+                GeneralVehicles = general.ToList()
             };
 
             return View("GeneralInfoGarage", list);
