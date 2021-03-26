@@ -14,32 +14,18 @@ namespace Garage_G5.Data
     public static class SeedData
     {
         private static Faker fake;
+        private static List<TypeOfVehicle> typesOfVehicles;
+        private static List<Member> members;
         public static async Task InitAsync(IServiceProvider services)
         {
             using (var db = services.GetRequiredService<Garage_G5Context>())
             {
-                //if (db.ParkedVehicle.Any() || db.Member.Any() || db.TypeOfVehicle.Any())
-                //{
-                //    return;
-                //}
+                if (db.ParkedVehicle.Any() || db.Member.Any() || db.TypeOfVehicle.Any())
+                {
+                    return;
+                }
 
                 fake = new Faker("sv");
-
-                //Add Parked Vehicles
-                List<ParkedVehicle> vehiclesList = GetVehicles();
-                for (int i = 0; i < vehiclesList.Count(); i++)
-                {
-                    try
-                    {
-                        await db.AddRangeAsync(vehiclesList[i]);
-                        await db.SaveChangesAsync();
-                    }
-                    catch (Exception e)
-                    {
-
-                    }
-
-                }
 
                 //Add members
                 List<Member> membersList = GetMembers(25);
@@ -47,7 +33,6 @@ namespace Garage_G5.Data
                 {
                     await db.AddRangeAsync(membersList[i]);
                 }
-                await db.SaveChangesAsync();
 
                 //Add Vehicle Types                
                 List<TypeOfVehicle> typeOfVehiclesList = GetTypesOfVehicles();
@@ -55,6 +40,23 @@ namespace Garage_G5.Data
                 {
                     await db.AddRangeAsync(typeOfVehiclesList[i]);
                 }
+
+                //Add Parked Vehicles
+                List<ParkedVehicle> vehiclesList = GetVehicles(21);
+                for (int i = 0; i < vehiclesList.Count(); i++)
+                {
+                    //try
+                    //{
+                    await db.AddRangeAsync(vehiclesList[i]);
+                    //await db.SaveChangesAsync();
+                    //}
+                    //catch (Exception e)
+                    //{
+
+                    //}
+                }
+
+                //Update the DB
                 await db.SaveChangesAsync();
             }
 
@@ -63,7 +65,7 @@ namespace Garage_G5.Data
 
         private static List<Member> GetMembers(int amount)
         {
-            var members = new List<Member>();
+            members = new List<Member>();
             DateTime startDateTime = new DateTime(2020, 01, 01);
             for (int i = 0; i < amount; i++)
             {
@@ -80,7 +82,8 @@ namespace Garage_G5.Data
                     LastName = fake.Name.LastName(),
                     MembershipType = (MembershipType)0,
                     Phone = fake.Phone.PhoneNumberFormat(),
-                    PersonalIdNumber = personalIdNumber.ToString(),
+                    PersonalIdNumber = personalIdNumber.ToString(), //198010101234
+                    
                     Age = DateTime.Now.Year - first4digits,
                     DateAdded = fake.Date.Between(startDateTime, DateTime.Now),
                     BonusAccountExpires = fake.Date.Between(startDateTime, DateTime.Now)
@@ -94,74 +97,84 @@ namespace Garage_G5.Data
 
         private static List<TypeOfVehicle> GetTypesOfVehicles()
         {
-            var typesOfVehicles = new List<TypeOfVehicle>() {
+            typesOfVehicles = new List<TypeOfVehicle>() {
                 new TypeOfVehicle {
                     TypeName = "Motorcycle",
                     Size = 1,
                 },
                 new TypeOfVehicle{
                     TypeName = "Combi",
-                    Size = 1,
+                    Size = 3,
                 },
                 new TypeOfVehicle{
                     TypeName = "Sedan",
-                    Size = 1,
+                    Size = 3,
                 },
                 new TypeOfVehicle {
                     TypeName = "Coupe",
-                    Size = 1,
+                    Size = 3,
                 },
                 new TypeOfVehicle{
                     TypeName = "Van",
-                    Size = 1,
+                    Size = 3,
                 },
                 new TypeOfVehicle {
                     TypeName = "Roadster",
-                    Size = 1,
+                    Size = 3,
                 },
                 new TypeOfVehicle{
                     TypeName = "MiniVan",
-                    Size = 1,
+                    Size = 3,
                 },
                 new TypeOfVehicle{
                     TypeName = "Truck",
-                    Size = 2,
+                    Size = 6,
                 },
                 new TypeOfVehicle{
                     TypeName = "BigTruck",
-                    Size = 2,
+                    Size = 6,
                 },
                 new TypeOfVehicle{
                     TypeName = "Boat",
-                    Size = 3,
+                    Size = 9,
                 },
                 new TypeOfVehicle{
                     TypeName = "Airplane",
-                    Size = 3,
+                    Size = 9,
                 },
             };
             return typesOfVehicles;
         }
 
-        private static List<ParkedVehicle> GetVehicles()
+        private static List<ParkedVehicle> GetVehicles(int amount)
         {
             var vehicles = new List<ParkedVehicle>();
             
             DateTime startDateTime = new DateTime(2020, 01, 01);
 
-
-            for (int i = 0; i < 21; i++)
+            for (int i = 0; i < amount; i++)
             {
 
                 var vehicle = new ParkedVehicle
                 {
+                    //VehicleType = fake.PickRandom<VehicleType>(),
+                    //RegistrationNum = fake.Random.String2(6),
+                    //Color = fake.Commerce.Color(),
+                    //Brand = fake.Vehicle.Manufacturer(),
+                    //Model = fake.Vehicle.Model(),
+                    //WheelsNum = fake.Random.Int(0, 12),
+                    //EnteringTime = fake.Date.Between(startDateTime, DateTime.Now)
+
                     VehicleType = fake.PickRandom<VehicleType>(),
-                    RegistrationNum = fake.Random.String2(6),
+                    RegistrationNum = fake.Random.AlphaNumeric(6),
                     Color = fake.Commerce.Color(),
                     Brand = fake.Vehicle.Manufacturer(),
                     Model = fake.Vehicle.Model(),
-                    WheelsNum = fake.Random.Int(0, 12),
-                    EnteringTime = fake.Date.Between(startDateTime, DateTime.Now) 
+                    WheelsNum = 4,
+                    EnteringTime = fake.Date.Between(startDateTime, DateTime.Now),
+                    TypeOfVehicle = fake.Random.ListItem<TypeOfVehicle>(typesOfVehicles), //<>(typesOfVehicles);
+                    Member = fake.Random.ListItem<Member>(members),
+                    IsInGarage = true
 
                 };
 
