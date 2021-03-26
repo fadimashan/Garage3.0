@@ -149,5 +149,35 @@ namespace Garage_G5.Controllers
         {
             return _context.Member.Any(e => e.Id == id);
         }
+
+       // [AcceptVerbs("GET", "POST")]
+        //public IActionResult IsPersonalCodeNumberExists(string personalcode, int Id)
+        //{
+        //   return Json(IsUnique(personalcode, Id));
+        //}
+
+        //private bool IsUnique(string personalcode, int Id)
+        //{
+        //    if (Id == 0) // its a new object
+        //   {
+        //        return !_context.Member.Any(x => x.PersonalIdNumber == personalcode);
+        //   }
+        //    else 
+        //    {
+        //        return !_context.Member.Any(x => x.PersonalIdNumber == personalcode && x.Id != Id);
+        //   }
+        //}
+        public bool IsCodeNumberExists(string CodeNum, int Id)
+        {
+            if (Id == 0)
+            {
+                return !_context.Member.Any(x => x.PersonalIdNumber == CodeNum);
+            }
+            else
+            {
+                return !_context.Member.Any(x => x.PersonalIdNumber == CodeNum && x.Id != Id);
+
+            }
+        }
     }
 }

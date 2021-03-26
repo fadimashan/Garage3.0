@@ -1,4 +1,5 @@
 ﻿using Garage_G5.Validation;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +27,7 @@ namespace Garage_G5.Models
         public DateTime DateOfBirth { get; set; }
         public int Age { get; set; }
        [SwedishPersonalNumber]
+       [Remote("IsCodeNumberExists", "Members", ErrorMessage = "Personal Code Number already in use" ,AdditionalFields ="Id")]
         public string PersonalIdNumber { get; set; }
         public DateTime DateAdded { get ; set; }
         public DateTime BonusAccountExpires { get; set; }
