@@ -54,7 +54,7 @@ namespace Garage_G5.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Phone,Age,PersonalIdNumber,DateAdded,BonusAccountExpires,DateOfBirth")] Member member)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Phone,DateOfBirth,Age,PersonalIdNumber,DateAdded,BonusAccountExpires")] Member member)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Garage_G5.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Phone,Age,PersonalIdNumber,DateAdded,BonusAccountExpires")] Member member)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Phone,DateOfBirth,Age,PersonalIdNumber,DateAdded,BonusAccountExpires")] Member member)
         {
             if (id != member.Id)
             {
@@ -149,33 +149,35 @@ namespace Garage_G5.Controllers
         {
             return _context.Member.Any(e => e.Id == id);
         }
-
-       // [AcceptVerbs("GET", "POST")]
-        //public IActionResult IsPersonalCodeNumberExists(string personalcode, int Id)
+        //[AcceptVerbs("GET", "POST")]
+        //public IActionResult IsRegExists(string CodeNum, int Id)
         //{
-        //   return Json(IsUnique(personalcode, Id));
+        //    return Json(IsUnique(CodeNum, Id));
         //}
 
-        //private bool IsUnique(string personalcode, int Id)
+        //private bool IsUnique(string CodeNum, int Id)
         //{
         //    if (Id == 0) // its a new object
-        //   {
-        //        return !_context.Member.Any(x => x.PersonalIdNumber == personalcode);
-        //   }
-        //    else 
         //    {
-        //        return !_context.Member.Any(x => x.PersonalIdNumber == personalcode && x.Id != Id);
-        //   }
+        //        return !_context.ParkedVehicle.Any(x => x.RegistrationNum == CodeNum);
+        //    }
+        //    else
+        //    {
+        //        return !_context.ParkedVehicle.Any(x => x.RegistrationNum == CodeNum && x.Id != Id);
+        //    }
         //}
-        public bool IsCodeNumberExists(string CodeNum, int Id)
+
+        public bool IsCodeNumberExists(string PersonalIdNumber, int Id)
         {
             if (Id == 0)
             {
-                return !_context.Member.Any(x => x.PersonalIdNumber == CodeNum);
+                var members = _context.Member.Any(x => x.PersonalIdNumber == PersonalIdNumber);
+               
+                return !_context.Member.Any(x => x.PersonalIdNumber == PersonalIdNumber);
             }
             else
             {
-                return !_context.Member.Any(x => x.PersonalIdNumber == CodeNum && x.Id != Id);
+                return !_context.Member.Any(x => x.PersonalIdNumber == PersonalIdNumber && x.Id != Id);
 
             }
         }

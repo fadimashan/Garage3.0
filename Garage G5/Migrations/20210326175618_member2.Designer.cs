@@ -4,14 +4,16 @@ using Garage_G5.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Garage_G5.Migrations
 {
     [DbContext(typeof(Garage_G5Context))]
-    partial class Garage_G5ContextModelSnapshot : ModelSnapshot
+    [Migration("20210326175618_member2")]
+    partial class member2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +50,6 @@ namespace Garage_G5.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("PersonalIdNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")

@@ -4,63 +4,51 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
 
-<h4>Member</h4>
-<hr />
-<div class="row">
+<div id="subHeading">
+    <!-- Subheading -->
+    <h2 class="sh2 mb-4" style="clear:both;">Please enter the details: </h2>
+</div>
+<!-- Grid row -->
+<div class="row mb-5">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <select asp-for="MembershipType" asp-items="@Html.GetEnumSelectList<MembershipType>()" class="form-control">
-                    <option selected="selected" value=" ">Please select</option>
-                </select>
-            </div>
-            <div class="form-group">
+                <label asp-for="MembershipType" class="control-label"></label>
+                @*<select asp-for="VehicleType" asp-items="@Html.GetEnumSelectList<VehicleType>()" class="form-control"></select>*@
+                <select id="select" asp-for="MembershipType" asp-items="@Html.GetEnumSelectList<MembershipType>() " class="form-control"></select>
+                <span asp-validation-for="MembershipType" class="text-danger"></span>
+                <p></p>
+
                 <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
+                <input asp-for="FirstName" name="FirstName" class="form-control" />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+                <p></p>
+
                 <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control"/>
+                <input asp-for="LastName" class="form-control" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+                <p></p>
+
                 <label asp-for="DateOfBirth" class="control-label"></label>
-                <input asp-for="DateOfBirth" class="form-control"  />
+                <input asp-for="DateOfBirth" class="form-control" />
                 <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+                <p></p>
+
+
                 <label asp-for="PersonalIdNumber" class="control-label"></label>
-                <input asp-for="PersonalIdNumber" class="form-control" />
+                <input asp-for="PersonalIdNumber" class="form-control"  placeholder="YYYYMMDDxxxm"/>
                 <span asp-validation-for="PersonalIdNumber" class="text-danger"></span>
+                <p></p>
+
             </div>
-            @*<div class="form-group">
-                <label asp-for="DateAdded" class="control-label"></label>
-                <input asp-for="DateAdded" class="form-control" />
-                <span asp-validation-for="DateAdded" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BonusAccountExpires" class="control-label"></label>
-                <input asp-for="BonusAccountExpires" class="form-control" />
-                <span asp-validation-for="BonusAccountExpires" class="text-danger"></span>
-            </div>*@
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+
+            <input type="submit" value="Create" class="btn btn-primary btn noSpace" />
+            <a asp-action="Index" type="button" class="btn btn-info btn">Cancel</a>
+
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

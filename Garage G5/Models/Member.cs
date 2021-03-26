@@ -26,8 +26,9 @@ namespace Garage_G5.Models
         [DataType(DataType.Date),DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}", ApplyFormatInEditMode =true)]
         public DateTime DateOfBirth { get; set; }
         public int Age { get; set; }
+       [Required]
+       [Remote("IsCodeNumberExists", "Members", ErrorMessage = "Personal Code Number exists already !" , AdditionalFields = "Id")]
        [SwedishPersonalNumber]
-       [Remote("IsCodeNumberExists", "Members", ErrorMessage = "Personal Code Number already in use" ,AdditionalFields ="Id")]
         public string PersonalIdNumber { get; set; }
         public DateTime DateAdded { get ; set; }
         public DateTime BonusAccountExpires { get; set; }

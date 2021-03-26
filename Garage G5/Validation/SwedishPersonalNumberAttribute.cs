@@ -13,14 +13,12 @@ namespace Garage_G5.Validation
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-           // 19800101 last four digits = 1234 personalid = 
              if(value is string input && input.Length==12)
              {
                 var owner = (Member)validationContext.ObjectInstance;
 
                 var dateOfB = owner.DateOfBirth.ToString().Substring(0,10);
-
-                dateOfB.Split("-");
+                //dateOfB.Split("-");
                 string [] subs = dateOfB.Split('-');
                 StringBuilder builder = new StringBuilder();
                 foreach (string part in subs)
@@ -28,14 +26,10 @@ namespace Garage_G5.Validation
                     builder.Append(part);
                 }
                 string resultOfBdd = builder.ToString();
-
-
-
                 //dateOfB.ToString();
                 // dateOfB.Substring(0,8);
-                var person = owner.PersonalIdNumber.ToString();
+               // var person = owner.PersonalIdNumber.ToString();
              
-
                 var fourDigits = input.Substring(8);
                 if (int.TryParse(fourDigits,out int res))
                 {
@@ -47,14 +41,14 @@ namespace Garage_G5.Validation
                         return ValidationResult.Success;
 
                     }
-                    else return new ValidationResult("The format is wrong");
+                    else return new ValidationResult("Please check the personalcode format");
 
                 }
-                return new ValidationResult("The format is wrong");
+                return new ValidationResult("Please check the personalcode format");
 
 
             }
-            return new ValidationResult("The format is wrong");
+            return new ValidationResult("Please check the personalcode format");
         }
     }
     
