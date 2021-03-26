@@ -4,14 +4,16 @@ using Garage_G5.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Garage_G5.Migrations
 {
     [DbContext(typeof(Garage_G5Context))]
-    partial class Garage_G5ContextModelSnapshot : ModelSnapshot
+    [Migration("20210325184217_IsInGarage")]
+    partial class IsInGarage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,13 +67,13 @@ namespace Garage_G5.Migrations
 
                     b.Property<string>("Brand")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Color")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<DateTime>("EnteringTime")
                         .HasColumnType("datetime2");
@@ -84,13 +86,13 @@ namespace Garage_G5.Migrations
 
                     b.Property<string>("Model")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("RegistrationNum")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int?>("TypeOfVehicleId")
                         .HasColumnType("int");
@@ -117,10 +119,10 @@ namespace Garage_G5.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ExtraHourlyRate")
+                    b.Property<int>("ExtraHourlyRate")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ExtraRate")
+                    b.Property<int>("ExtraRate")
                         .HasColumnType("int");
 
                     b.Property<int>("Size")
