@@ -316,7 +316,6 @@ namespace Garage_G5.Controllers
         }
 
 
-
         private bool ParkedVehicleExists(int id)
         {
             return _context.ParkedVehicle.Any(e => e.Id == id);

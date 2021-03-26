@@ -209,13 +209,10 @@ namespace Garage_G5.Controllers
 
         public async Task<IActionResult> MemberCheckIn(int id)
         {
-
             var member = _context.Member.Find(id);
             var vehicles = _context.ParkedVehicle;
             var memberVehicles = await vehicles.Where(v => v.MemberId == member.Id).ToListAsync();
-
             member.MemberVehicles = memberVehicles;
-
             return View("MemberCheckIn", member);
         }
 
@@ -240,13 +237,9 @@ namespace Garage_G5.Controllers
 
         public async Task<IActionResult> Search(string FullName)
         {
-
             var vehicles = string.IsNullOrWhiteSpace(FullName) ?
             _context.Member :
             _context.Member.Where(v => v.FirstName.StartsWith(FullName) || v.LastName.StartsWith(FullName));
-
-
-
             return View("Index", await vehicles.ToListAsync());
         }
 
