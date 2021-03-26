@@ -24,7 +24,7 @@ namespace Garage_G5
 
                 try
                 {
-                    SeedDate.IntiAsync(services).Wait();
+                    SeedData.InitAsync(services).Wait();
 
                 }
                 catch (Exception e)

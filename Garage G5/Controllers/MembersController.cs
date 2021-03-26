@@ -20,9 +20,63 @@ namespace Garage_G5.Controllers
         }
 
         // GET: Members
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Member.ToListAsync());
+        //}
+
+        public async Task<IActionResult> Index(
+            string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? pageNumber, 
+            int? userPageSize)
         {
-            return View(await _context.Member.ToListAsync());
+
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var members = from s in _context.Member
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                members = members.Where(s => s.LastName.Contains(searchString)
+                                       || s.LastName.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    members = members.OrderByDescending(s => s.LastName);
+                    break;
+                case "Date":
+                    members = members.OrderBy(s => s.LastName);
+                    break;
+                case "date_desc":
+                    members = members.OrderByDescending(s => s.FirstName);
+                    break;
+                default:
+                    members = members.OrderBy(s => s.LastName);
+                    break;
+            }
+
+            int pageSize = 5;
+            if(userPageSize != null)
+            {
+                pageSize = (int)userPageSize;
+            }
+            return View(await PaginatedList<Member>.CreateAsync(members.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Members/Details/5
