@@ -25,12 +25,6 @@ namespace Garage_G5.Controllers
             this.mapper = mapper;
         }
 
-        // GET: Members
-        //public async Task<IActionResult> Index()
-        //{
-        //    return View(await _context.Member.ToListAsync());
-        //}
-
         public async Task<IActionResult> Index(
             string sortOrder,
             string searchString,
@@ -61,11 +55,11 @@ namespace Garage_G5.Controllers
                 pageSize = (int)userPageSize;
             }
 
-            //members = string.IsNullOrWhiteSpace(FullName) ?
-            //   _context.Member :
-            //   _context.Member.Where(v => v.FirstName.StartsWith(FullName) || v.LastName.StartsWith(FullName));
+            members = string.IsNullOrWhiteSpace(searchString) ?
+               _context.Member :
+               _context.Member.Where(v => v.FirstName.StartsWith(searchString) || v.LastName.StartsWith(searchString));
 
-            ViewBag.FullNameSortParm = (sortOrder == "FullName") ? $"{sortOrder}_desc" : "FullName";
+            ViewBag.FullNameSortParm = (sortOrder == "FirstName") ? $"{sortOrder}_desc" : "FirstName";
             ViewBag.AgeSortParm = (sortOrder == "Age") ? $"{sortOrder}_desc" : "Age";
             ViewBag.DateAddedSortParm = (sortOrder == "DateAdded") ? $"{sortOrder}_desc" : "DateAdded";
             ViewBag.MembershipTypeSortParm = (sortOrder == "MembershipType") ? $"{sortOrder}_desc" : "MembershipType";
@@ -74,11 +68,11 @@ namespace Garage_G5.Controllers
 
             switch (sortOrder)
             {
-                case "FullName":
-                    members = members.OrderBy(v => v.FullName);
+                case "FirstName":
+                    members = members.OrderBy(v => v.FirstName);
                     break;
-                case "FullName_desc":
-                    members = members.OrderByDescending(v => v.FullName);
+                case "FirstName_desc":
+                    members = members.OrderByDescending(v => v.FirstName);
                     break;
 
                 case "Age":
@@ -112,7 +106,6 @@ namespace Garage_G5.Controllers
                     members = members.OrderByDescending(v => v.BonusAccountExpires);
                     break;
             }
-            //return View(/*await PaginatedList<Member>.CreateAsync(members.AsNoTracking(), pageNumber ?? 1, pageSize)*/);
 
             return View(await PaginatedList<Member>.CreateAsync(members.AsNoTracking(), pageNumber ?? 1, pageSize));
         }

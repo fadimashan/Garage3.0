@@ -5,9 +5,9 @@
 <h1>Members</h1>
 
 <div class="col-md-8">
-    <form asp-action="Search">
+    <form asp-action="Index">
         <div class="input-group mb-3">
-            <input type="text" class="form-control textboxGeneralInfo" name="FullName" onchange="this.form.submit()" placeholder="Search on member name" />
+            <input type="text" class="form-control textboxGeneralInfo" name="searchString" onchange="this.form.submit()" placeholder="Search on member name" />
             <div class="input-group-append  ">
                 <button onchange="this.form.submit()" type="submit" class="form-control">Search</button>
             </div>
@@ -24,7 +24,7 @@
         <tr>
             <th>
                 <p>
-                    <a style="color:black" href="@Url.Action("Sorting", new { sortOrder = ViewBag.FullNameSortParm, CurrentSort = ViewBag.FullNameSortParm })">
+                    <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.FullNameSortParm, CurrentSort = ViewBag.FullNameSortParm })">
                         Name <i class="fa fa-sort" aria-hidden="true"> </i>
                     </a>
                 </p>
