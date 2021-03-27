@@ -157,7 +157,7 @@ namespace Garage_G5.Data
 
                 var vehicle = new ParkedVehicle
                 {
-                    VehicleType = fake.PickRandom<VehicleType>(),
+                    //VehicleType = fake.PickRandom<VehicleType>(),
                     RegistrationNum = fake.Random.AlphaNumeric(6),
                     Color = fake.Commerce.Color(),
                     Brand = fake.Vehicle.Manufacturer(),
