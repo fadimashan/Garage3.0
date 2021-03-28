@@ -45,6 +45,6 @@ namespace Garage_G5.Models
 
         public Member? Member { get; set; }
 
-        public bool? IsInGarage { get; set; }
+        public bool IsInGarage { get; set; }
     }
 }

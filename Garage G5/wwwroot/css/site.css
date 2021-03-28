@@ -96,7 +96,7 @@ body {
 }
 
 #h1 {
-/*    min-width: 25%;
+    /*    min-width: 25%;
     vertical-align: middle;
     font-weight: bold;
     font-size: 5em;
@@ -133,12 +133,12 @@ body {
     border-radius: 10px;
 }
 
-.notifyjs-foo-base .title {
-    float: left;
-    margin: 0px;
-    font-weight: bold;
-    font-size: 1.2em;
-}
+    .notifyjs-foo-base .title {
+        float: left;
+        margin: 0px;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
 
 
 /* Print styles */
@@ -176,7 +176,7 @@ option:disabled {
     color: #f8d4d4 !important;
 }
 
-#main_container{
+#main_container {
     padding-left: 10%;
     padding-right: 10%;
 }
@@ -239,4 +239,13 @@ input:checked + .slider:before {
 
     .slider.round:before {
         border-radius: 50%;
+    }
+
+
+.parked {
+    display: flex;
+}
+
+    .parked img {
+        height: 2.5em;
     }
