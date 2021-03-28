@@ -155,6 +155,42 @@ namespace Garage_G5.Controllers
         //    return Json(IsUnique(CodeNum, Id));
         //}
 
+
+        public async Task<IActionResult> MemberCheckIn(int id)
+        {
+            var member = _context.Member.Find(id);
+            var vehicles = _context.ParkedVehicle;
+            var memberVehicles = await vehicles.Where(v => v.MemberId == member.Id).ToListAsync();
+           // member.MemberVehicles = memberVehicles;
+            return View("MemberCheckIn", member);
+        }
+
+        public async Task<IActionResult> CheckOutConfirmed(int id)
+        {
+            var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
+            parkedVehicle.IsInGarage = false;
+            parkedVehicle.EnteringTime = DateTime.Now;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> CheckInConfirmed(int id)
+        {
+            var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
+            parkedVehicle.IsInGarage = true;
+            parkedVehicle.EnteringTime = DateTime.Now;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult CreateNewVehicle(int id)
+        {
+            var model = new ParkedVehicle
+            {
+                GetVehiclesType = GetTypeOfVehicle()
+            };
+            model.MemberId = id;
+
         //private bool IsUnique(string CodeNum, int Id)
         //{
         //    if (Id == 0) // its a new object
