@@ -183,15 +183,15 @@ namespace Garage_G5.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult CreateNewVehicle(int id)
-        {
-            var model = new ParkedVehicle
-            {
-                GetVehiclesType = GetTypeOfVehicle()
-            };
-            model.MemberId = id;
+        //public IActionResult CreateNewVehicle(int id)
+        //{
+        //    var model = new ParkedVehicle
+        //    {
+        //        GetVehiclesType = GetTypeOfVehicle()
+        //    };
+        //    model.MemberId = id;
 
-        //private bool IsUnique(string CodeNum, int Id)
+        ////private bool IsUnique(string CodeNum, int Id)
         //{
         //    if (Id == 0) // its a new object
         //    {
