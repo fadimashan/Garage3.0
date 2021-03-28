@@ -91,7 +91,8 @@
                     
                     @{ var hide = (item.IsInGarage == true) ? false : true;}
                     <a asp-action="CheckInConfirmed" asp-route-id="@item.Id" type="button" hidden="@item.IsInGarage" class="btn btn-outline-success btn-sm pl-3 pr-3">Check-in </a>
-                    <a asp-action="CheckOutConfirmed" asp-route-id="@item.Id" type="button" hidden="@hide" class="btn btn-outline-danger btn-sm">Check-out</a>
+                    @*<a asp-action="CheckOutConfirmed" asp-route-id="@item.Id" type="button" hidden="@hide" class="btn btn-outline-danger btn-sm">Check-out</a>*@
+                    <a asp-controller="ParkedVehicles" asp-action="Receipt" asp-route-id="@item.Id" type="button" hidden="@hide" class="btn btn-outline-danger btn-sm">Check-out</a>
                 </td>
 
             </tr>

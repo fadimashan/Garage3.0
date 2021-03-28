@@ -107,13 +107,7 @@ namespace Garage_G5.Controllers
             }
 
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
-            //var parkedVehicle = from v in _context.ParkedVehicle
-            //                    join m in _context.Member on v.MemberId equals m.Id
-            //                    where v.Id == id
-            //                    select v ;
-
             var member = await _context.Member.FindAsync(parkedVehicle.MemberId);
-
 
 
             if (parkedVehicle == null)
@@ -219,8 +213,8 @@ namespace Garage_G5.Controllers
             var model = new ParkedVehicle
             {
                 //GetVehiclesType = GetVehiclesType()
-                GetVehiclesType = GetTypeOfVehicle()
-
+                GetVehiclesType = GetTypeOfVehicle(),
+                IsInGarage = false
             };
 
             return View(model);
@@ -365,11 +359,11 @@ namespace Garage_G5.Controllers
         private void CheckAvailability()
         {
             int garageCapacity = 158;
-            int freePlaces = 0;
             int motorcyclePlaces = 0;
             var listAllVehicles = _context.ParkedVehicle.ToList();
             int placeCounter = 0;
             int motorCapasty;
+            int freePlaces;
 
             foreach (var vehicle in listAllVehicles)
             {

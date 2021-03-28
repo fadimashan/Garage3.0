@@ -83,7 +83,6 @@ namespace Garage_G5.Data
                     MembershipType = (MembershipType)0,
                     Phone = fake.Phone.PhoneNumberFormat(),
                     PersonalIdNumber = personalIdNumber.ToString(), //198010101234
-                    
                     Age = DateTime.Now.Year - first4digits,
                     DateAdded = fake.Date.Between(startDateTime, DateTime.Now),
                     BonusAccountExpires = fake.Date.Between(startDateTime, DateTime.Now)
