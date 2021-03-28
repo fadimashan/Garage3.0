@@ -13,8 +13,7 @@ namespace Garage_G5.Models
         [Key]
         public int Id { get; set; }
 
-        [Display(Name = "Type")]
-        public VehicleType? VehicleType { get; set; }
+    
         [Display(Name = "Registration")]
         [Required]
         [Remote("IsRegisterNumberExists", "ParkedVehicles", ErrorMessage = "Registration Number already in use", AdditionalFields = "Id")]
@@ -38,9 +37,9 @@ namespace Garage_G5.Models
         public DateTime EnteringTime { get;set; }
         [NotMapped]
         public IEnumerable<SelectListItem> GetVehiclesType { get; set; }
-        public int? TypeOfVehicleId { get; set; }
+        public int TypeOfVehicleId { get; set; }
         [Display(Name = "Type")]
-        public TypeOfVehicle? TypeOfVehicle { get; set; }
+        public TypeOfVehicle TypeOfVehicle { get; set; }
         public int? MemberId { get; set; }
 
         public Member? Member { get; set; }

@@ -341,7 +341,7 @@ namespace Garage_G5.Controllers
         {
             var g = _context.ParkedVehicle;
             return await _context.ParkedVehicle
-                .Select(p => p.VehicleType)
+                .Select(p => p.TypeOfVehicle.TypeName)
                 .Distinct()
                 .Select(g => new SelectListItem
                 {

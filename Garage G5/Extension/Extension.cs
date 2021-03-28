@@ -32,7 +32,7 @@ namespace Garage_G5.Extension
         private static IEnumerable<SelectListItem> GetVehicleTypeAsync(DbSet<ParkedVehicle> listOfPV)
         {
             return listOfPV
-                .Select(p => p.VehicleType)
+                .Select(p => p.TypeOfVehicle)
                 .Distinct()
                 .Select(g => new SelectListItem
                 {

@@ -156,14 +156,13 @@ namespace Garage_G5.Data
 
                 var vehicle = new ParkedVehicle
                 {
-                    VehicleType = fake.PickRandom<VehicleType>(),
                     RegistrationNum = fake.Random.AlphaNumeric(6),
                     Color = fake.Commerce.Color(),
                     Brand = fake.Vehicle.Manufacturer(),
                     Model = fake.Vehicle.Model(),
                     WheelsNum = 4,
                     EnteringTime = fake.Date.Between(startDateTime, DateTime.Now),
-                    TypeOfVehicle = fake.Random.ListItem<TypeOfVehicle>(typesOfVehicles), 
+                    TypeOfVehicleId = fake.Random.ListItem<TypeOfVehicle>(typesOfVehicles).Id, 
                     Member = fake.Random.ListItem<Member>(members),
                     IsInGarage = fake.Random.Bool()
                 };

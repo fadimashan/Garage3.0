@@ -21,7 +21,7 @@ namespace Garage_G5.Models.ViewModels
         public IEnumerable<GeneralInfoViewModel> GenralRegistration { get; set; }
 
         [Display(Name = "Vehicle Type")]
-        public VehicleType? VehicleType { get; set; }
+        public string VehicleType { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string RegistrationNum { get; set; }

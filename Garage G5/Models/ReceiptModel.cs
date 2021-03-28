@@ -26,7 +26,7 @@ namespace Garage_G5.ViewModels
         [Display(Name = "Registration")]
         public string RegistrationNum { get; set; }
         [Display(Name = "Type")]
-        public VehicleType VehicleType { get; set; }
+        public string VehicleType { get; set; }
         public string Fullname { get; set; }
         public MembershipType MembershipType { get; set; }
         public int Discount { get; set; }
