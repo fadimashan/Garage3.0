@@ -27,6 +27,11 @@ namespace Garage_G5.ViewModels
         public string RegistrationNum { get; set; }
         [Display(Name = "Type")]
         public VehicleType VehicleType { get; set; }
+        public string Fullname { get; set; }
+        public MembershipType MembershipType { get; set; }
+        public int Discount { get; set; }
+
+        public int TotalPrice { get; set; }
 
     }
 }

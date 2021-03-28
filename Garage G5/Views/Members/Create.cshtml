@@ -12,11 +12,14 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div hidden="hidden" class="form-group">
                 <select asp-for="MembershipType" asp-items="@Html.GetEnumSelectList<MembershipType>()" class="form-control">
                     <option selected="selected" value=" ">Please select</option>
                 </select>
             </div>
+
+            @* Here we should add toggle or checkbox for golden membership *@
+
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
@@ -48,7 +51,7 @@
                 <span asp-validation-for="DateAdded" class="text-danger"></span>
             </div>
             @*Todo: add option for add 3,6 or 12 month*@
-            <div class="form-group">
+            <div hidden="hidden" class="form-group">
                 <label asp-for="BonusAccountExpires" class="control-label"></label>
                 <input asp-for="BonusAccountExpires" class="form-control" />
                 <span asp-validation-for="BonusAccountExpires" class="text-danger"></span>

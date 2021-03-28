@@ -107,6 +107,15 @@ namespace Garage_G5.Controllers
             }
 
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
+            //var parkedVehicle = from v in _context.ParkedVehicle
+            //                    join m in _context.Member on v.MemberId equals m.Id
+            //                    where v.Id == id
+            //                    select v ;
+
+            var member = await _context.Member.FindAsync(parkedVehicle.MemberId);
+
+
+
             if (parkedVehicle == null)
             {
                 return NotFound();
@@ -120,12 +129,43 @@ namespace Garage_G5.Controllers
                     Id = parkedVehicle.Id,
                     EnteringTime = parkedVehicle.EnteringTime,
                     TotalTimeParked = DateTime.Now - parkedVehicle.EnteringTime,
-                    Price = (int)(DateTime.Now - parkedVehicle.EnteringTime).TotalMinutes * 10 / 60,
-
+                    Price = getPrice(parkedVehicle.EnteringTime),
+                    Fullname = member.FullName,
+                    MembershipType = member.MembershipType,
+                    Discount = (getDiscount(member)),
+                    TotalPrice = getPrice(parkedVehicle.EnteringTime) - (int)(getDiscount(member) * getPrice(parkedVehicle.EnteringTime))
                 };
                 return View(nRM);
             }
         }
+
+        private int getPrice(DateTime entring)
+        {
+            //Vehicles that take up a place basic fee +hourly rate* time
+            //Vehicles that take up two places basic fee *1.3 + hourly price * 1.4 * time
+            //Vehicles that charge three or more basic fee *1.6 + hourly rate * 1.5 * time
+            var price = (DateTime.Now - entring).TotalMinutes * 10 / 60;
+            return (int)price;
+        }
+
+        private int getDiscount(Member model)
+        {
+            int discount;
+            if (model.MembershipType == MembershipType.Regular) 
+            {
+                discount = 0;
+            } else if(model.MembershipType == MembershipType.Pro) 
+            {
+                discount = 5;
+            } else
+            {
+                discount = 10;
+            }
+
+            return discount;
+        }
+
+
 
         // GET: ParkedVehicles/Details/5
         public async Task<IActionResult> Details(int? id)
