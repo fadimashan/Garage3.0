@@ -1,14 +1,14 @@
 ﻿@model VehicleFilterViewModel
-
+@*@model PagedList.IPagedList<GeneralInfoViewModel>
+    @inject VehicleFilterViewModel vmodel*@
 @using Microsoft.AspNetCore.Http;
-
 
 @{
     ViewData["Title"] = "Garage";
 }
 
 <div id="subHeading">
-    
+
     <h2 class="sh2 mb-4" style="clear:both;">Space in the garage: <strong style="text-decoration:underline"> @Context.Session.GetInt32("FreePlaces")</strong>.</h2>
 
 </div>
@@ -19,7 +19,7 @@
     <div class="col-md-8">
         <form asp-action="GeneralInfoGarage">
             <div class="input-group mb-3">
-                <input type="text" class="form-control textboxGeneralInfo"  name="inputString" onchange="this.form.submit()" placeholder="Search Registration No. or Vehicle Brand" />
+                <input type="text" class="form-control textboxGeneralInfo" name="inputString" onchange="this.form.submit()" placeholder="Search Registration No. or Vehicle Brand" />
                 <div class="input-group-append">
                     <select id="select" asp-for="TypeOfVehicle.TypeName" asp-items="@Model.GetVehiclesType" class="form-control">
                         <option selected="selected" value=" ">Please select</option>
