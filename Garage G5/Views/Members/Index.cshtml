@@ -91,7 +91,7 @@
         @Html.DisplayFor(modelItem => item.PersonalIdNumber)
     </td>
     <td>
-        @{var dateAdded = (item.DateAdded)?.ToString("dd/MMM/yyyy");}  @Html.DisplayFor(modelItem => dateAdded)
+        @{var dateAdded = (item.DateAdded).ToString("dd/MMM/yyyy");}  @Html.DisplayFor(modelItem => dateAdded)
     </td>
     <td>
         @{var expired = (item.BonusAccountExpires).ToString("dd/MMM/yyyy");}  @Html.DisplayFor(modelItem => expired)

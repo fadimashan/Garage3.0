@@ -50,3 +50,7 @@ if (notification == "parked") {
         clickToHide: true
     });
 }
+
+$(document).ready(function () {
+    $('[data-toggle="popover"]').popover();
+});

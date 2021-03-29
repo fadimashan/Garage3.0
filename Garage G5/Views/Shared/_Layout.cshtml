@@ -4,9 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Garage_G5</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <!-- Fluent Design Bootstrap -->
     <link rel="stylesheet" href="~/css/fluent.css">
     <!-- Micon icons-->
@@ -17,27 +22,22 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Garage_G5</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Members" asp-action="Index">Members</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="TypeOfVehicles" asp-action="Index">TypeOfVehicles</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="ParkedVehicles" asp-action="Index">ParkedVehicle</a>
-                            </li>
-                        </ul>
-                    </div>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-5">
+            <div class="container-fluid">
+                @*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Garage_G5</a>*@
+                <div id="logoNav"><a href="/"><img id="logo" src="/img/g5.png"></a></div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1" id="NoPrint">
+                        
+                            @await Html.PartialAsync("NavButtonsHeader", "Garage3.0 G5")
+
+                    </ul>
                 </div>
+            </div>
             </nav>
     </header>
     <div class="container-fluid" id="main_container">
@@ -45,9 +45,10 @@
         <main role="main" class="pb-3">
 
             <!-- Section: Tables -->
-            <section id="tables" class="my-5">
+            <section id="tables" class="my-1">
 
                 @RenderBody()
+
             </section>
 
         </main>
@@ -55,15 +56,11 @@
 
 
     <footer class="border-top footer text-muted">
-        <div class="container">
+        <div class="container-fluid">
             &copy; 2021 - Garage Amazing Group 5
         </div>
     </footer>
 
-    @*<div class="footer-copyright text-center py-3">
-            © 2018 Copyright:
-            <a href="https://mdbootstrap.com/bootstrap-tutorial/"> MDBootstrap.com</a>
-        </div>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/notify.min.js" asp-append-version="true"></script>

@@ -161,7 +161,7 @@ namespace Garage_G5.Controllers
                 {
                     Text = type.TypeName,
                     Value = type.Id.ToString(),
-                    //Disabled = CheckFreePlaces(type.Id),
+                    Disabled = CheckFreePlaces(),
                 });
                 GetTypeOfVehicle.Add(newType);
             }
@@ -311,6 +311,28 @@ namespace Garage_G5.Controllers
             }
 
 
+        //    HttpContext.Session.SetInt32("FreePlaces", freePlaces);
+        //    HttpContext.Session.SetInt32("MotorFreePlaces", motorCapasty);
+
+        //}
+        private void CheckAvailability()
+        {
+            int garageCapacity = 158;
+            int freePlaces = 0;
+            var totalSpace = _context.ParkedVehicle.Select(v => v.TypeOfVehicle.Size).Sum();   // your starting point - table in the "from" statement
+            //Simple inner join
+            //var totalSpace = _context.ParkedVehicle.Select(v => v.TypeOfVehicle.Size).Sum();
+            //More complex "Inner joins"
+            //var x = _context.ParkedVehicle.Include(v => v.TypeOfVehicle).Include(m => m.Member).ToList();
+            //Gå ned ett steg i kedjan med "then include"
+            //var x = _context.ParkedVehicle.Include(v => v.TypeOfVehicle).ThenInclude(m => m.Member).ToList();
+            freePlaces = garageCapacity - totalSpace;
+            HttpContext.Session.SetInt32("FreePlaces", freePlaces);
+        }
+        public async Task<IActionResult> GeneralInfoGarage(VehicleFilterViewModel viewModel, string RegistrationNum)
+        {
+            CheckAvailability();
+
             vehicles = viewModel.TypeOfVehicle.TypeName == null ?
                 vehicles :
                 vehicles.Where(m => m.TypeOfVehicle.TypeName == viewModel.TypeOfVehicle.TypeName);
@@ -338,6 +360,8 @@ namespace Garage_G5.Controllers
             ViewBag.RegSortParm = (sortOrder == "RegistrationNum") ? $"{sortOrder}_desc" : "RegistrationNum";
             ViewBag.DateSortParm = (sortOrder == "EntryDate") ? $"{sortOrder}_desc" : "EntryDate";
             ViewBag.VehicleTypeSortParm = (sortOrder == "VehicleType") ? $"{sortOrder}_desc" : "VehicleType";
+            ViewBag.MemberSortParm = (sortOrder == "Member") ? $"{sortOrder}_desc" : "Member";
+            ViewBag.MemberTypeSortParm = (sortOrder == "MemberType") ? $"{sortOrder}_desc" : "MemberType";
             ViewBag.TotalTimeSortParm = (sortOrder == "TotalTime") ? $"{sortOrder}_desc" : "TotalTime";
 
             var vehicles = from v in _context.ParkedVehicle
@@ -350,18 +374,23 @@ namespace Garage_G5.Controllers
                 case "RegistrationNum_desc":
                     vehicles = vehicles.OrderByDescending(v => v.RegistrationNum);
                     break;
-
-                case "EntryDate":
-                    vehicles = vehicles.OrderBy(v => v.EnteringTime);
-                    break;
-                case "EntryDate_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.EnteringTime);
-                    break;
                 case "VehicleType":
                     vehicles = vehicles.OrderBy(v => v.TypeOfVehicle.TypeName);
                     break;
                 case "VehicleType_desc":
                     vehicles = vehicles.OrderByDescending(v => v.TypeOfVehicle.TypeName);
+                    break;
+                case "MemberType":
+                    vehicles = vehicles.OrderBy(v => v.Member.MembershipType);
+                    break;
+                case "MemberType_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.Member.MembershipType);
+                    break;
+                case "Member":
+                    vehicles = vehicles.OrderBy(v => v.Member.FirstName);
+                    break;
+                case "Member_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.Member.FirstName);
                     break;
                 case "TotalTime":
                     vehicles = vehicles.OrderBy(v => v.EnteringTime);

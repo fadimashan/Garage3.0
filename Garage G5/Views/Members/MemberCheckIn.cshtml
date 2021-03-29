@@ -44,7 +44,7 @@
             @Html.DisplayNameFor(model => model.DateAdded)
         </dt>
         <dd class="col-sm-9">
-            @{var dateAdded = (Model.DateAdded)?.ToString("dd/MMM/yyyy");}  @Html.DisplayFor(modelItem => dateAdded)
+            @{var dateAdded = (Model.DateAdded).ToString("dd/MMM/yyyy");}  @Html.DisplayFor(modelItem => dateAdded)
         </dd>
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.BonusAccountExpires)
