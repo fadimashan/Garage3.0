@@ -11,7 +11,7 @@
 
 <div id="subHeading">
     
-    <h2 class="sh2 mb-4" style="clear:both;">Space in the garage: <strong style="text-decoration:underline"> @Context.Session.GetInt32("FreePlaces")</strong>. Space for Motorcycles: <strong style="text-decoration:underline"> @Context.Session.GetInt32("MotorFreePlaces")</strong>.</h2>
+    <h2 class="sh2 mb-4" style="clear:both;">Space in the garage: <strong style="text-decoration:underline"> @Context.Session.GetInt32("FreePlaces")</strong>.</h2>
 
 </div>
 
@@ -23,9 +23,9 @@
             <div class="input-group mb-3">
                 <input type="text" class="form-control textboxGeneralInfo" asp-for="RegistrationNum" onchange="this.form.submit()" placeholder="Search Registration No. or Vehicle Brand" />
                 <div class="input-group-append">
-                    <select asp-for="VehicleType" asp-items="@Html.GetEnumSelectList<VehicleType>()" onchange="this.form.submit()" class="form-control">
+                    @*<select asp-for="VehicleType" asp-items="@Html.GetEnumSelectList<VehicleType>()" onchange="this.form.submit()" class="form-control">
                         <option selected="selected" value=" ">Please select</option>
-                    </select>
+                    </select>*@
                 </div>
                 <div class="input-group-append  ">
                     <button onchange="this.form.submit()" type="submit" class="form-control">Search</button>

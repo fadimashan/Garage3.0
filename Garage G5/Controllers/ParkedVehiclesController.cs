@@ -40,16 +40,16 @@ namespace Garage_G5.Controllers
                 {
                     Text = type.ToString(),
                     Value = type.ToString(),
-                    Disabled = CheckFreePlaces(value),
+                    Disabled = CheckFreePlaces(),
                 });
                 getVehiclesType.Add(newType);
             }
             return (getVehiclesType);
         }
 
-        private bool CheckFreePlaces(int val)
+        private bool CheckFreePlaces()
         {
-            //var freePlaces = HttpContext.Session.GetInt32("FreePlaces");
+            var freePlaces = HttpContext.Session.GetInt32("FreePlaces");
             //switch (val)
             //{
             //    case (int)VehicleType.Sedan:
@@ -80,7 +80,14 @@ namespace Garage_G5.Controllers
             //    default:
             //        return false;
             //}
-            return false;
+            if (freePlaces > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
@@ -198,7 +205,7 @@ namespace Garage_G5.Controllers
                 {
                     Text = type.TypeName,
                     Value = type.Id.ToString(),
-                    Disabled = CheckFreePlaces(type.Id),
+                    Disabled = CheckFreePlaces(),
                 });
                 GetTypeOfVehicle.Add(newType);
             }
@@ -323,74 +330,89 @@ namespace Garage_G5.Controllers
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
 
+        //private void CheckAvailability()
+        //{
+        //    int garageCapacity = 158;
+        //    int freePlaces = 0;
+        //    //int motorcyclePlaces = 0;
+        //    //var listAllVehicles = _context.ParkedVehicle.ToList();
+        //    var listAllVehicles = _context.TypeOfVehicle.ToList();
+
+        //    int placeCounter = 0;
+        //    int motorCapasty;
+
+        //    //foreach (var vehicle in listAllVehicles)
+        //    //{
+        //    //    switch (vehicle.VehicleType)
+        //    //    {
+        //            //case VehicleType.Motorcycle:
+        //            //    motorcyclePlaces = motorcyclePlaces + 1;
+        //            //    break;
+
+        //            //case VehicleType.Sedan:
+        //            //case VehicleType.Combi:
+        //            //case VehicleType.Coupe:
+        //            //case VehicleType.Roadster:
+        //            //case VehicleType.MiniVan:
+        //            //case VehicleType.Van:
+        //            //    placeCounter++;
+        //            //    break;
+
+        //            //case VehicleType.Truck:
+        //            //case VehicleType.BigTruck:
+        //            //    placeCounter = placeCounter + 2;
+        //            //    break;
+        //            //case VehicleType.Boat:
+        //            //case VehicleType.Airplane:
+        //            //    placeCounter = placeCounter + 3;
+        //            //    break;
+        //            //default:
+        //            //    break;
+        //    //    }
+        //    //}
+
+        //    if (motorcyclePlaces != 0 && motorcyclePlaces > 3 && motorcyclePlaces % 3 != 0)
+        //    {
+        //        placeCounter = placeCounter + (int)(motorcyclePlaces / 3);
+        //    }
+        //    if (motorcyclePlaces != 0 && motorcyclePlaces % 3 == 0)
+        //    {
+        //        placeCounter = placeCounter + (motorcyclePlaces / 3);
+        //    }
+
+        //    if (motorcyclePlaces != 0 && motorcyclePlaces % 3 > 0)
+        //    {
+        //        placeCounter++;
+        //    }
+
+        //    if (garageCapacity == (placeCounter - 1) && motorcyclePlaces % 3 > 0)
+        //    {
+        //        placeCounter++;
+        //    }
+
+        //    var restOftheMotor = motorcyclePlaces % 3;
+        //    freePlaces = garageCapacity - placeCounter;
+        //    motorCapasty = (restOftheMotor != 0) ? freePlaces * 3 + (3 - restOftheMotor) : freePlaces * 3;
+
+
+        //    HttpContext.Session.SetInt32("FreePlaces", freePlaces);
+        //    HttpContext.Session.SetInt32("MotorFreePlaces", motorCapasty);
+
+        //}
         private void CheckAvailability()
         {
             int garageCapacity = 158;
             int freePlaces = 0;
-            int motorcyclePlaces = 0;
-            var listAllVehicles = _context.ParkedVehicle.ToList();
-            int placeCounter = 0;
-            int motorCapasty;
-
-            foreach (var vehicle in listAllVehicles)
-            {
-                switch (vehicle.VehicleType)
-                {
-                    //case VehicleType.Motorcycle:
-                    //    motorcyclePlaces = motorcyclePlaces + 1;
-                    //    break;
-
-                    //case VehicleType.Sedan:
-                    //case VehicleType.Combi:
-                    //case VehicleType.Coupe:
-                    //case VehicleType.Roadster:
-                    //case VehicleType.MiniVan:
-                    //case VehicleType.Van:
-                    //    placeCounter++;
-                    //    break;
-
-                    //case VehicleType.Truck:
-                    //case VehicleType.BigTruck:
-                    //    placeCounter = placeCounter + 2;
-                    //    break;
-                    //case VehicleType.Boat:
-                    //case VehicleType.Airplane:
-                    //    placeCounter = placeCounter + 3;
-                    //    break;
-                    //default:
-                    //    break;
-                }
-            }
-
-            if (motorcyclePlaces != 0 && motorcyclePlaces > 3 && motorcyclePlaces % 3 != 0)
-            {
-                placeCounter = placeCounter + (int)(motorcyclePlaces / 3);
-            }
-            if (motorcyclePlaces != 0 && motorcyclePlaces % 3 == 0)
-            {
-                placeCounter = placeCounter + (motorcyclePlaces / 3);
-            }
-
-            if (motorcyclePlaces != 0 && motorcyclePlaces % 3 > 0)
-            {
-                placeCounter++;
-            }
-
-            if (garageCapacity == (placeCounter - 1) && motorcyclePlaces % 3 > 0)
-            {
-                placeCounter++;
-            }
-
-            var restOftheMotor = motorcyclePlaces % 3;
-            freePlaces = garageCapacity - placeCounter;
-            motorCapasty = (restOftheMotor != 0) ? freePlaces * 3 + (3 - restOftheMotor) : freePlaces * 3;
-
-
+            var totalSpace = _context.ParkedVehicle.Select(v => v.TypeOfVehicle.Size).Sum();   // your starting point - table in the "from" statement
+            //Simple inner join
+            //var totalSpace = _context.ParkedVehicle.Select(v => v.TypeOfVehicle.Size).Sum();
+            //More complex "Inner joins"
+            //var x = _context.ParkedVehicle.Include(v => v.TypeOfVehicle).Include(m => m.Member).ToList();
+            //Gå ned ett steg i kedjan med "then include"
+            //var x = _context.ParkedVehicle.Include(v => v.TypeOfVehicle).ThenInclude(m => m.Member).ToList();
+            freePlaces = garageCapacity - totalSpace;
             HttpContext.Session.SetInt32("FreePlaces", freePlaces);
-            HttpContext.Session.SetInt32("MotorFreePlaces", motorCapasty);
-
         }
-
         public async Task<IActionResult> GeneralInfoGarage(VehicleFilterViewModel viewModel, string RegistrationNum)
         {
             CheckAvailability();

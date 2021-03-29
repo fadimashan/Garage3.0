@@ -13,5 +13,6 @@
         //MiniVan,
         //Boat,
         //Airplane
+        NotUsed
     }
 }

@@ -32,5 +32,6 @@ namespace Garage_G5.Models.ViewModels
         public Member Member { get; set; }
         public TypeOfVehicle TypeOfVehicle { get; set; }
 
+        public List<TypeOfVehicle> TypesOfVehicles { set; get; }
     }
 }
