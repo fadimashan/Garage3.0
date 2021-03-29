@@ -29,11 +29,9 @@ namespace Garage_G5.Controllers
             string sortOrder,
             string searchString,
             string currentFilter,
-            int? pageNumber, 
+            int? pageNumber,
             int? userPageSize)
         {
-
-
             if (searchString != null)
             {
                 pageNumber = 1;
@@ -47,10 +45,12 @@ namespace Garage_G5.Controllers
 
 
             var members = from v in _context.Member
-                           select v;
+                          select v;
+
+         
 
             int pageSize = 5;
-            if(userPageSize != null)
+            if (userPageSize != null)
             {
                 pageSize = (int)userPageSize;
             }
@@ -107,8 +107,22 @@ namespace Garage_G5.Controllers
                     break;
             }
 
+            // to check if the membership is expired 
+            var expiredMembership = members.Where(m => m.BonusAccountExpires <= DateTime.Now)
+              .ToList();
+
+            foreach (var m in expiredMembership)
+            {
+                m.MembershipType = MembershipType.Regular;
+                m.IsGolden = false;
+                _context.Update(m);
+                await _context.SaveChangesAsync();
+            };
+
             return View(await PaginatedList<Member>.CreateAsync(members.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
+
+
 
         // GET: Members/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -131,7 +145,11 @@ namespace Garage_G5.Controllers
         // GET: Members/Create
         public IActionResult Create()
         {
-            return View();
+            var model = new Member
+            {
+                IsGolden = false
+            };
+            return View(model);
         }
 
         // POST: Members/Create
@@ -139,11 +157,14 @@ namespace Garage_G5.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Phone,Age,PersonalIdNumber,DateAdded,BonusAccountExpires,MembershipType")] Member member)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Phone,Age,PersonalIdNumber,DateAdded,IsGolden")] Member member)
         {
             if (ModelState.IsValid)
             {
                 member.DateAdded = DateTime.Now;
+                member.MembershipType = MembershipType.Pro;
+                var date = DateTime.Now;
+                member.BonusAccountExpires = date.AddMonths(1);
                 _context.Add(member);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -320,7 +341,7 @@ namespace Garage_G5.Controllers
         {
             var g = _context.ParkedVehicle;
             return await _context.ParkedVehicle
-                .Select(p => p.VehicleType)
+                .Select(p => p.TypeOfVehicle.TypeName)
                 .Distinct()
                 .Select(g => new SelectListItem
                 {

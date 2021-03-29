@@ -1,4 +1,4 @@
-﻿@model Garage_G5.Models.ViewModels.GeneralInfoViewModel
+﻿@model GeneralInfoViewModel
 
 @{ ViewData["Title"] = "Garage G5"; }
 
@@ -17,12 +17,11 @@
             <div class="input-group mb-3">
                 <input class="form-control" type="text" asp-for="RegistrationNum" placeholder="Search by registration number" />
                 <div class="input-group-append">
-                    <select asp-for="VehicleType" asp-items="@Model.Types" onchange="this.form.submit()" class="form-control">
+                    <select asp-for="TypeOfVehicle" asp-items="@Model.GetVehiclesType" onchange="this.form.submit()" class="form-control">
                         <option selected="selected" value=""> Please select</option>
                     </select>
                 </div>
                 <div class="input-group-append">
-                    @*<button type="submit" class="form-control btn btn-outline-info btn-sm"><i class="fa fa-search">&emsp;Search</i></button>*@
                     <button type="submit" class="form-control">Search</button>
 
                 </div>
@@ -33,7 +32,7 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.VehicleType)
+                        @Html.DisplayNameFor(model => model.TypeOfVehicle.TypeName)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.RegistrationNum)
@@ -43,7 +42,7 @@
                         @Html.DisplayNameFor(model => model.EnteringTime)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.TotalParkedTime)
+                        @Html.DisplayNameFor(model => model.TotalTimeParked)
                     </th>
                     <th></th>
                 </tr>
@@ -51,7 +50,7 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.VehicleType)
+                            @Html.DisplayFor(modelItem => item.TypeOfVehicle.TypeName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.RegistrationNum)

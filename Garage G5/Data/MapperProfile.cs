@@ -13,7 +13,7 @@ namespace Garage_G5.Data
         public MapperProfile()
         {
             CreateMap<ParkedVehicle, GeneralInfoViewModel>();
-
+            CreateMap<TypeOfVehicle, GeneralInfoViewModel>();
         }
     }
 }

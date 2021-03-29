@@ -19,9 +19,9 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id" />
                     <div class="form-group">
-                        <label asp-for="VehicleType" class="control-label"></label>
-                        <select asp-for="VehicleType" asp-items="@Model.GetVehiclesType" class="form-control"></select>
-                        <span asp-validation-for="VehicleType" class="text-danger"></span>
+                        <label asp-for="TypeOfVehicle.TypeName" class="control-label"></label>
+                        <select asp-for="TypeOfVehicle.TypeName" asp-items="@Model.GetVehiclesType" class="form-control"></select>
+                        <span asp-validation-for="TypeOfVehicle.TypeName" class="text-danger"></span>
                         <p></p>
 
                         <label asp-for="RegistrationNum" class="control-label"></label>
@@ -73,7 +73,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    Are you sure you want to save this edit to @Html.DisplayFor(model => model.VehicleType) @Html.DisplayFor(model => model.RegistrationNum).
+                                    Are you sure you want to save this edit to @Html.DisplayFor(model => model.TypeOfVehicle.TypeName) @Html.DisplayFor(model => model.RegistrationNum).
                                 </div>
                                 <div class="modal-footer">
                                     <input type="submit" value="Save" class="btn btn-primary" />

@@ -30,8 +30,9 @@ namespace Garage_G5.Models
        [Remote("IsCodeNumberExists", "Members", ErrorMessage = "Personal Code Number exists already !" , AdditionalFields = "Id")]
        [SwedishPersonalNumber]
         public string PersonalIdNumber { get; set; }
-        public DateTime? DateAdded { get; set; }
+        public DateTime DateAdded { get; set; }
         public DateTime BonusAccountExpires { get; set; }
+        public bool? IsGolden { get; set; }
 
         public string FullName { get => FirstName + " " + LastName; }
 

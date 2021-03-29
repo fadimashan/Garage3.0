@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Bogus.Extensions.Sweden;
 using System.Text;
 
 namespace Garage_G5.Data
@@ -83,7 +81,6 @@ namespace Garage_G5.Data
                     MembershipType = (MembershipType)0,
                     Phone = fake.Phone.PhoneNumberFormat(),
                     PersonalIdNumber = personalIdNumber.ToString(), //198010101234
-                    
                     Age = DateTime.Now.Year - first4digits,
                     DateAdded = fake.Date.Between(startDateTime, DateTime.Now),
                     BonusAccountExpires = fake.Date.Between(startDateTime, DateTime.Now)
@@ -157,7 +154,6 @@ namespace Garage_G5.Data
 
                 var vehicle = new ParkedVehicle
                 {
-                    //VehicleType = fake.PickRandom<VehicleType>(),
                     RegistrationNum = fake.Random.AlphaNumeric(6),
                     Color = fake.Commerce.Color(),
                     Brand = fake.Vehicle.Manufacturer(),

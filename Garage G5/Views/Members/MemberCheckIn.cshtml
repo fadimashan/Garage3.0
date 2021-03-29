@@ -44,7 +44,7 @@
             @Html.DisplayNameFor(model => model.DateAdded)
         </dt>
         <dd class="col-sm-9">
-            @{var dateAdded = (Model.DateAdded)?.ToString("dd/MMM/yyyy");}  @Html.DisplayFor(modelItem => dateAdded)
+            @{var dateAdded = (Model.DateAdded).ToString("dd/MMM/yyyy");}  @Html.DisplayFor(modelItem => dateAdded)
         </dd>
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.BonusAccountExpires)
@@ -76,20 +76,23 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.VehicleType)
+                    @Html.DisplayFor(modelItem => item.TypeOfVehicle.TypeName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.RegistrationNum)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Brand)
+                </td> 
+                <td>
+                    <parked in-garage="@item.IsInGarage"></parked>
                 </td>
                 <td>
-
+                    
                     @{ var hide = (item.IsInGarage == true) ? false : true;}
                     <a asp-action="CheckInConfirmed" asp-route-id="@item.Id" type="button" hidden="@item.IsInGarage" class="btn btn-outline-success btn-sm pl-3 pr-3">Check-in </a>
-                    <a asp-action="CheckOutConfirmed" asp-route-id="@item.Id" type="button" hidden="@hide" class="btn btn-outline-danger btn-sm">Check-out</a>
-                    @*<a asp-controller="" asp-action="CheckOutConfirmed" asp-route-id="@item.Id" type="button" hidden="@hide" class="btn btn-outline-danger btn-sm">Check-out</a>*@
+                    @*<a asp-action="CheckOutConfirmed" asp-route-id="@item.Id" type="button" hidden="@hide" class="btn btn-outline-danger btn-sm">Check-out</a>*@
+                    <a asp-controller="ParkedVehicles" asp-action="Receipt" asp-route-id="@item.Id" type="button" hidden="@hide" class="btn btn-outline-danger btn-sm">Check-out</a>
                 </td>
 
             </tr>

@@ -12,21 +12,20 @@ namespace Garage_G5.Models.ViewModels
     [Keyless]
     public class VehicleFilterViewModel
     {
-    
-        public int Id { get; set; }
-        public IEnumerable<SelectListItem> Types { get; set; }
 
-        public List<GeneralInfoViewModel> GenralVehicles { get; set; }
+        //public int Id { get; set; }
+
+        public List<GeneralInfoViewModel> GeneralVehicles { get; set; }
         [Display(Name = "Registration")]
-        public IEnumerable<GeneralInfoViewModel> GenralRegistration { get; set; }
+        public IEnumerable<GeneralInfoViewModel> GeneralRegistration { get; set; }
 
         [Display(Name = "Vehicle Type")]
-        public VehicleType? VehicleType { get; set; }
+        public TypeOfVehicle TypeOfVehicle { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string RegistrationNum { get; set; }
-      
 
+        public IEnumerable<SelectListItem> GetVehiclesType { get; set; }
 
     }
 }

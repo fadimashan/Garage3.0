@@ -96,7 +96,7 @@ body {
 }
 
 #h1 {
-/*    min-width: 25%;
+    /*    min-width: 25%;
     vertical-align: middle;
     font-weight: bold;
     font-size: 5em;
@@ -133,12 +133,12 @@ body {
     border-radius: 10px;
 }
 
-.notifyjs-foo-base .title {
-    float: left;
-    margin: 0px;
-    font-weight: bold;
-    font-size: 1.2em;
-}
+    .notifyjs-foo-base .title {
+        float: left;
+        margin: 0px;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
 
 
 /* Print styles */
@@ -177,7 +177,22 @@ option:disabled {
 }
 
 #main_container{
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
+#logoNav {
+    min-width: 14%;
+    max-width: 14%;
+    padding: 1em;
+    margin: 0em;
+    float: left;
+}
+
+.btn-group .dropdown-menu {
+    border-bottom: 0em;
+}
+
+#logo{
+    width:60%
+}

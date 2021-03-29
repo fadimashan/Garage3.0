@@ -5,6 +5,7 @@
     <RootNamespace>Garage_G5</RootNamespace>
     <StartupObject></StartupObject>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    <AssemblyName>GarageG5</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
