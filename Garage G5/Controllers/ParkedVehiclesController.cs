@@ -131,11 +131,24 @@ namespace Garage_G5.Controllers
                 }
                 nSM.LongestParkedVehicleDate = longestParked;
                 nSM.LongestParkedVehicleRegNo = longestParkedRegNo;
-                //nSM.VehicleTypeCounter = VehicleTypeCounter();
+                nSM.VehicleTypeCounter = VehicleTypeCounter();
 
             }
 
             return View(nSM);
+        }
+
+        private Dictionary<string, int> VehicleTypeCounter()
+        {
+            var totalAmountOfVehicles = _context.ParkedVehicle.Select(v => v.TypeOfVehicle.Size);
+
+            var dict = new Dictionary<int, StudentName>()
+            {
+                { 111, new StudentName { FirstName="Sachin", LastName="Karnik", ID=211 } },
+                { 112, new StudentName { FirstName="Dina", LastName="Salimzianova", ID=317 } },
+                { 113, new StudentName { FirstName="Andy", LastName="Ruth", ID=198 } }
+            };
+            return dict;
         }
 
         // GET: ParkedVehicles/Create
