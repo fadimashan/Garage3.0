@@ -558,6 +558,7 @@ namespace Garage_G5.Controllers
             //   await _context.SaveChangesAsync();
             //}
             
+            //var jdfs = mapper.ProjectTo<>
             var geniral = _context.ParkedVehicle.Select(x => new GeneralInfoViewModel
             {
                 IsInGarage = x.IsInGarage,
