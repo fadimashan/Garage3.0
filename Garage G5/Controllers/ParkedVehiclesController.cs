@@ -328,7 +328,8 @@ namespace Garage_G5.Controllers
             //Gå ned ett steg i kedjan med "then include"
             //var x = _context.ParkedVehicle.Include(v => v.TypeOfVehicle).ThenInclude(m => m.Member).ToList();
             freePlaces = garageCapacity - totalSpace;
-            HttpContext.Session.SetInt32("FreePlaces", freePlaces);
+            //HttpContext.Session.SetInt32("FreePlaces", freePlaces);
+            HttpContext.Session.SetInt32("FreePlaces", 42);
         }
 
         public async Task<IActionResult> GeneralInfoGarage(VehicleFilterViewModel viewModel, string inputString)
