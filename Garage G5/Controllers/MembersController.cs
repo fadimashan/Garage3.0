@@ -157,7 +157,7 @@ namespace Garage_G5.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Phone,Age,PersonalIdNumber,DateAdded,IsGolden")] Member member)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,MembershipType,Phone,DateOfBirth,Age,PersonalIdNumber,DateAdded,BonusAccountExpires,IsGolden,FullName")] Member member)
         {
             if (ModelState.IsValid)
             {

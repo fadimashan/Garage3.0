@@ -22,27 +22,33 @@
 
             @* Here we should add toggle or checkbox for golden membership *@
 
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" name="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-                <p></p>
+        <div class="form-group">
+            <label asp-for="FirstName" class="control-label"></label>
+            <input asp-for="FirstName" name="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+            <p></p>
 
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-                <p></p>
+            <label asp-for="LastName" class="control-label"></label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+            <p></p>
 
-                <label asp-for="DateOfBirth" class="control-label"></label>
-                <input asp-for="DateOfBirth" class="form-control" />
-                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-                <p></p>
+            <label asp-for="Phone" class="control-label"></label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+            <p></p>
 
 
-                <label asp-for="PersonalIdNumber" class="control-label"></label>
-                <input asp-for="PersonalIdNumber" class="form-control"  placeholder="YYYYMMDDxxxm"/>
-                <span asp-validation-for="PersonalIdNumber" class="text-danger"></span>
-            </div>
+            <label asp-for="DateOfBirth" class="control-label"></label>
+            <input asp-for="DateOfBirth" class="form-control" />
+            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            <p></p>
+
+
+            <label asp-for="PersonalIdNumber" class="control-label"></label>
+            <input asp-for="PersonalIdNumber" class="form-control" placeholder="YYYYMMDDxxxm" />
+            <span asp-validation-for="PersonalIdNumber" class="text-danger"></span>
+        </div>
             <div hidden="hidden" class="form-group">
                 <label asp-for="DateAdded" class="control-label"></label>
                 <input asp-for="DateAdded" class="form-control" />
@@ -54,11 +60,7 @@
                 <input asp-for="BonusAccountExpires" class="form-control" />
                 <span asp-validation-for="BonusAccountExpires" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-                <p></p>
-
-            </div>
+           
 
             <input type="submit" value="Create" class="btn btn-primary btn noSpace" />
             <a asp-action="Index" type="button" class="btn btn-info btn">Cancel</a>
