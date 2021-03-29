@@ -10,8 +10,6 @@
                         Vehicle Type <i class="fa fa-sort" aria-hidden="true"> </i>
                     </a>
                 </p>
-                @*<p>@Html.DisplayNameFor(model => model.VehicleType)</p>*@
-                @*@Html.ActionLink("Vehicle Type", "GeneralInfoGarage", new { sortOrder = ViewBag.VehicleTypeSortParm, CurrentSort = "VehicleType" }) <i class="fa fa-sort" aria-hidden="true"></i>*@
             </th>
             <th>
                 <p>
@@ -40,11 +38,11 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.GenralVehicles)
+        @foreach (var item in Model.GeneralVehicles)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.VehicleType)
+                    @Html.DisplayFor(modelItem => item.TypeOfVehicle.TypeName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.RegistrationNum)

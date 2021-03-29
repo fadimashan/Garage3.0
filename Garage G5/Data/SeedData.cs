@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Bogus.Extensions.Sweden;
 using System.Text;
 
 namespace Garage_G5.Data

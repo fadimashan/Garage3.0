@@ -1,6 +1,4 @@
 ﻿@model Garage_G5.Models.ViewModels.VehicleFilterViewModel
-@*@model PagedList.IPagedList<GeneralInfoViewModel>
-@inject VehicleFilterViewModel vmodel*@
 
 @using Microsoft.AspNetCore.Http;
 
@@ -26,8 +24,7 @@
             <div class="input-group mb-3">
                 <input type="text" class="form-control textboxGeneralInfo" asp-for="RegistrationNum" onchange="this.form.submit()" placeholder="Search Registration No. or Vehicle Brand" />
                 <div class="input-group-append">
-                    @*<select asp-for="VehicleType" asp-items="@Html.GetEnumSelectList<VehicleType>()" onchange="this.form.submit()" class="form-control">*@
-                    <select asp-for="VehicleType"  onchange="this.form.submit()" class="form-control">
+                    <select id="select" asp-for="TypeOfVehicle.TypeName" asp-items="@Model.GetVehiclesType" class="form-control">
                         <option selected="selected" value=" ">Please select</option>
                     </select>
                 </div>
@@ -44,4 +41,3 @@
     <!-- Grid column -->
 </div>
 <!-- Grid row -->
-@*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of Model.PageCount*@

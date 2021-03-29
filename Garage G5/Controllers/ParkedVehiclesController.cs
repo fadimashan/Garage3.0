@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,10 +9,8 @@ using Garage_G5.Data;
 using Garage_G5.Models;
 using Garage_G5.ViewModels;
 using Garage_G5.Models.ViewModels;
-using Microsoft.AspNetCore.Http;
 using AutoMapper;
-using PagedList;
-using Garage_G5.Extension;
+
 
 namespace Garage_G5.Controllers
 {
@@ -28,75 +25,6 @@ namespace Garage_G5.Controllers
             this.mapper = mapper;
 
         }
-
-        //public IEnumerable<SelectListItem> GetVehiclesType()
-        //{
-        //    int value;
-        //    var getVehiclesType = new List<SelectListItem>();
-        //    foreach (var type in Enum.GetNames(typeof(VehicleType)))
-        //    {
-        //        value = (int)Enum.Parse(typeof(VehicleType), type, true);
-        //        var newType = (new SelectListItem
-        //        {
-        //            Text = type.ToString(),
-        //            Value = type.ToString(),
-        //            Disabled = CheckFreePlaces(value),
-        //        });
-        //        getVehiclesType.Add(newType);
-        //    }
-        //    return (getVehiclesType);
-        //}
-
-        //private bool CheckFreePlaces(int val)
-        //{
-        //    var freePlaces = HttpContext.Session.GetInt32("FreePlaces");
-        //    switch (val)
-        //    {
-        //        case (int)VehicleType.Sedan:
-        //        case (int)VehicleType.Combi:
-        //        case (int)VehicleType.Coupe:
-        //        case (int)VehicleType.Roadster:
-        //        case (int)VehicleType.MiniVan:
-        //        case (int)VehicleType.Van:
-        //            if (freePlaces >= 1)
-        //            {
-        //                return false;
-        //            }
-        //            else return true;
-        //        case (int)VehicleType.Truck:
-        //        case (int)VehicleType.BigTruck:
-        //            if (freePlaces >= 2)
-        //            {
-        //                return false;
-        //            }
-        //            else return true;
-        //        case (int)VehicleType.Boat:
-        //        case (int)VehicleType.Airplane:
-        //            if (freePlaces >= 3)
-        //            {
-        //                return false;
-        //            }
-        //            else return true;
-        //        default:
-        //            return false;
-        //    }
-        //}
-
-
-        //public Dictionary<string, int> VehicleTypeCounter()
-        //{
-
-        //    var list = _context.ParkedVehicle.ToList();
-        //    var listOfTypes = new Dictionary<string, int>();
-
-        //    foreach (string type in Enum.GetNames(typeof(VehicleType)))
-        //    {
-        //        int count = list.Count(ve => ve.TypeOfVehicle.TypeName.ToString() == type);
-        //        listOfTypes.Add(type, count);
-        //    }
-        //    return (listOfTypes);
-        //}
-
 
         public async Task<IActionResult> Receipt(int id)
         {
@@ -145,13 +73,15 @@ namespace Garage_G5.Controllers
         private int getDiscount(Member model)
         {
             int discount;
-            if (model.MembershipType == MembershipType.Regular) 
+            if (model.MembershipType == MembershipType.Regular)
             {
                 discount = 0;
-            } else if(model.MembershipType == MembershipType.Pro) 
+            }
+            else if (model.MembershipType == MembershipType.Pro)
             {
                 discount = 5;
-            } else
+            }
+            else
             {
                 discount = 10;
             }
@@ -355,113 +285,13 @@ namespace Garage_G5.Controllers
         {
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
-        private void CheckAvailability2() {
-
-            var listAllVehicles = _context.ParkedVehicle.Where(v => v.IsInGarage == true).ToList();
-            var listOfsize = _context.TypeOfVehicle.ToList();
-            Dictionary<string, int> totalSize = new Dictionary<string, int>();
-
-            foreach (var s in listOfsize)
-            {
-                string name = "" ;
-                var counter = 0;
-                foreach (var v in listAllVehicles)
-                {
-                    if (s.TypeName == v.TypeOfVehicle.TypeName)
-                    {
-                        name = s.TypeName;
-                        counter++;
-                    }
-                }
-                totalSize.Add(name, counter);
-            }
-
-            totalSize.Add("theEnd",0);
-        }
-
-
-
-        //private void CheckAvailability()
-        //{
-        //    int garageCapacity = 158;
-        //    int motorcyclePlaces = 0;
-        //    var listAllVehicles = _context.ParkedVehicle.Where(v => v.IsInGarage == true).ToList();
-        //    int placeCounter = 0;
-        //    int motorCapasty;
-        //    int freePlaces;
-
-        //    foreach (var vehicle in listAllVehicles)
-        //    {
-        //        switch (vehicle.TypeOfVehicle.TypeName)
-        //        {
-        //            case TypeOfVehicle.TypeName.Motorcycle:
-        //                motorcyclePlaces = motorcyclePlaces + 1;
-        //                break;
-
-        //            case VehicleType.Sedan:
-        //            case VehicleType.Combi:
-        //            case VehicleType.Coupe:
-        //            case VehicleType.Roadster:
-        //            case VehicleType.MiniVan:
-        //            case VehicleType.Van:
-        //                placeCounter++;
-        //                break;
-
-        //            case VehicleType.Truck:
-        //            case VehicleType.BigTruck:
-        //                placeCounter = placeCounter + 2;
-        //                break;
-        //            case VehicleType.Boat:
-        //            case VehicleType.Airplane:
-        //                placeCounter = placeCounter + 3;
-        //                break;
-        //            default:
-        //                break;
-        //        }
-        //    }
-
-        //    if (motorcyclePlaces != 0 && motorcyclePlaces > 3 && motorcyclePlaces % 3 != 0)
-        //    {
-        //        placeCounter = placeCounter + (int)(motorcyclePlaces / 3);
-        //    }
-        //    if (motorcyclePlaces != 0 && motorcyclePlaces % 3 == 0)
-        //    {
-        //        placeCounter = placeCounter + (motorcyclePlaces / 3);
-        //    }
-
-        //    if (motorcyclePlaces != 0 && motorcyclePlaces % 3 > 0)
-        //    {
-        //        placeCounter++;
-        //    }
-
-        //    if (garageCapacity == (placeCounter - 1) && motorcyclePlaces % 3 > 0)
-        //    {
-        //        placeCounter++;
-        //    }
-
-        //    var restOftheMotor = motorcyclePlaces % 3;
-        //    freePlaces = garageCapacity - placeCounter;
-        //    motorCapasty = (restOftheMotor != 0) ? freePlaces * 3 + (3 - restOftheMotor) : freePlaces * 3;
-
-
-        //    HttpContext.Session.SetInt32("FreePlaces", freePlaces);
-        //    HttpContext.Session.SetInt32("MotorFreePlaces", motorCapasty);
-
-        //}
 
         public async Task<IActionResult> GeneralInfoGarage(VehicleFilterViewModel viewModel, string RegistrationNum)
         {
-            //CheckAvailability();
-            //CheckAvailability2();
 
             var vehicles = string.IsNullOrWhiteSpace(RegistrationNum) ?
             _context.ParkedVehicle :
             _context.ParkedVehicle.Where(v => v.RegistrationNum.StartsWith(RegistrationNum) || v.Brand.StartsWith(RegistrationNum));
-
-
-            vehicles = viewModel.VehicleType == null ?
-                vehicles :
-                vehicles.Where(m => m.TypeOfVehicle.TypeName == viewModel.VehicleType);
 
             vehicles.Where(v => v.IsInGarage == true).ToList();
 
@@ -480,22 +310,23 @@ namespace Garage_G5.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            //var geniral = mapper.ProjectTo<GeneralInfoViewModel>(vehicles).Where(v => v.IsInGarage == true);
 
-            var geniral = _context.ParkedVehicle.Select(x => new GeneralInfoViewModel
-            {
-                IsInGarage = x.IsInGarage,
-                VehicleType = x.TypeOfVehicle.TypeName,
-                EnteringTime = x.EnteringTime,
-                RegistrationNum = x.RegistrationNum
+            vehicles = viewModel.TypeOfVehicle.TypeName == null ?
+                vehicles :
+                vehicles.Where(m => m.TypeOfVehicle.TypeName == viewModel.TypeOfVehicle.TypeName);
 
-            });
+
+
+
+            var general = mapper.ProjectTo<GeneralInfoViewModel>(vehicles);
+
 
             var list = new VehicleFilterViewModel
             {
-                Types = await GetVehicleTypeAsync(),
-                GenralVehicles = geniral.ToList()
+                GetVehiclesType = GetVehicleTypeAsync(),
+                GeneralVehicles = await general.ToListAsync()
             };
+
 
             return View("GeneralInfoGarage", list);
         }
@@ -504,16 +335,12 @@ namespace Garage_G5.Controllers
         public async Task<IActionResult> Index(string sortOrder)
         {
             //CheckAvailability();
-            //CheckAvailability2();
             ViewBag.RegSortParm = (sortOrder == "RegistrationNum") ? $"{sortOrder}_desc" : "RegistrationNum";
             ViewBag.DateSortParm = (sortOrder == "EntryDate") ? $"{sortOrder}_desc" : "EntryDate";
             ViewBag.VehicleTypeSortParm = (sortOrder == "VehicleType") ? $"{sortOrder}_desc" : "VehicleType";
             ViewBag.TotalTimeSortParm = (sortOrder == "TotalTime") ? $"{sortOrder}_desc" : "TotalTime";
 
             var vehicles = from v in _context.ParkedVehicle
-                           //where v.IsInGarage == true
-                           //join t in _context.TypeOfVehicle 
-                           //on v.TypeOfVehicleId equals t.Id
                            select v;
             switch (sortOrder)
             {
@@ -545,33 +372,13 @@ namespace Garage_G5.Controllers
 
             }
 
-            //var types = _context.TypeOfVehicle.ToList();
-            //foreach (var v in vehicles)
-            //{
-            //    foreach (var t in types)
-            //    {
-            //        if (v.TypeOfVehicleId == t.Id )
-            //        {
-            //            v.TypeOfVehicle = t;
-            //        }
-            //    }
-            //   await _context.SaveChangesAsync();
-            //}
-            
-            //var jdfs = mapper.ProjectTo<>
-            var geniral = _context.ParkedVehicle.Select(x => new GeneralInfoViewModel
-            {
-                IsInGarage = x.IsInGarage,
-                VehicleType = x.TypeOfVehicle.TypeName,
-                EnteringTime = x.EnteringTime,
-                RegistrationNum = x.RegistrationNum
+            var general = mapper.ProjectTo<GeneralInfoViewModel>(vehicles);
 
-            });
 
             var list = new VehicleFilterViewModel
             {
-                Types = await GetVehicleTypeAsync(),
-                GenralVehicles = geniral.ToList()
+                GetVehiclesType = GetVehicleTypeAsync(),
+                GeneralVehicles = general.ToList()
             };
 
             return View("GeneralInfoGarage", list);
@@ -585,7 +392,7 @@ namespace Garage_G5.Controllers
             {
                 Id = x.Id,
                 RegistrationNum = x.RegistrationNum,
-                VehicleType = x.TypeOfVehicle.TypeName,
+                TypeOfVehicle = x.TypeOfVehicle,
                 EnteringTime = x.EnteringTime,
             }).ToList();
 
@@ -603,27 +410,28 @@ namespace Garage_G5.Controllers
             {
                 Id = x.Id,
                 RegistrationNum = x.RegistrationNum,
-                VehicleType = x.TypeOfVehicle.TypeName,
+                TypeOfVehicle = x.TypeOfVehicle,
                 EnteringTime = x.EnteringTime,
             }).ToList();
 
             return (model);
         }
 
-
-
-        private async Task<IEnumerable<SelectListItem>> GetVehicleTypeAsync()
+        private IEnumerable<SelectListItem> GetVehicleTypeAsync()
         {
-            var g = _context.ParkedVehicle;
-            return await _context.ParkedVehicle
-                .Select(p => p.TypeOfVehicle.TypeName)
-                .Distinct()
-                .Select(g => new SelectListItem
+            var TypeName = _context.TypeOfVehicle;
+            var GetTypeOfVehicle = new List<SelectListItem>();
+            foreach (var type in TypeName)
+            {
+                var newType = (new SelectListItem
                 {
-                    Text = g.ToString(),
-                    Value = g.ToString(),
-                })
-                .ToListAsync();
+                    Text = type.TypeName,
+                    Value = type.Id.ToString(),
+                    //Disabled = CheckFreePlaces(type.Id),
+                });
+                GetTypeOfVehicle.Add(newType);
+            }
+            return (GetTypeOfVehicle);
         }
 
         public bool IsRegisterNumberExists(string RegistrationNum, int Id)
