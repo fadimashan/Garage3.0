@@ -161,7 +161,7 @@ namespace Garage_G5.Controllers
                 {
                     Text = type.TypeName,
                     Value = type.Id.ToString(),
-                    Disabled = CheckFreePlaces(),
+                    //Disabled = CheckFreePlaces(),
                 });
                 GetTypeOfVehicle.Add(newType);
             }
@@ -286,35 +286,8 @@ namespace Garage_G5.Controllers
             return _context.ParkedVehicle.Any(e => e.Id == id);
         }
 
-        //public async Task<IActionResult> GeneralInfoGarage(VehicleFilterViewModel viewModel, string RegistrationNum)
-        //{
-
-        //    var vehicles = string.IsNullOrWhiteSpace(RegistrationNum) ?
-        //    _context.ParkedVehicle :
-        //    _context.ParkedVehicle.Where(v => v.RegistrationNum.StartsWith(RegistrationNum) || v.Brand.StartsWith(RegistrationNum));
-
-        //    vehicles.Where(v => v.IsInGarage == true).ToList();
-
-        //    var types = _context.TypeOfVehicle.ToList();
-        //    foreach (var v in vehicles)
-        //    {
-
-        //        foreach (var t in types)
-        //        {
-        //            if (v.TypeOfVehicleId == t.Id)
-        //            {
-        //                v.TypeOfVehicle = t;
-        //            }
-        //        }
-
-        //        await _context.SaveChangesAsync();
-        //    }
 
 
-        ////    HttpContext.Session.SetInt32("FreePlaces", freePlaces);
-        ////    HttpContext.Session.SetInt32("MotorFreePlaces", motorCapasty);
-
-        //}
         private void CheckAvailability()
         {
             int garageCapacity = 158;
@@ -329,13 +302,39 @@ namespace Garage_G5.Controllers
             freePlaces = garageCapacity - totalSpace;
             HttpContext.Session.SetInt32("FreePlaces", freePlaces);
         }
+
         public async Task<IActionResult> GeneralInfoGarage(VehicleFilterViewModel viewModel, string RegistrationNum)
         {
+
             var vehicles = string.IsNullOrWhiteSpace(RegistrationNum) ?
-                _context.ParkedVehicle :
-                _context.ParkedVehicle.Where(v => v.RegistrationNum.StartsWith(RegistrationNum) || v.Brand.StartsWith(RegistrationNum));
+            _context.ParkedVehicle :
+            _context.ParkedVehicle.Where(v => v.RegistrationNum.StartsWith(RegistrationNum) || v.Brand.StartsWith(RegistrationNum));
 
             vehicles.Where(v => v.IsInGarage == true).ToList();
+
+            var types = _context.TypeOfVehicle.ToList();
+            foreach (var v in vehicles)
+            {
+
+                foreach (var t in types)
+                {
+                    if (v.TypeOfVehicleId == t.Id)
+                    {
+                        v.TypeOfVehicle = t;
+                    }
+                }
+
+                await _context.SaveChangesAsync();
+            }
+
+
+            vehicles = viewModel.TypeOfVehicle.TypeName == null ?
+                vehicles :
+                vehicles.Where(m => m.TypeOfVehicle.TypeName == viewModel.TypeOfVehicle.TypeName);
+
+
+
+
             var general = mapper.ProjectTo<GeneralInfoViewModel>(vehicles);
 
 
@@ -348,6 +347,7 @@ namespace Garage_G5.Controllers
 
             return View("GeneralInfoGarage", list);
         }
+
 
         //This is a sorting function
         public async Task<IActionResult> Index(string sortOrder)
@@ -417,7 +417,7 @@ namespace Garage_G5.Controllers
             {
                 Id = x.Id,
                 RegistrationNum = x.RegistrationNum,
-                TypeOfVehicle = x.TypeOfVehicle.TypeName,
+                TypeOfVehicle = x.TypeOfVehicle,
                 EnteringTime = x.EnteringTime,
             }).ToList();
 
@@ -435,7 +435,7 @@ namespace Garage_G5.Controllers
             {
                 Id = x.Id,
                 RegistrationNum = x.RegistrationNum,
-                TypeOfVehicle = x.TypeOfVehicle.TypeName,
+                TypeOfVehicle = x.TypeOfVehicle,
                 EnteringTime = x.EnteringTime,
             }).ToList();
 
