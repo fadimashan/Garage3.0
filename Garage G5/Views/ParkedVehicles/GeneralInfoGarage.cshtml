@@ -1,6 +1,4 @@
-﻿@model Garage_G5.Models.ViewModels.VehicleFilterViewModel
-@*@model PagedList.IPagedList<GeneralInfoViewModel>
-@inject VehicleFilterViewModel vmodel*@
+﻿@model VehicleFilterViewModel
 
 @using Microsoft.AspNetCore.Http;
 
@@ -21,7 +19,7 @@
     <div class="col-md-8">
         <form asp-action="GeneralInfoGarage">
             <div class="input-group mb-3">
-                <input type="text" class="form-control textboxGeneralInfo" asp-for="RegistrationNum" onchange="this.form.submit()" placeholder="Search Registration No. or Vehicle Brand" />
+                <input type="text" class="form-control textboxGeneralInfo"  name="inputString" onchange="this.form.submit()" placeholder="Search Registration No. or Vehicle Brand" />
                 <div class="input-group-append">
                     <select id="select" asp-for="TypeOfVehicle.TypeName" asp-items="@Model.GetVehiclesType" class="form-control">
                         <option selected="selected" value=" ">Please select</option>

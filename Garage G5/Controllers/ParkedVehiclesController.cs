@@ -36,6 +36,7 @@ namespace Garage_G5.Controllers
 
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
             var member = await _context.Member.FindAsync(parkedVehicle.MemberId);
+            var vehicle = await _context.TypeOfVehicle.FindAsync(parkedVehicle.TypeOfVehicleId);
 
 
             if (parkedVehicle == null)
@@ -47,7 +48,7 @@ namespace Garage_G5.Controllers
                 var nRM = new ReceiptModel
                 {
                     RegistrationNum = parkedVehicle.RegistrationNum,
-                    VehicleType = parkedVehicle.TypeOfVehicle.TypeName,
+                    VehicleType = vehicle.TypeName,
                     Id = parkedVehicle.Id,
                     EnteringTime = parkedVehicle.EnteringTime,
                     TotalTimeParked = DateTime.Now - parkedVehicle.EnteringTime,
@@ -303,12 +304,12 @@ namespace Garage_G5.Controllers
             HttpContext.Session.SetInt32("FreePlaces", freePlaces);
         }
 
-        public async Task<IActionResult> GeneralInfoGarage(VehicleFilterViewModel viewModel, string RegistrationNum)
+        public async Task<IActionResult> GeneralInfoGarage(VehicleFilterViewModel viewModel, string inputString)
         {
 
-            var vehicles = string.IsNullOrWhiteSpace(RegistrationNum) ?
+            var vehicles = string.IsNullOrWhiteSpace(inputString) ?
             _context.ParkedVehicle :
-            _context.ParkedVehicle.Where(v => v.RegistrationNum.StartsWith(RegistrationNum) || v.Brand.StartsWith(RegistrationNum));
+            _context.ParkedVehicle.Where(v => v.RegistrationNum.StartsWith(inputString) || v.Brand.StartsWith(inputString));
 
             vehicles.Where(v => v.IsInGarage == true).ToList();
 
@@ -327,10 +328,13 @@ namespace Garage_G5.Controllers
                 await _context.SaveChangesAsync();
             }
 
-
-            vehicles = viewModel.TypeOfVehicle.TypeName == null ?
+            if (viewModel.TypeOfVehicle != null)
+            {
+                vehicles = viewModel.TypeOfVehicle.TypeName == null ?
                 vehicles :
                 vehicles.Where(m => m.TypeOfVehicle.TypeName == viewModel.TypeOfVehicle.TypeName);
+            }
+            
 
 
 

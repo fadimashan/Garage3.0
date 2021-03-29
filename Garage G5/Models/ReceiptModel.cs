@@ -33,5 +33,7 @@ namespace Garage_G5.ViewModels
 
         public int TotalPrice { get; set; }
 
+        public bool IsInGarage { get; set; }
+
     }
 }
