@@ -30,7 +30,7 @@ namespace Garage_G5.Models.ViewModels
         public bool? IsInGarage { get; set; }
 
         public Member Member { get; set; }
-
+        public TypeOfVehicle TypeOfVehicle { get; set; }
 
     }
 }

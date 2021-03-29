@@ -49,37 +49,38 @@ namespace Garage_G5.Controllers
 
         private bool CheckFreePlaces(int val)
         {
-            var freePlaces = HttpContext.Session.GetInt32("FreePlaces");
-            switch (val)
-            {
-                case (int)VehicleType.Sedan:
-                case (int)VehicleType.Combi:
-                case (int)VehicleType.Coupe:
-                case (int)VehicleType.Roadster:
-                case (int)VehicleType.MiniVan:
-                case (int)VehicleType.Van:
-                    if (freePlaces >= 1)
-                    {
-                        return false;
-                    }
-                    else return true;
-                case (int)VehicleType.Truck:
-                case (int)VehicleType.BigTruck:
-                    if (freePlaces >= 2)
-                    {
-                        return false;
-                    }
-                    else return true;
-                case (int)VehicleType.Boat:
-                case (int)VehicleType.Airplane:
-                    if (freePlaces >= 3)
-                    {
-                        return false;
-                    }
-                    else return true;
-                default:
-                    return false;
-            }
+            //var freePlaces = HttpContext.Session.GetInt32("FreePlaces");
+            //switch (val)
+            //{
+            //    case (int)VehicleType.Sedan:
+            //    case (int)VehicleType.Combi:
+            //    case (int)VehicleType.Coupe:
+            //    case (int)VehicleType.Roadster:
+            //    case (int)VehicleType.MiniVan:
+            //    case (int)VehicleType.Van:
+            //        if (freePlaces >= 1)
+            //        {
+            //            return false;
+            //        }
+            //        else return true;
+            //    case (int)VehicleType.Truck:
+            //    case (int)VehicleType.BigTruck:
+            //        if (freePlaces >= 2)
+            //        {
+            //            return false;
+            //        }
+            //        else return true;
+            //    case (int)VehicleType.Boat:
+            //    case (int)VehicleType.Airplane:
+            //        if (freePlaces >= 3)
+            //        {
+            //            return false;
+            //        }
+            //        else return true;
+            //    default:
+            //        return false;
+            //}
+            return false;
         }
 
 
@@ -335,29 +336,29 @@ namespace Garage_G5.Controllers
             {
                 switch (vehicle.VehicleType)
                 {
-                    case VehicleType.Motorcycle:
-                        motorcyclePlaces = motorcyclePlaces + 1;
-                        break;
+                    //case VehicleType.Motorcycle:
+                    //    motorcyclePlaces = motorcyclePlaces + 1;
+                    //    break;
 
-                    case VehicleType.Sedan:
-                    case VehicleType.Combi:
-                    case VehicleType.Coupe:
-                    case VehicleType.Roadster:
-                    case VehicleType.MiniVan:
-                    case VehicleType.Van:
-                        placeCounter++;
-                        break;
+                    //case VehicleType.Sedan:
+                    //case VehicleType.Combi:
+                    //case VehicleType.Coupe:
+                    //case VehicleType.Roadster:
+                    //case VehicleType.MiniVan:
+                    //case VehicleType.Van:
+                    //    placeCounter++;
+                    //    break;
 
-                    case VehicleType.Truck:
-                    case VehicleType.BigTruck:
-                        placeCounter = placeCounter + 2;
-                        break;
-                    case VehicleType.Boat:
-                    case VehicleType.Airplane:
-                        placeCounter = placeCounter + 3;
-                        break;
-                    default:
-                        break;
+                    //case VehicleType.Truck:
+                    //case VehicleType.BigTruck:
+                    //    placeCounter = placeCounter + 2;
+                    //    break;
+                    //case VehicleType.Boat:
+                    //case VehicleType.Airplane:
+                    //    placeCounter = placeCounter + 3;
+                    //    break;
+                    //default:
+                    //    break;
                 }
             }
 
@@ -439,10 +440,10 @@ namespace Garage_G5.Controllers
                     vehicles = vehicles.OrderByDescending(v => v.RegistrationNum);
                     break;
                 case "VehicleType":
-                    vehicles = vehicles.OrderBy(v => v.VehicleType);
+                    vehicles = vehicles.OrderBy(v => v.TypeOfVehicle.TypeName);
                     break;
                 case "VehicleType_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.VehicleType);
+                    vehicles = vehicles.OrderByDescending(v => v.TypeOfVehicle.TypeName);
                     break;
                 case "MemberType":
                     vehicles = vehicles.OrderBy(v => v.Member.MembershipType);

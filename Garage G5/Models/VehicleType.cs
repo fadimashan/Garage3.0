@@ -2,16 +2,16 @@
 {
     public enum VehicleType
     {
-        Motorcycle,
-        Combi,
-        Sedan,
-        Coupe,
-        Van,
-        Truck,
-        BigTruck,
-        Roadster,
-        MiniVan,
-        Boat,
-        Airplane
+        //Motorcycle,
+        //Combi,
+        //Sedan,
+        //Coupe,
+        //Van,
+        //Truck,
+        //BigTruck,
+        //Roadster,
+        //MiniVan,
+        //Boat,
+        //Airplane
     }
 }
