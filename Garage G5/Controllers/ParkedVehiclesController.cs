@@ -293,7 +293,8 @@ namespace Garage_G5.Controllers
         {
             int garageCapacity = 158;
             int freePlaces = 0;
-            var totalSpace = _context.ParkedVehicle.Select(v => v.TypeOfVehicle.Size).Sum();   // your starting point - table in the "from" statement
+            var totalSpace = _context.ParkedVehicle.Select(v => v.TypeOfVehicle.Size).Sum();
+            // your starting point - table in the "from" statement
             //Simple inner join
             //var totalSpace = _context.ParkedVehicle.Select(v => v.TypeOfVehicle.Size).Sum();
             //More complex "Inner joins"
