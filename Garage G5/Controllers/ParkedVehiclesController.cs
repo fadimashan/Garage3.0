@@ -308,10 +308,10 @@ namespace Garage_G5.Controllers
         {
 
             var vehicles = string.IsNullOrWhiteSpace(inputString) ?
-            _context.ParkedVehicle :
-            _context.ParkedVehicle.Where(v => v.RegistrationNum.StartsWith(inputString) || v.Brand.StartsWith(inputString));
+            _context.ParkedVehicle.Where(v => v.IsInGarage == true ):
+            _context.ParkedVehicle.Where(v => v.IsInGarage == true && (v.RegistrationNum.StartsWith(inputString) || v.Brand.StartsWith(inputString)));
 
-            vehicles.Where(v => v.IsInGarage == true).ToList();
+           //vehicles.Where(v => v.IsInGarage == true).ToList();
 
             var types = _context.TypeOfVehicle.ToList();
             foreach (var v in vehicles)
@@ -365,6 +365,7 @@ namespace Garage_G5.Controllers
             ViewBag.TotalTimeSortParm = (sortOrder == "TotalTime") ? $"{sortOrder}_desc" : "TotalTime";
 
             var vehicles = from v in _context.ParkedVehicle
+                           where v.IsInGarage == true
                            select v;
             switch (sortOrder)
             {
@@ -455,7 +456,7 @@ namespace Garage_G5.Controllers
                 var newType = (new SelectListItem
                 {
                     Text = type.TypeName,
-                    Value = type.Id.ToString(),
+                    Value = type.TypeName,
                     //Disabled = CheckFreePlaces(type.Id),
                 });
                 GetTypeOfVehicle.Add(newType);
