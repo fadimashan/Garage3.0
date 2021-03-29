@@ -9,7 +9,8 @@ namespace Garage_G5.Models
     public class StatisticsModel
     {
         [Display(Name = "Amount of parked per vehicle type")]
-        public Dictionary<string,int> VehicleTypeCounter { get; set; }
+
+        public Dictionary<string, int> VehicleTypeCounter { get; set; }
         [Display(Name = "Total amount of wheels in the garage")]
         public int TotalAmountOfWheels { get; set; }
         [Display(Name = "Total revenue")]
@@ -18,7 +19,9 @@ namespace Garage_G5.Models
         public DateTime? LongestParkedVehicleDate { get; set; }
         public string LongestParkedVehicleRegNo { get; set; }
         [Display(Name = "Latest vehicle arrival")]
-        public DateTime? LatestParkedVehicleDate { get; set; }
+        public DateTime LatestParkedVehicleDate { get; set; }
         public string LatestParkedVehicleRegNo { get; set; }
+
+        // List<TypeOfVehicle> typeOfVehicles { get; set; }
     }
 }

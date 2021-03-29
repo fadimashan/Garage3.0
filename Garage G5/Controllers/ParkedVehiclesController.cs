@@ -109,13 +109,34 @@ namespace Garage_G5.Controllers
 
             return View(parkedVehicle);
         }
+        public Dictionary<string, int> VehicleTypeCounter()
+        {
+            List<string> names = new List<string>();
+            var list = _context.ParkedVehicle.ToList();
+            var listOfTypes = new Dictionary<string, int>();
+            var list2 = _context.TypeOfVehicle.ToList();
+            foreach (var item in list2)
+            {
+                names.Add(item.TypeName);
+
+            }
+
+            foreach (string type in names)
+            {
+                int count = list.Count(ve => ve.TypeOfVehicle.TypeName.ToString() == type);
+                listOfTypes.Add(type, count);
+            }
+            return (listOfTypes);
+        }
 
 
         // GET: ParkedVehicles/Statistics
         public async Task<IActionResult> Statistics()
         {
             var vehicles = await _context.ParkedVehicle.ToListAsync();
-            var nSM = new StatisticsModel();
+            var types = await _context.TypeOfVehicle.ToListAsync();
+
+            var nSM = new StatisticsModel(); 
             DateTime longestParked = DateTime.MaxValue;
             string longestParkedRegNo = "";
             foreach (var vehicle in vehicles)
@@ -131,7 +152,7 @@ namespace Garage_G5.Controllers
                 }
                 nSM.LongestParkedVehicleDate = longestParked;
                 nSM.LongestParkedVehicleRegNo = longestParkedRegNo;
-                //nSM.VehicleTypeCounter = VehicleTypeCounter();
+                nSM.VehicleTypeCounter =VehicleTypeCounter();
 
             }
 

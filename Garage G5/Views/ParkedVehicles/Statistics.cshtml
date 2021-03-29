@@ -65,11 +65,11 @@
                 Total space in garage:
             </th>
             <td>
-                @Context.Session.GetInt32("FreePlaces") spots
+                @*@Context.Session.GetInt32("FreePlaces") spots*@ spots
             </td>
 
         </tr>
-        <tr>
+        @*<tr>
             <th>
                 @{
                     decimal percentage = (decimal)Context.Session.GetInt32("FreePlaces") / 10 * 100;
@@ -128,5 +128,5 @@
                     }
                 </div>
             </td>
-        </tr>
+        </tr>*@
     </table>
