@@ -21,8 +21,8 @@ namespace Garage_G5.Models
         public MembershipType MembershipType { get; set; }
         public string Phone { get; set; }
         //[MinimumAge(18)]
-        [Min18Years]
-        [DisplayName("Date of Birth")]
+        //[Min18Years]
+        //[DisplayName("Date of Birth")]
         [DataType(DataType.Date),DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}", ApplyFormatInEditMode =true)]
         public DateTime DateOfBirth { get; set; }
         public int Age { get; set; }

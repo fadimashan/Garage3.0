@@ -261,9 +261,21 @@ namespace Garage_G5.Controllers
         public async Task<IActionResult> MemberCheckIn(int id)
         {
             var member = _context.Member.Find(id);
-            var vehicles = _context.ParkedVehicle;
-            var memberVehicles = await vehicles.Where(v => v.MemberId == member.Id).ToListAsync();
-            member.MemberVehicles = memberVehicles;
+            var type = await _context.ParkedVehicle
+                .Include(c => c.TypeOfVehicle).Where(v => v.MemberId == member.Id).ToListAsync();
+
+            //var vehicles = _context.ParkedVehicle;
+            //   var memberVehicles = await vehicles.Where(v => v.MemberId == member.Id).ToListAsync();
+               member.MemberVehicles = type;
+
+            //if (member.Age > 18)
+            //{
+            //}
+            //else
+            //{
+            //    ModelState.AddModelError("Age", "You must be at least 18 years old");
+            //}
+            //return RedirectToAction(nameof(Index));
             return View("MemberCheckIn", member);
         }
 
@@ -298,14 +310,18 @@ namespace Garage_G5.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateNewVehicle([Bind("VehicleType,RegistrationNum,Color,Brand,Model,WheelsNum,EnteringTime,MemberId")] ParkedVehicle parkedVehicle)
+        public async Task<IActionResult> CreateNewVehicle([Bind("RegistrationNum,Color,Brand,Model,WheelsNum,EnteringTime,MemberId,TypeOfVehicleId")] ParkedVehicle parkedVehicle)
         {
+             
 
             if (ModelState.IsValid)
             {
-                parkedVehicle.EnteringTime = DateTime.Now;
+                //parkedVehicle.EnteringTime = DateTime.Now;
                 parkedVehicle.IsInGarage = false;
+
+
                 _context.ParkedVehicle.Add(parkedVehicle);
+                //_context.Member.Where()
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -349,6 +365,18 @@ namespace Garage_G5.Controllers
                     Value = g.ToString(),
                 })
                 .ToListAsync();
+        }
+        public bool IsCodeNumberExists(string PersonalIdNumber, int Id)
+        {
+            if (Id == 0)
+            {
+                return !_context.Member.Any(x => x.PersonalIdNumber == PersonalIdNumber);
+            }
+            else
+            {
+                return !_context.Member.Any(x => x.PersonalIdNumber == PersonalIdNumber && x.Id != Id);
+
+            }
         }
 
     }

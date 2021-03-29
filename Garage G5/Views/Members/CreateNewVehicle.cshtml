@@ -17,9 +17,9 @@
             <input hidden="hidden" asp-for="MemberId" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="TypeOfVehicle.TypeName" class="control-label"></label>
-                <select id="select" asp-for="TypeOfVehicle.TypeName" asp-items="@Model.GetVehiclesType" class="form-control"></select>
-                <span asp-validation-for="TypeOfVehicle.TypeName" class="text-danger"></span>
+                <label asp-for="TypeOfVehicleId" class="control-label"></label>
+                <select id="select" asp-for="TypeOfVehicleId" asp-items="@Model.GetVehiclesType" class="form-control"></select>
+                <span asp-validation-for="TypeOfVehicleId" class="text-danger"></span>
                 <p></p>
 
                 <label asp-for="RegistrationNum" class="control-label"></label>
