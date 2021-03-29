@@ -72,7 +72,8 @@
         <tr>
             <th>
                 @{
-                    decimal percentage = (decimal)Context.Session.GetInt32("FreePlaces") / 10 * 100;
+                    //decimal percentage = (decimal)Context.Session.GetInt32("FreePlaces") / 10 * 100;
+                    decimal percentage = 100;
                     percentage = (int)percentage;
                 }
                 Availability @percentage%

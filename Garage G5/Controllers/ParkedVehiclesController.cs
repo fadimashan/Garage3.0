@@ -137,19 +137,32 @@ namespace Garage_G5.Controllers
 
             return View(nSM);
         }
-
-        private Dictionary<string, int> VehicleTypeCounter()
+        public Dictionary<string, int> VehicleTypeCounter()
         {
-            var totalAmountOfVehicles = _context.ParkedVehicle.Select(v => v.TypeOfVehicle.Size);
-
-            var dict = new Dictionary<int, StudentName>()
+            var list = _context.ParkedVehicle.ToList();
+            //var totalAmountOfVehicles = _context.ParkedVehicle.Select(v => v.TypeOfVehicle);
+            var listOfTypes = new Dictionary<string, int>();
+            var i = 0;
+            foreach (var parkedV in list)
             {
-                { 111, new StudentName { FirstName="Sachin", LastName="Karnik", ID=211 } },
-                { 112, new StudentName { FirstName="Dina", LastName="Salimzianova", ID=317 } },
-                { 113, new StudentName { FirstName="Andy", LastName="Ruth", ID=198 } }
-            };
-            return dict;
+                int count = list.Count(ve => ve.TypeOfVehicle == parkedV.TypeOfVehicle);
+                listOfTypes.Add(i.ToString(), count);//parkedV.TypeOfVehicle.ToString()
+                i++;
+            }
+            return (listOfTypes);
         }
+        //private Dictionary<string, int> VehicleTypeCounter()
+        //{
+        //    var totalAmountOfVehicles = _context.ParkedVehicle.Select(v => v.TypeOfVehicle.Size);
+
+        //    var dict = new Dictionary<int, StudentName>()
+        //    {
+        //        { 111, new StudentName { FirstName="Sachin", LastName="Karnik", ID=211 } },
+        //        { 112, new StudentName { FirstName="Dina", LastName="Salimzianova", ID=317 } },
+        //        { 113, new StudentName { FirstName="Andy", LastName="Ruth", ID=198 } }
+        //    };
+        //    return dict;
+        //}
 
         // GET: ParkedVehicles/Create
         public IActionResult Create()

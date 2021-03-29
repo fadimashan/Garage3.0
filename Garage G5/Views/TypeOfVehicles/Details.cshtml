@@ -10,21 +10,21 @@
 <div>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.TypeName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TypeName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Size)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Size)
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" type="button" class="btn btn-primary noSpace" />Edit</a>
-    <a asp-action="Index" type="button" class="btn btn-info btn">Back</a>
+<div id="endButtons">
+    <a id="NoPrint" asp-action="Edit" asp-route-id="@Model.Id" type="button" class="btn btn-outline-primary">Edit</a>
+    <a asp-action="Index" id="NoPrint" type="button" class="btn btn-outline-info">Back</a>
 </div>
