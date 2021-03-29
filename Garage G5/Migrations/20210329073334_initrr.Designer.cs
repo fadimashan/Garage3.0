@@ -4,14 +4,16 @@ using Garage_G5.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Garage_G5.Migrations
 {
     [DbContext(typeof(Garage_G5Context))]
-    partial class Garage_G5ContextModelSnapshot : ModelSnapshot
+    [Migration("20210329073334_initrr")]
+    partial class initrr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,7 +34,7 @@ namespace Garage_G5.Migrations
                     b.Property<DateTime>("BonusAccountExpires")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DateAdded")
+                    b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateOfBirth")
@@ -120,10 +122,10 @@ namespace Garage_G5.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ExtraHourlyRate")
+                    b.Property<int>("ExtraHourlyRate")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ExtraRate")
+                    b.Property<int>("ExtraRate")
                         .HasColumnType("int");
 
                     b.Property<int>("Size")
@@ -140,7 +142,7 @@ namespace Garage_G5.Migrations
             modelBuilder.Entity("Garage_G5.Models.ParkedVehicle", b =>
                 {
                     b.HasOne("Garage_G5.Models.Member", "Member")
-                        .WithMany("MemberVehicles")
+                        .WithMany()
                         .HasForeignKey("MemberId");
 
                     b.HasOne("Garage_G5.Models.TypeOfVehicle", "TypeOfVehicle")
@@ -150,11 +152,6 @@ namespace Garage_G5.Migrations
                     b.Navigation("Member");
 
                     b.Navigation("TypeOfVehicle");
-                });
-
-            modelBuilder.Entity("Garage_G5.Models.Member", b =>
-                {
-                    b.Navigation("MemberVehicles");
                 });
 #pragma warning restore 612, 618
         }
