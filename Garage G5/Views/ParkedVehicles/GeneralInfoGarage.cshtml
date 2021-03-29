@@ -9,15 +9,12 @@
     ViewData["Title"] = "Garage";
 }
 
-
-@await Html.PartialAsync("NavButtonsPartial", "Garage3.0 G5")
-<a id="NoPrint" asp-action="Create" type="button" class="btn btn-info btn">Park New</a>
-
 <div id="subHeading">
-
+    
     <h2 class="sh2 mb-4" style="clear:both;">Space in the garage: <strong style="text-decoration:underline"> @Context.Session.GetInt32("FreePlaces")</strong>. Space for Motorcycles: <strong style="text-decoration:underline"> @Context.Session.GetInt32("MotorFreePlaces")</strong>.</h2>
 
 </div>
+
 <div class="row mb-5">
 
     <!-- Grid column -->
