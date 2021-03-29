@@ -12,7 +12,7 @@ namespace Garage_G5.Validation
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            const string errorMessage = "FirstName cannot be the same as the Lastname";
+            const string errorMessage = "First name cannot be the same as the Last name";
             if (value is string input)
             {
                 var model = (Member)validationContext.ObjectInstance;

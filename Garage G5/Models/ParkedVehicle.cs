@@ -18,16 +18,16 @@ namespace Garage_G5.Models
         [Display(Name = "Registration")]
         [Required]
         [Remote("IsRegisterNumberExists", "ParkedVehicles", ErrorMessage = "Registration Number already in use", AdditionalFields = "Id")]
-        [StringLength(10, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 4)]
+        [StringLength(30, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 4)]
         public string RegistrationNum { get; set; }
         [Required]
-        [StringLength(10, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 1)]
+        [StringLength(30, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 1)]
         public string Color { get; set; }
         [Required]
-        [StringLength(10, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 1)]
+        [StringLength(30, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 1)]
         public string Brand { get; set; }
         [Required]
-        [StringLength(20, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 1)]
+        [StringLength(30, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 1)]
         public string Model { get; set; }
         [Required]
         [Display(Name = "Wheels")]
