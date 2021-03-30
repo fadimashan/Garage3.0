@@ -267,11 +267,11 @@ namespace Garage_G5.Controllers
 
             if (member.Age < 18)
             {
-                member.IsUnderAge = true;
+                member.IsUnderage = true;
             }
             else
             {
-                member.IsUnderAge = false;
+                member.IsUnderage = false;
             }
             return View("MemberCheckIn", member);
         }

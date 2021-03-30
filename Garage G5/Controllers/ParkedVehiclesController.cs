@@ -111,6 +111,19 @@ namespace Garage_G5.Controllers
         }
         public Dictionary<string, int> VehicleTypeCounter()
         {
+
+            //var list = _context.ParkedVehicle.ToList();
+            ////var totalAmountOfVehicles = _context.ParkedVehicle.Select(v => v.TypeOfVehicle);
+            //var listOfTypes = new Dictionary<string, int>();
+            //var i = 0;
+            //foreach (var parkedV in list)
+            //{
+            //    int count = list.Count(ve => ve.TypeOfVehicle == parkedV.TypeOfVehicle);
+            //    listOfTypes.Add(i.ToString(), count);//parkedV.TypeOfVehicle.ToString()
+            //    i++;
+            //}
+            //return (listOfTypes);
+
             List<string> names = new List<string>();
             var list = _context.ParkedVehicle.ToList();
             var listOfTypes = new Dictionary<string, int>();
@@ -158,20 +171,20 @@ namespace Garage_G5.Controllers
 
             return View(nSM);
         }
-        public Dictionary<string, int> VehicleTypeCounter()
-        {
-            var list = _context.ParkedVehicle.ToList();
-            //var totalAmountOfVehicles = _context.ParkedVehicle.Select(v => v.TypeOfVehicle);
-            var listOfTypes = new Dictionary<string, int>();
-            var i = 0;
-            foreach (var parkedV in list)
-            {
-                int count = list.Count(ve => ve.TypeOfVehicle == parkedV.TypeOfVehicle);
-                listOfTypes.Add(i.ToString(), count);//parkedV.TypeOfVehicle.ToString()
-                i++;
-            }
-            return (listOfTypes);
-        }
+        //public Dictionary<string, int> VehicleTypeCounter()
+        //{
+        //    //var list = _context.ParkedVehicle.ToList();
+        //    ////var totalAmountOfVehicles = _context.ParkedVehicle.Select(v => v.TypeOfVehicle);
+        //    //var listOfTypes = new Dictionary<string, int>();
+        //    //var i = 0;
+        //    //foreach (var parkedV in list)
+        //    //{
+        //    //    int count = list.Count(ve => ve.TypeOfVehicle == parkedV.TypeOfVehicle);
+        //    //    listOfTypes.Add(i.ToString(), count);//parkedV.TypeOfVehicle.ToString()
+        //    //    i++;
+        //    //}
+        //    //return (listOfTypes);
+        //}
         //private Dictionary<string, int> VehicleTypeCounter()
         //{
         //    var totalAmountOfVehicles = _context.ParkedVehicle.Select(v => v.TypeOfVehicle.Size);
