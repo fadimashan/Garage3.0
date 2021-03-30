@@ -32,11 +32,11 @@
                     </p>
                 </th>
 
-                <th>
-                    <p>
-                        Phone
-                    </p>
-                </th>
+                @*<th>
+                        <p>
+                            Phone
+                        </p>
+                    </th>*@
                 <th>
                     <p>
                         <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.AgeSortParm, CurrentSort = ViewBag.AgeSortParm })">
@@ -44,24 +44,24 @@
                         </a>
                     </p>
                 </th>
-                <th>
-                    <p>
-                        <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.PersonalIdNumberSortParm, CurrentSort = ViewBag.PersonalIdNumberSortParm })">
-                            Personal-Id <i class="fa fa-sort" aria-hidden="true"> </i>
-                        </a>
-                    </p>
-                </th>
-                <th>
-                    <p>
-                        <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.DateAddedSortParm, CurrentSort = ViewBag.DateAddedSortParm })">
-                            Date Added <i class="fa fa-sort" aria-hidden="true"> </i>
-                        </a>
-                    </p>
-                </th>
+                @*<th>
+                        <p>
+                            <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.PersonalIdNumberSortParm, CurrentSort = ViewBag.PersonalIdNumberSortParm })">
+                                Personal-Id <i class="fa fa-sort" aria-hidden="true"> </i>
+                            </a>
+                        </p>
+                    </th>*@
+                @*<th>
+                        <p>
+                            <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.DateAddedSortParm, CurrentSort = ViewBag.DateAddedSortParm })">
+                                Date Added <i class="fa fa-sort" aria-hidden="true"> </i>
+                            </a>
+                        </p>
+                    </th>*@
                 <th>
                     <p>
                         <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.DateExpiredSortParm, CurrentSort = ViewBag.DateExpiredSortParm })">
-                            Expired <i class="fa fa-sort" aria-hidden="true"> </i>
+                            Pro Expiration Date <i class="fa fa-sort" aria-hidden="true"> </i>
                         </a>
 
                     </p>
@@ -69,7 +69,7 @@
                 <th>
                     <p>
                         <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.MembershipTypeSortParm, CurrentSort = ViewBag.MembershipTypeSortParm })">
-                            Membership Type <i class="fa fa-sort" aria-hidden="true"> </i>
+                            Member Type <i class="fa fa-sort" aria-hidden="true"> </i>
                         </a>
                     </p>
                 </th>
@@ -80,21 +80,24 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>*@
                     <td>
-                        @Html.DisplayFor(modelItem => item.FullName)
+                        <a data-trigger="hover" data-toggle="popover" data-html="true" data-content="Phone: @item.Phone<br/> Member since: @{ var memSince = item.DateAdded.ToString("yyyy-MM-dd");} @Html.DisplayFor(modelItem => memSince)" asp-controller="Members" asp-action="Details" asp-route-id="@item.Id" type="button" class="btn btn-outline-info btn-sm">@Html.DisplayFor(modelItem => item.FullName)</a>
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Phone)
-                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.Age)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PersonalIdNumber)
-                    </td>
-                    <td>
-                        @{var dateAdded = (item.DateAdded).ToString("dd/MMM/yyyy");}  @Html.DisplayFor(modelItem => dateAdded)
-                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.PersonalIdNumber)
+                        </td>*@
+                    @*<td>
+                            @{var dateAdded = (item.DateAdded).ToString("dd/MMM/yyyy");}  @Html.DisplayFor(modelItem => dateAdded)
+                        </td>*@
                     <td>
                         @{var expired = (item.BonusAccountExpires).ToString("dd/MMM/yyyy");}  @Html.DisplayFor(modelItem => expired)
                     </td>

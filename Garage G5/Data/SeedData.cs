@@ -101,43 +101,43 @@ namespace Garage_G5.Data
                 },
                 new TypeOfVehicle{
                     TypeName = "Combi",
-                    Size = 3,
+                    Size = 1,
                 },
                 new TypeOfVehicle{
                     TypeName = "Sedan",
-                    Size = 3,
+                    Size = 1,
                 },
                 new TypeOfVehicle {
                     TypeName = "Coupe",
-                    Size = 3,
+                    Size = 1,
                 },
                 new TypeOfVehicle{
                     TypeName = "Van",
-                    Size = 3,
+                    Size = 1,
                 },
                 new TypeOfVehicle {
                     TypeName = "Roadster",
-                    Size = 3,
+                    Size = 1,
                 },
                 new TypeOfVehicle{
                     TypeName = "MiniVan",
-                    Size = 3,
+                    Size = 1,
                 },
                 new TypeOfVehicle{
                     TypeName = "Truck",
-                    Size = 6,
+                    Size = 2,
                 },
                 new TypeOfVehicle{
                     TypeName = "BigTruck",
-                    Size = 6,
+                    Size = 2,
                 },
                 new TypeOfVehicle{
                     TypeName = "Boat",
-                    Size = 9,
+                    Size = 3,
                 },
                 new TypeOfVehicle{
                     TypeName = "Airplane",
-                    Size = 9,
+                    Size = 3,
                 },
             };
             return typesOfVehicles;

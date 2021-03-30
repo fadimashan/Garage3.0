@@ -47,8 +47,6 @@ namespace Garage_G5.Controllers
             var members = from v in _context.Member
                           select v;
 
-         
-
             int pageSize = 5;
             if (userPageSize != null)
             {

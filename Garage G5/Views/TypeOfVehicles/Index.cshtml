@@ -5,7 +5,7 @@
 }
 
 <div id="subHeading">
-    <h2 class="sh2 mb-4" style="clear:both;">Types of vehicles in the garage</h2>
+    <h2 class="sh2 mb-4" style="clear:both;">Types of vehicles in the garage. </h2>
 </div>
 <!-- Grid row -->
 <div class="row mb-5">
@@ -17,6 +17,8 @@
                     @Html.DisplayNameFor(model => model.TypeName)
                 </th>
                 <th>
+                    @*if size > 3 = 1 size 6 = 2 size 9 = 3
+                    if size 1 = 1/3*@
                     @Html.DisplayNameFor(model => model.Size)
                 </th>
                 <th></th>
@@ -31,11 +33,14 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Size)
+                        
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+
+
+                        <a asp-action="Edit" asp-route-id="@item.Id" type="button" class="btn btn-outline-info btn-sm">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" type="button" class="btn btn-outline-primary btn-sm">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" type="button" class="btn btn-outline-warning btn-sm">Delete</a>
                     </td>
                 </tr>
             }

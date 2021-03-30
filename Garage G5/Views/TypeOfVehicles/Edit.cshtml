@@ -7,8 +7,6 @@
 <div id="subHeading">
     <h2 class="sh2 mb-4" style="clear:both;">Edit</h2>
 </div>
-
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -32,7 +30,6 @@
     </div>
 </div>
 
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

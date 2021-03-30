@@ -317,9 +317,9 @@ namespace Garage_G5.Controllers
 
         private void CheckAvailability()
         {
-            int garageCapacity = 158;
+            int garageCapacity = 100;
             int freePlaces = 0;
-            var totalSpace = _context.ParkedVehicle.Select(v => v.TypeOfVehicle.Size).Sum();
+            var totalSpace = _context.ParkedVehicle.Where(v => v.IsInGarage == true).Select(v => v.TypeOfVehicle.Size).Sum();
             // your starting point - table in the "from" statement
             //Simple inner join
             //var totalSpace = _context.ParkedVehicle.Select(v => v.TypeOfVehicle.Size).Sum();
@@ -327,9 +327,9 @@ namespace Garage_G5.Controllers
             //var x = _context.ParkedVehicle.Include(v => v.TypeOfVehicle).Include(m => m.Member).ToList();
             //Gå ned ett steg i kedjan med "then include"
             //var x = _context.ParkedVehicle.Include(v => v.TypeOfVehicle).ThenInclude(m => m.Member).ToList();
-            freePlaces = garageCapacity - totalSpace;
-            //HttpContext.Session.SetInt32("FreePlaces", freePlaces);
-            HttpContext.Session.SetInt32("FreePlaces", 42);
+            freePlaces = garageCapacity - (totalSpace);
+            HttpContext.Session.SetInt32("FreePlaces", freePlaces);
+            //HttpContext.Session.SetInt32("FreePlaces", 42);
         }
 
         public async Task<IActionResult> GeneralInfoGarage(VehicleFilterViewModel viewModel, string inputString)
@@ -362,10 +362,6 @@ namespace Garage_G5.Controllers
                 vehicles :
                 vehicles.Where(m => m.TypeOfVehicle.TypeName == viewModel.TypeOfVehicle.TypeName);
             }
-            
-
-
-
 
             var general = mapper.ProjectTo<GeneralInfoViewModel>(vehicles);
 
@@ -378,13 +374,14 @@ namespace Garage_G5.Controllers
 
 
             return View("GeneralInfoGarage", list);
+
         }
 
 
         //This is a sorting function
         public async Task<IActionResult> Index(string sortOrder)
         {
-            //CheckAvailability();
+            CheckAvailability();
             ViewBag.RegSortParm = (sortOrder == "RegistrationNum") ? $"{sortOrder}_desc" : "RegistrationNum";
             ViewBag.DateSortParm = (sortOrder == "EntryDate") ? $"{sortOrder}_desc" : "EntryDate";
             ViewBag.VehicleTypeSortParm = (sortOrder == "VehicleType") ? $"{sortOrder}_desc" : "VehicleType";

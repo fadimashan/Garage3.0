@@ -133,12 +133,12 @@ body {
     border-radius: 10px;
 }
 
-    .notifyjs-foo-base .title {
-        float: left;
-        margin: 0px;
-        font-weight: bold;
-        font-size: 1.2em;
-    }
+.notifyjs-foo-base .title {
+    float: left;
+    margin: 0px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
 
 
 /* Print styles */
