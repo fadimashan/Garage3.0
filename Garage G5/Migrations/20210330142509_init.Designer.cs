@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Garage_G5.Migrations
 {
     [DbContext(typeof(Garage_G5Context))]
-    [Migration("20210326064132_type2")]
-    partial class type2
+    [Migration("20210330142509_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,8 +37,17 @@ namespace Garage_G5.Migrations
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsGolden")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsUnderage")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
@@ -47,10 +56,14 @@ namespace Garage_G5.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("PersonalIdNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("TotalParkedTime")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -66,18 +79,18 @@ namespace Garage_G5.Migrations
 
                     b.Property<string>("Brand")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Color")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<DateTime>("EnteringTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("IsInGarage")
+                    b.Property<bool>("IsInGarage")
                         .HasColumnType("bit");
 
                     b.Property<int?>("MemberId")
@@ -85,18 +98,15 @@ namespace Garage_G5.Migrations
 
                     b.Property<string>("Model")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("RegistrationNum")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<int?>("TypeOfVehicleId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("VehicleType")
                         .HasColumnType("int");
 
                     b.Property<int>("WheelsNum")
@@ -138,7 +148,7 @@ namespace Garage_G5.Migrations
             modelBuilder.Entity("Garage_G5.Models.ParkedVehicle", b =>
                 {
                     b.HasOne("Garage_G5.Models.Member", "Member")
-                        .WithMany()
+                        .WithMany("MemberVehicles")
                         .HasForeignKey("MemberId");
 
                     b.HasOne("Garage_G5.Models.TypeOfVehicle", "TypeOfVehicle")
@@ -148,6 +158,11 @@ namespace Garage_G5.Migrations
                     b.Navigation("Member");
 
                     b.Navigation("TypeOfVehicle");
+                });
+
+            modelBuilder.Entity("Garage_G5.Models.Member", b =>
+                {
+                    b.Navigation("MemberVehicles");
                 });
 #pragma warning restore 612, 618
         }

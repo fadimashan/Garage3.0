@@ -58,6 +58,7 @@ namespace Garage_G5.Controllers
                     Discount = (getDiscount(member)),
                     TotalPrice = getPrice(parkedVehicle.EnteringTime) - (int)(getDiscount(member) * getPrice(parkedVehicle.EnteringTime))
                 };
+
                 return View(nRM);
             }
         }
@@ -111,19 +112,6 @@ namespace Garage_G5.Controllers
         }
         public Dictionary<string, int> VehicleTypeCounter()
         {
-
-            //var list = _context.ParkedVehicle.ToList();
-            ////var totalAmountOfVehicles = _context.ParkedVehicle.Select(v => v.TypeOfVehicle);
-            //var listOfTypes = new Dictionary<string, int>();
-            //var i = 0;
-            //foreach (var parkedV in list)
-            //{
-            //    int count = list.Count(ve => ve.TypeOfVehicle == parkedV.TypeOfVehicle);
-            //    listOfTypes.Add(i.ToString(), count);//parkedV.TypeOfVehicle.ToString()
-            //    i++;
-            //}
-            //return (listOfTypes);
-
             List<string> names = new List<string>();
             var list = _context.ParkedVehicle.ToList();
             var listOfTypes = new Dictionary<string, int>();
@@ -171,32 +159,7 @@ namespace Garage_G5.Controllers
 
             return View(nSM);
         }
-        //public Dictionary<string, int> VehicleTypeCounter()
-        //{
-        //    //var list = _context.ParkedVehicle.ToList();
-        //    ////var totalAmountOfVehicles = _context.ParkedVehicle.Select(v => v.TypeOfVehicle);
-        //    //var listOfTypes = new Dictionary<string, int>();
-        //    //var i = 0;
-        //    //foreach (var parkedV in list)
-        //    //{
-        //    //    int count = list.Count(ve => ve.TypeOfVehicle == parkedV.TypeOfVehicle);
-        //    //    listOfTypes.Add(i.ToString(), count);//parkedV.TypeOfVehicle.ToString()
-        //    //    i++;
-        //    //}
-        //    //return (listOfTypes);
-        //}
-        //private Dictionary<string, int> VehicleTypeCounter()
-        //{
-        //    var totalAmountOfVehicles = _context.ParkedVehicle.Select(v => v.TypeOfVehicle.Size);
-
-        //    var dict = new Dictionary<int, StudentName>()
-        //    {
-        //        { 111, new StudentName { FirstName="Sachin", LastName="Karnik", ID=211 } },
-        //        { 112, new StudentName { FirstName="Dina", LastName="Salimzianova", ID=317 } },
-        //        { 113, new StudentName { FirstName="Andy", LastName="Ruth", ID=198 } }
-        //    };
-        //    return dict;
-        //}
+      
 
         // GET: ParkedVehicles/Create
         public IActionResult Create()
@@ -335,6 +298,8 @@ namespace Garage_G5.Controllers
         public async Task<IActionResult> CheckOutConfirmed(int id)
         {
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
+            var member = await _context.Member.FindAsync(parkedVehicle.MemberId);
+            member.TotalParkedTime =+ (double)(DateTime.Now - parkedVehicle.EnteringTime).TotalHours;
             parkedVehicle.IsInGarage = false;
             parkedVehicle.EnteringTime = DateTime.Now;
             await _context.SaveChangesAsync();
@@ -353,32 +318,48 @@ namespace Garage_G5.Controllers
         {
             int garageCapacity = 100;
             int freePlaces = 0;
-            var totalSpace = _context.ParkedVehicle.Where(v => v.IsInGarage == true).Select(v => v.TypeOfVehicle.Size).Sum();
-            // your starting point - table in the "from" statement
-            //Simple inner join
-            //var totalSpace = _context.ParkedVehicle.Select(v => v.TypeOfVehicle.Size).Sum();
-            //More complex "Inner joins"
-            //var x = _context.ParkedVehicle.Include(v => v.TypeOfVehicle).Include(m => m.Member).ToList();
-            //Gå ned ett steg i kedjan med "then include"
-            //var x = _context.ParkedVehicle.Include(v => v.TypeOfVehicle).ThenInclude(m => m.Member).ToList();
-            freePlaces = garageCapacity - (totalSpace);
+            var placeCounter = _context.ParkedVehicle.Where(v => v.IsInGarage == true).Where(v=> v.TypeOfVehicle.TypeName != "Motorcycle").Select(v => v.TypeOfVehicle.Size).Sum();
+            var motorcyclePlaces = _context.ParkedVehicle.Where(v => v.IsInGarage == true).Where(v=> v.TypeOfVehicle.TypeName == "Motorcycle").Select(v => v.TypeOfVehicle.Size).Sum();
+
+            int motorCapasty;
+
+            if (motorcyclePlaces != 0 && motorcyclePlaces > 3 && motorcyclePlaces % 3 != 0)
+            {
+                placeCounter = placeCounter + (int)(motorcyclePlaces / 3);
+            }
+            if (motorcyclePlaces != 0 && motorcyclePlaces % 3 == 0)
+            {
+                placeCounter = placeCounter + (motorcyclePlaces / 3);
+            }
+
+            if (motorcyclePlaces != 0 && motorcyclePlaces % 3 > 0)
+            {
+                placeCounter++;
+            }
+
+            if (garageCapacity == (placeCounter - 1) && motorcyclePlaces % 3 > 0)
+            {
+                placeCounter++;
+            }
+
+            var restOftheMotor = motorcyclePlaces % 3;
+            freePlaces = garageCapacity - placeCounter;
+            motorCapasty = (restOftheMotor != 0) ? freePlaces * 3 + (3 - restOftheMotor) : freePlaces * 3;
+
             HttpContext.Session.SetInt32("FreePlaces", freePlaces);
-            //HttpContext.Session.SetInt32("FreePlaces", 42);
+            HttpContext.Session.SetInt32("MotorFreePlaces", motorCapasty);
         }
 
         public async Task<IActionResult> GeneralInfoGarage(VehicleFilterViewModel viewModel, string inputString)
         {
-
+            CheckAvailability();
             var vehicles = string.IsNullOrWhiteSpace(inputString) ?
             _context.ParkedVehicle.Where(v => v.IsInGarage == true ):
             _context.ParkedVehicle.Where(v => v.IsInGarage == true && (v.RegistrationNum.StartsWith(inputString) || v.Brand.StartsWith(inputString)));
 
-           //vehicles.Where(v => v.IsInGarage == true).ToList();
-
             var types = _context.TypeOfVehicle.ToList();
             foreach (var v in vehicles)
             {
-
                 foreach (var t in types)
                 {
                     if (v.TypeOfVehicleId == t.Id)
@@ -402,7 +383,7 @@ namespace Garage_G5.Controllers
 
             var list = new VehicleFilterViewModel
             {
-                GetVehiclesType = GetVehicleTypeAsync(),
+                GetVehiclesType = await GetVehicleTypeAsync(),
                 GeneralVehicles = await general.ToListAsync()
             };
 
@@ -466,7 +447,7 @@ namespace Garage_G5.Controllers
 
             var list = new VehicleFilterViewModel
             {
-                GetVehiclesType = GetVehicleTypeAsync(),
+                GetVehiclesType = await GetVehicleTypeAsync(),
                 GeneralVehicles = general.ToList()
             };
 
@@ -506,9 +487,9 @@ namespace Garage_G5.Controllers
             return (model);
         }
 
-        private IEnumerable<SelectListItem> GetVehicleTypeAsync()
+        private async Task<IEnumerable<SelectListItem>> GetVehicleTypeAsync()
         {
-            var TypeName = _context.TypeOfVehicle;
+            var TypeName = await _context.TypeOfVehicle.ToListAsync();
             var GetTypeOfVehicle = new List<SelectListItem>();
             foreach (var type in TypeName)
             {
@@ -516,11 +497,10 @@ namespace Garage_G5.Controllers
                 {
                     Text = type.TypeName,
                     Value = type.TypeName,
-                    //Disabled = CheckFreePlaces(type.Id),
                 });
                 GetTypeOfVehicle.Add(newType);
             }
-            return (GetTypeOfVehicle);
+            return ( GetTypeOfVehicle);
         }
 
         public bool IsRegisterNumberExists(string RegistrationNum, int Id)

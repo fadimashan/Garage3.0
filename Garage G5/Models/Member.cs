@@ -20,14 +20,13 @@ namespace Garage_G5.Models
         public string LastName { get; set; }
         public MembershipType MembershipType { get; set; }
         public string Phone { get; set; }
-        //[MinimumAge(18)]
-        //[Min18Years]
+
         //[DisplayName("Date of Birth")]
-        //[DataType(DataType.Date),DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}", ApplyFormatInEditMode =true)]
+        [DataType(DataType.Date),DisplayFormat(DataFormatString = "YYYY/mm/dd", ApplyFormatInEditMode =true)]
         public DateTime DateOfBirth { get; set; }
         public int Age { get; set; }
        [Required]
-       [Remote("IsCodeNumberExists", "Members", ErrorMessage = "Personal Code Number exists already !" , AdditionalFields = "Id")]
+       [Remote("IsCodeNumberExists", "Members", ErrorMessage = "Personal Code Number exists already!" , AdditionalFields = "Id")]
        [SwedishPersonalNumber]
         public string PersonalIdNumber { get; set; }
         public DateTime DateAdded { get; set; }
@@ -39,6 +38,8 @@ namespace Garage_G5.Models
         public List<ParkedVehicle> MemberVehicles { get; set; }
 
         public bool IsUnderage { get; set; }
+
+        public double TotalParkedTime { get; set; }
 
     }
 }

@@ -105,6 +105,21 @@ namespace Garage_G5.Controllers
                     break;
             }
 
+
+            var member = _context.Member;
+            var listOfGolden = member.Where(m => m.TotalParkedTime != 0 && m.TotalParkedTime > 100).ToList();
+
+            foreach (var m in listOfGolden)
+            {
+                m.IsGolden = true;
+                m.MembershipType = MembershipType.Gold;
+                m.BonusAccountExpires = DateTime.Now.AddMonths(1);
+                m.TotalParkedTime = 0;
+                _context.Update(m);
+                await _context.SaveChangesAsync();
+            }
+
+
             // to check if the membership is expired 
             var expiredMembership = members.Where(m => m.BonusAccountExpires <= DateTime.Now)
               .ToList();
@@ -118,8 +133,25 @@ namespace Garage_G5.Controllers
             };
 
             return View(await PaginatedList<Member>.CreateAsync(members.AsNoTracking(), pageNumber ?? 1, pageSize));
+
+          
         }
 
+        //private void IsGoldenMember()
+        //{
+
+        //    var member = _context.Member;
+        //    var listOfGolden = member.Where(m => m.TotalParkedTime != null && m.TotalParkedTime > 100).ToList();
+
+        //    foreach (var m in listOfGolden)
+        //    {
+        //        m.IsGolden = true;
+        //        _context.Update(m);
+        //        await _context.SaveChangesAsync();
+
+        //    }
+
+        //}
 
 
         // GET: Members/Details/5

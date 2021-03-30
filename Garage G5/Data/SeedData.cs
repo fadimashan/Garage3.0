@@ -90,6 +90,7 @@ namespace Garage_G5.Data
                     DateAdded = fake.Date.Between(startDateTime, DateTime.Now),
                     BonusAccountExpires = fake.Date.Between(startDateTime, DateTime.Now),
                     DateOfBirth = new DateTime(first4digits,month, day),
+                    TotalParkedTime = fake.Random.Double(0, 300),
                     IsUnderage = underagePerson
                 };
 
