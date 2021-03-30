@@ -12,9 +12,10 @@
 <div class="row mb-5">
 
     <table class="table table-striped table-sm table-hover text-monospace">
-        @*<tr>
+        <tr>
             <th style="width:25%;">
-                @Html.DisplayNameFor(model => model.VehicleTypeCounter)
+                @*@Html.DisplayNameFor(model => model.VehicleTypeCounter)*@
+                Types of vehicles registered
             </th>
             <td class="col-sm-6">
 
@@ -34,7 +35,7 @@
                 }
 
             </td>
-        </tr>*@
+        </tr>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.TotalAmountOfWheels)
@@ -53,7 +54,7 @@
         </tr>
         <tr>
             <th>
-                Longest parked vehicle data
+                First vehicle added
             </th>
             <td>
                 @Html.DisplayFor(model => model.LongestParkedVehicleRegNo), parked since @Html.DisplayFor(model => model.LongestParkedVehicleDate)
@@ -62,10 +63,10 @@
         </tr>
         <tr>
             <th>
-                Total space in garage:
+                Total space in garage
             </th>
             <td>
-                @*@Context.Session.GetInt32("FreePlaces") spots*@ spots
+                @Context.Session.GetInt32("FreePlaces") spots
             </td>
 
         </tr>
@@ -73,7 +74,7 @@
             <th>
                 @{
                     decimal percentage = (decimal)Context.Session.GetInt32("FreePlaces") / 10 * 100;
-                    
+
                     percentage = (int)percentage;
                 }
                 Availability @percentage%
@@ -86,7 +87,7 @@
                 </div>
             </td>
 
-        </tr>
+        </tr>*@
         <tr>
             <th style="width:25%; vertical-align:top;">
                 Vehicles charted
@@ -129,5 +130,5 @@
                     }
                 </div>
             </td>
-        </tr>*@
+        </tr>
     </table>

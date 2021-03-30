@@ -44,13 +44,13 @@
                         </a>
                     </p>
                 </th>
-                @*<th>
+                <th>
                         <p>
                             <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.PersonalIdNumberSortParm, CurrentSort = ViewBag.PersonalIdNumberSortParm })">
                                 Personal-Id <i class="fa fa-sort" aria-hidden="true"> </i>
                             </a>
                         </p>
-                    </th>*@
+                    </th>
                 @*<th>
                         <p>
                             <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.DateAddedSortParm, CurrentSort = ViewBag.DateAddedSortParm })">
@@ -92,12 +92,12 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Age)
                     </td>
-                    @*<td>
+                    <td>
                             @Html.DisplayFor(modelItem => item.PersonalIdNumber)
-                        </td>*@
-                    @*<td>
+                        </td>
+                    <td>
                             @{var dateAdded = (item.DateAdded).ToString("dd/MMM/yyyy");}  @Html.DisplayFor(modelItem => dateAdded)
-                        </td>*@
+                        </td>
                     <td>
                         @{var expired = (item.BonusAccountExpires).ToString("dd/MMM/yyyy");}  @Html.DisplayFor(modelItem => expired)
                     </td>
@@ -105,9 +105,9 @@
                         @Html.DisplayFor(modelItem => item.MembershipType)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="MemberCheckIn" asp-route-id="@item.Id">Member Check-in</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" type="button" class="btn btn-outline-info btn-sm">Edit</a>
+                        <a asp-action="MemberCheckIn" asp-route-id="@item.Id" type="button" class="btn btn-outline-primary btn-sm">Member Check In</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" type="button" class="btn btn-outline-warning btn-sm">Delete</a>
                     </td>
                 </tr>
             }

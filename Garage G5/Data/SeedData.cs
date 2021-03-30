@@ -69,10 +69,13 @@ namespace Garage_G5.Data
             for (int i = 0; i < amount; i++)
             {
                 int first4digits = fake.Random.Int(1939, 2010);
+                var year = first4digits;
+                var month = fake.Random.Int(11, 12);
+                var day = fake.Random.Int(10, 28);
                 var personalIdNumber = new StringBuilder();
                 personalIdNumber.Append(first4digits);
-                personalIdNumber.Append(fake.Random.Int(11, 12));
-                personalIdNumber.Append(fake.Random.Int(10, 28));
+                personalIdNumber.Append(month);
+                personalIdNumber.Append(day);
                 personalIdNumber.Append(fake.Random.Int(0001, 9999));
                 underagePerson = DateTime.Now.Year - first4digits < 18 ? true : false;
 
@@ -86,6 +89,7 @@ namespace Garage_G5.Data
                     Age = DateTime.Now.Year - first4digits,
                     DateAdded = fake.Date.Between(startDateTime, DateTime.Now),
                     BonusAccountExpires = fake.Date.Between(startDateTime, DateTime.Now),
+                    DateOfBirth = new DateTime(first4digits,month, day),
                     IsUnderage = underagePerson
                 };
 
@@ -163,7 +167,7 @@ namespace Garage_G5.Data
                     Model = fake.Vehicle.Model(),
                     WheelsNum = 4,
                     EnteringTime = fake.Date.Between(startDateTime, DateTime.Now),
-                    TypeOfVehicle = underagePerson ? fake.Random.ListItem<TypeOfVehicle>(typesOfVehicles) : null, 
+                    TypeOfVehicle = fake.Random.ListItem<TypeOfVehicle>(typesOfVehicles),
                     Member = fake.Random.ListItem<Member>(members),
                     IsInGarage = fake.Random.Bool()
                 };

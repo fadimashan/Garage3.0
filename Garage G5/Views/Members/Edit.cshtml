@@ -13,10 +13,14 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            @*<div class="form-group">
+            <select readonly="readonly" asp-for="MembershipType" asp-items="@Html.GetEnumSelectList<MembershipType>()" class="form-control">
+            </select>
+        </div>*@
             <div class="form-group">
-                <select asp-for="MembershipType" asp-items="@Html.GetEnumSelectList<MembershipType>()" class="form-control">
-                    <option selected="selected" value=" ">Please select</option>
-                </select>
+                <label asp-for="MembershipType" class="control-label"></label>
+                <input readonly="readonly" asp-for="MembershipType" class="form-control" />
+                <span asp-validation-for="MembershipType" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
@@ -34,28 +38,28 @@
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Age" class="control-label"></label>
-                <input asp-for="Age" class="form-control" />
-                <span asp-validation-for="Age" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            <label asp-for="DateOfBirth" class="control-label"></label>
+            <input readonly="readonly" asp-for="DateOfBirth" class="form-control" />
+            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+        </div>
+               <div class="form-group">
                 <label asp-for="PersonalIdNumber" class="control-label"></label>
-                <input asp-for="PersonalIdNumber" class="form-control" />
+                <input readonly="readonly" asp-for="PersonalIdNumber" class="form-control" />
                 <span asp-validation-for="PersonalIdNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DateAdded" class="control-label"></label>
-                <input readonly="readonly" asp-for="DateAdded" class="form-control" />
-                <span asp-validation-for="DateAdded" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BonusAccountExpires" class="control-label"></label>
-                <input asp-for="BonusAccountExpires" class="form-control" />
-                <span asp-validation-for="BonusAccountExpires" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+                <div class="form-group">
+                    <label asp-for="DateAdded" class="control-label"></label>
+                    <input readonly="readonly" asp-for="DateAdded" class="form-control" />
+                    <span asp-validation-for="DateAdded" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BonusAccountExpires" class="control-label"></label>
+                    <input readonly="readonly" asp-for="BonusAccountExpires" class="form-control" />
+                    <span asp-validation-for="BonusAccountExpires" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
         </form>
     </div>
 </div>

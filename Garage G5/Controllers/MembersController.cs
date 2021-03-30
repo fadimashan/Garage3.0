@@ -191,7 +191,7 @@ namespace Garage_G5.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Phone,Age,PersonalIdNumber,DateAdded,BonusAccountExpires,MembershipType")] Member member)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Phone,DateOfBirth,Age,PersonalIdNumber,DateAdded,BonusAccountExpires,MembershipType")] Member member)
         {
             if (id != member.Id)
             {
@@ -202,6 +202,7 @@ namespace Garage_G5.Controllers
             {
                 try
                 {
+                    _context.Entry(member).Property(x => x.PersonalIdNumber).IsModified = false;
                     _context.Update(member);
                     _context.Entry(member).Property(x => x.DateAdded).IsModified = false;
                     await _context.SaveChangesAsync();
@@ -309,7 +310,8 @@ namespace Garage_G5.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateNewVehicle([Bind("RegistrationNum,Color,Brand,Model,WheelsNum,EnteringTime,MemberId,TypeOfVehicleId")] ParkedVehicle parkedVehicle)
         {
-
+            //var type = await _context.ParkedVehicle
+            //    .Include(c => c.Member).Where(v => v.MemberId ==parkedVehicle.MemberId).ToListAsync();
 
             if (ModelState.IsValid)
             {
@@ -321,9 +323,14 @@ namespace Garage_G5.Controllers
                 //_context.Member.Where()
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //var member = _context.Member.fin(parkedVehicle.Member.Id);
+                //return RedirectToAction(nameof(MemberCheckIn));
+                //return RedirectToAction(nameof(Index));
+                //return View("MemberCheckIn", member);//,parkedVehicle);//.Member.Id
+                return Redirect("/Members/MemberCheckIn/" + parkedVehicle.MemberId);
             }
-            return View(parkedVehicle);
+            //return RedirectToAction(nameof(MemberCheckIn));
+            return View("MemberCheckIn");
         }
 
         private IEnumerable<SelectListItem> GetTypeOfVehicle()

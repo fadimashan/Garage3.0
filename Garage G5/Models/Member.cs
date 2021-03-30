@@ -23,7 +23,7 @@ namespace Garage_G5.Models
         //[MinimumAge(18)]
         //[Min18Years]
         //[DisplayName("Date of Birth")]
-        [DataType(DataType.Date),DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}", ApplyFormatInEditMode =true)]
+        //[DataType(DataType.Date),DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}", ApplyFormatInEditMode =true)]
         public DateTime DateOfBirth { get; set; }
         public int Age { get; set; }
        [Required]
