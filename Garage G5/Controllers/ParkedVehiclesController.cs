@@ -463,7 +463,6 @@ namespace Garage_G5.Controllers
 
             var general = mapper.ProjectTo<GeneralInfoViewModel>(vehicles);
 
-
             var list = new VehicleFilterViewModel
             {
                 GetVehiclesType = GetVehicleTypeAsync(),
