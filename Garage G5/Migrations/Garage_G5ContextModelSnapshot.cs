@@ -60,6 +60,9 @@ namespace Garage_G5.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("TotalParkedTime")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
 
                     b.ToTable("Member");

@@ -38,7 +38,6 @@ namespace Garage_G5.Models
         [NotMapped]
         public IEnumerable<SelectListItem> GetVehiclesType { get; set; }
         public int? TypeOfVehicleId { get; set; }
-        //public string TypeOfVehicleTypeName { get; set; }
         [Display(Name = "Type")]
         public TypeOfVehicle TypeOfVehicle { get; set; }
         public int? MemberId { get; set; }

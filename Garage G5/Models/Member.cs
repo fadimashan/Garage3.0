@@ -39,5 +39,7 @@ namespace Garage_G5.Models
 
         public bool IsUnderage { get; set; }
 
+        public double TotalParkedTime { get; set; }
+
     }
 }

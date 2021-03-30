@@ -1,5 +1,4 @@
-﻿using Garage_G5.Migrations;
-using Garage_G5.Models;
+﻿using Garage_G5.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

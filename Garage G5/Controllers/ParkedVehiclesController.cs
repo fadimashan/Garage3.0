@@ -58,6 +58,7 @@ namespace Garage_G5.Controllers
                     Discount = (getDiscount(member)),
                     TotalPrice = getPrice(parkedVehicle.EnteringTime) - (int)(getDiscount(member) * getPrice(parkedVehicle.EnteringTime))
                 };
+
                 return View(nRM);
             }
         }
@@ -297,6 +298,8 @@ namespace Garage_G5.Controllers
         public async Task<IActionResult> CheckOutConfirmed(int id)
         {
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
+            var member = await _context.Member.FindAsync(parkedVehicle.MemberId);
+            member.TotalParkedTime =+ (double)(DateTime.Now - parkedVehicle.EnteringTime).TotalHours;
             parkedVehicle.IsInGarage = false;
             parkedVehicle.EnteringTime = DateTime.Now;
             await _context.SaveChangesAsync();

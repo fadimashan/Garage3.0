@@ -86,6 +86,7 @@ namespace Garage_G5.Data
                     Age = DateTime.Now.Year - first4digits,
                     DateAdded = fake.Date.Between(startDateTime, DateTime.Now),
                     BonusAccountExpires = fake.Date.Between(startDateTime, DateTime.Now),
+                    TotalParkedTime = fake.Random.Double(0, 300),
                     IsUnderage = underagePerson
                 };
 
