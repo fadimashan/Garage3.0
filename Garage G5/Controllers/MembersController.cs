@@ -155,7 +155,7 @@ namespace Garage_G5.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Phone,Age,PersonalIdNumber,DateAdded,IsGolden")] Member member)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,MembershipType,Phone,DateOfBirth,Age,PersonalIdNumber,DateAdded,BonusAccountExpires,IsGolden,FullName")] Member member)
         {
             if (ModelState.IsValid)
             {
@@ -259,9 +259,20 @@ namespace Garage_G5.Controllers
         public async Task<IActionResult> MemberCheckIn(int id)
         {
             var member = _context.Member.Find(id);
-            var vehicles = _context.ParkedVehicle;
-            var memberVehicles = await vehicles.Where(v => v.MemberId == member.Id).ToListAsync();
-            member.MemberVehicles = memberVehicles;
+            var type = await _context.ParkedVehicle
+                .Include(c => c.TypeOfVehicle).Where(v => v.MemberId == member.Id).ToListAsync();
+
+
+            member.MemberVehicles = type;
+
+            if (member.Age < 18)
+            {
+                member.IsUnderAge = true;
+            }
+            else
+            {
+                member.IsUnderAge = false;
+            }
             return View("MemberCheckIn", member);
         }
 
@@ -296,14 +307,18 @@ namespace Garage_G5.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateNewVehicle([Bind("VehicleType,RegistrationNum,Color,Brand,Model,WheelsNum,EnteringTime,MemberId")] ParkedVehicle parkedVehicle)
+        public async Task<IActionResult> CreateNewVehicle([Bind("RegistrationNum,Color,Brand,Model,WheelsNum,EnteringTime,MemberId,TypeOfVehicleId")] ParkedVehicle parkedVehicle)
         {
+
 
             if (ModelState.IsValid)
             {
-                parkedVehicle.EnteringTime = DateTime.Now;
+                //parkedVehicle.EnteringTime = DateTime.Now;
                 parkedVehicle.IsInGarage = false;
+
+
                 _context.ParkedVehicle.Add(parkedVehicle);
+                //_context.Member.Where()
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -347,6 +362,18 @@ namespace Garage_G5.Controllers
                     Value = g.ToString(),
                 })
                 .ToListAsync();
+        }
+        public bool IsCodeNumberExists(string PersonalIdNumber, int Id)
+        {
+            if (Id == 0)
+            {
+                return !_context.Member.Any(x => x.PersonalIdNumber == PersonalIdNumber);
+            }
+            else
+            {
+                return !_context.Member.Any(x => x.PersonalIdNumber == PersonalIdNumber && x.Id != Id);
+
+            }
         }
 
     }

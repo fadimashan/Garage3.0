@@ -4,14 +4,16 @@ using Garage_G5.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Garage_G5.Migrations
 {
     [DbContext(typeof(Garage_G5Context))]
-    partial class Garage_G5ContextModelSnapshot : ModelSnapshot
+    [Migration("20210329183401_init6")]
+    partial class init6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,9 +44,6 @@ namespace Garage_G5.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsGolden")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsUnderAge")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
@@ -148,7 +147,9 @@ namespace Garage_G5.Migrations
 
                     b.HasOne("Garage_G5.Models.TypeOfVehicle", "TypeOfVehicle")
                         .WithMany()
-                        .HasForeignKey("TypeOfVehicleId");
+                        .HasForeignKey("TypeOfVehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Member");
 

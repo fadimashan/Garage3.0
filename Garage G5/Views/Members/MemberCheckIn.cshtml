@@ -56,7 +56,7 @@
     </dl>
 </div>
 
-<a asp-action="CreateNewVehicle" asp-route-id="@Model.Id" type="button" class="btn btn-outline-success btn-sm">Create new Vehicle</a>
+<a asp-action="CreateNewVehicle" hidden="@Model.IsUnderAge" asp-route-id="@Model.Id" type="button" class="btn btn-outline-success btn-sm">Create new Vehicle</a>
 
 <table class="table">
     <thead>
@@ -83,12 +83,12 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Brand)
-                </td> 
+                </td>
                 <td>
                     <parked in-garage="@item.IsInGarage"></parked>
                 </td>
                 <td>
-                    
+
                     @{ var hide = (item.IsInGarage == true) ? false : true;}
                     <a asp-action="CheckInConfirmed" asp-route-id="@item.Id" type="button" hidden="@item.IsInGarage" class="btn btn-outline-success btn-sm pl-3 pr-3">Check-in </a>
                     @*<a asp-action="CheckOutConfirmed" asp-route-id="@item.Id" type="button" hidden="@hide" class="btn btn-outline-danger btn-sm">Check-out</a>*@

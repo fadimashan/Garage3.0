@@ -4,14 +4,16 @@ using Garage_G5.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Garage_G5.Migrations
 {
     [DbContext(typeof(Garage_G5Context))]
-    partial class Garage_G5ContextModelSnapshot : ModelSnapshot
+    [Migration("20210329140142_init3")]
+    partial class init3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,7 +34,7 @@ namespace Garage_G5.Migrations
                     b.Property<DateTime>("BonusAccountExpires")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateAdded")
+                    b.Property<DateTime?>("DateAdded")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateOfBirth")
@@ -40,12 +42,6 @@ namespace Garage_G5.Migrations
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsGolden")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsUnderAge")
-                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
@@ -85,7 +81,7 @@ namespace Garage_G5.Migrations
                     b.Property<DateTime>("EnteringTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsInGarage")
+                    b.Property<bool?>("IsInGarage")
                         .HasColumnType("bit");
 
                     b.Property<int?>("MemberId")
@@ -101,7 +97,10 @@ namespace Garage_G5.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int>("TypeOfVehicleId")
+                    b.Property<int?>("TypeOfVehicleId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("VehicleType")
                         .HasColumnType("int");
 
                     b.Property<int>("WheelsNum")

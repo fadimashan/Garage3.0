@@ -149,7 +149,7 @@ namespace Garage_G5.Data
         private static List<ParkedVehicle> GetVehicles(int amount)
         {
             var vehicles = new List<ParkedVehicle>();
-            
+
             DateTime startDateTime = new DateTime(2020, 01, 01);
 
             for (int i = 0; i < amount; i++)
@@ -163,7 +163,7 @@ namespace Garage_G5.Data
                     Model = fake.Vehicle.Model(),
                     WheelsNum = 4,
                     EnteringTime = fake.Date.Between(startDateTime, DateTime.Now),
-                    TypeOfVehicle = underagePerson ? null : fake.Random.ListItem<TypeOfVehicle>(typesOfVehicles), 
+                    TypeOfVehicle = underagePerson ? fake.Random.ListItem<TypeOfVehicle>(typesOfVehicles) : null, 
                     Member = fake.Random.ListItem<Member>(members),
                     IsInGarage = fake.Random.Bool()
                 };
