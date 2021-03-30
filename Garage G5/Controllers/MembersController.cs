@@ -42,10 +42,17 @@ namespace Garage_G5.Controllers
             }
 
             ViewData["CurrentFilter"] = searchString;
-
-
-            var members = from v in _context.Member
-                          select v;
+            IQueryable<Member> members;
+            try
+            {
+                members = from v in _context.Member
+                              select v;
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            
 
             int pageSize = 5;
             if (userPageSize != null)

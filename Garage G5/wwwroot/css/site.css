@@ -182,8 +182,7 @@ option:disabled {
 }
 
 #logoNav {
-
-    width:16%;
+    width:10em;
     padding: 1em;
     margin: 0em;
     float: left;
@@ -195,4 +194,8 @@ option:disabled {
 
 #logo{
     width:60%
+}
+
+.form-control{
+    height: auto;
 }
