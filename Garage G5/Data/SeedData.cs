@@ -163,7 +163,7 @@ namespace Garage_G5.Data
                     Model = fake.Vehicle.Model(),
                     WheelsNum = 4,
                     EnteringTime = fake.Date.Between(startDateTime, DateTime.Now),
-                    TypeOfVehicle = underagePerson ? fake.Random.ListItem<TypeOfVehicle>(typesOfVehicles) : null, 
+                    TypeOfVehicle = fake.Random.ListItem<TypeOfVehicle>(typesOfVehicles), 
                     Member = fake.Random.ListItem<Member>(members),
                     IsInGarage = fake.Random.Bool()
                 };

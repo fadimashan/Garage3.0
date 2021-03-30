@@ -16,25 +16,18 @@ namespace Garage_G5.Validation
              if(value is string input && input.Length==12)
              {
                 var owner = (Member)validationContext.ObjectInstance;
-
-                var dateOfB = owner.DateOfBirth.ToString().Substring(0,10);
-                //dateOfB.Split("-");
+                var dateOfB = (owner.DateOfBirth.ToString("yyyy"))+(owner.DateOfBirth.ToString("MM"))+ (owner.DateOfBirth.ToString("dd"));
                 string [] subs = dateOfB.Split('-');
                 StringBuilder builder = new StringBuilder();
                 foreach (string part in subs)
                 {
                     builder.Append(part);
                 }
-                string resultOfBdd = builder.ToString();
-                //dateOfB.ToString();
-                // dateOfB.Substring(0,8);
-               // var person = owner.PersonalIdNumber.ToString();
-             
+                string resultOfBdd = builder.ToString();             
                 var fourDigits = input.Substring(8);
                 if (int.TryParse(fourDigits,out int res))
                 {
-                var personNumer    = string.Concat(resultOfBdd, res);
-                    //var personNumer = dateOfB+res;
+                var personNumer = string.Concat(resultOfBdd, res);
                     var pesNum = owner.PersonalIdNumber;
                     if (pesNum == personNumer)
                     {
