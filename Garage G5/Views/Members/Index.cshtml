@@ -31,12 +31,6 @@
                         </a>
                     </p>
                 </th>
-
-                @*<th>
-                        <p>
-                            Phone
-                        </p>
-                    </th>*@
                 <th>
                     <p>
                         <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.AgeSortParm, CurrentSort = ViewBag.AgeSortParm })">
@@ -45,19 +39,19 @@
                     </p>
                 </th>
                 <th>
-                        <p>
-                            <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.PersonalIdNumberSortParm, CurrentSort = ViewBag.PersonalIdNumberSortParm })">
-                                Personal-Id <i class="fa fa-sort" aria-hidden="true"> </i>
-                            </a>
-                        </p>
-                    </th>
-                @*<th>
-                        <p>
-                            <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.DateAddedSortParm, CurrentSort = ViewBag.DateAddedSortParm })">
-                                Date Added <i class="fa fa-sort" aria-hidden="true"> </i>
-                            </a>
-                        </p>
-                    </th>*@
+                    <p>
+                        <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.PersonalIdNumberSortParm, CurrentSort = ViewBag.PersonalIdNumberSortParm })">
+                            Personal-Id <i class="fa fa-sort" aria-hidden="true"> </i>
+                        </a>
+                    </p>
+                </th>
+                <th>
+                    <p>
+                        <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.DateAddedSortParm, CurrentSort = ViewBag.DateAddedSortParm })">
+                            Date Added <i class="fa fa-sort" aria-hidden="true"> </i>
+                        </a>
+                    </p>
+                </th>
                 <th>
                     <p>
                         <a style="color:black" href="@Url.Action("Index", new { sortOrder = ViewBag.DateExpiredSortParm, CurrentSort = ViewBag.DateExpiredSortParm })">
@@ -80,24 +74,18 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.FullName)
-                        </td>*@
                     <td>
                         <a data-trigger="hover" data-toggle="popover" data-html="true" data-content="Phone: @item.Phone<br/> Member since: @{ var memSince = item.DateAdded.ToString("yyyy-MM-dd");} @Html.DisplayFor(modelItem => memSince)" asp-controller="Members" asp-action="Details" asp-route-id="@item.Id" type="button" class="btn btn-outline-info btn-sm">@Html.DisplayFor(modelItem => item.FullName)</a>
                     </td>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.Phone)
-                        </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.Age)
                     </td>
                     <td>
-                            @Html.DisplayFor(modelItem => item.PersonalIdNumber)
-                        </td>
+                        @Html.DisplayFor(modelItem => item.PersonalIdNumber)
+                    </td>
                     <td>
-                            @{var dateAdded = (item.DateAdded).ToString("dd/MMM/yyyy");}  @Html.DisplayFor(modelItem => dateAdded)
-                        </td>
+                        @{var dateAdded = (item.DateAdded).ToString("dd/MMM/yyyy");}  @Html.DisplayFor(modelItem => dateAdded)
+                    </td>
                     <td>
                         @{var expired = (item.BonusAccountExpires).ToString("dd/MMM/yyyy");}  @Html.DisplayFor(modelItem => expired)
                     </td>
@@ -131,74 +119,3 @@
        class="btn btn-default @nextDisabled">
         Next
     </a>
-
-    @*<p>
-            <a asp-action="Create">Create New</a>
-        </p>*@
-    <!--<table class="table">
-        <thead>
-            <tr>
-                <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last Name</a>
-                </th>
-                <th>
-                    First Name
-                </th>
-                <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last Name</a>
-                </th>
-                <th>-->
-    @*@Html.DisplayNameFor(model => model.Age)*@
-    <!--</th>
-    <th>-->
-    @*@Html.DisplayNameFor(model => model.PersonalIdNumber)*@
-    <!--</th>
-    <th>-->
-    @*@Html.DisplayNameFor(model => model.DateAdded)*@
-    <!--</th>
-    <th>-->
-    @*@Html.DisplayNameFor(model => model.BonusAccountExpires)*@
-    <!--</th>
-    <th>-->
-    @*@Html.DisplayNameFor(model => model.MembershipType)*@
-    <!--</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FirstName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LastName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Phone)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Age)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PersonalIdNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateAdded)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.BonusAccountExpires)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MembershipType)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>-->

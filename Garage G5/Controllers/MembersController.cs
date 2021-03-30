@@ -107,7 +107,7 @@ namespace Garage_G5.Controllers
 
 
             var member = _context.Member;
-            var listOfGolden = member.Where(m => m.TotalParkedTime != 0 && m.TotalParkedTime > 100).ToList();
+            var listOfGolden = member.Where(m => m.TotalParkedTime != 0 && m.TotalParkedTime > 1500).ToList();
 
             foreach (var m in listOfGolden)
             {
@@ -133,26 +133,8 @@ namespace Garage_G5.Controllers
             };
 
             return View(await PaginatedList<Member>.CreateAsync(members.AsNoTracking(), pageNumber ?? 1, pageSize));
-
           
         }
-
-        //private void IsGoldenMember()
-        //{
-
-        //    var member = _context.Member;
-        //    var listOfGolden = member.Where(m => m.TotalParkedTime != null && m.TotalParkedTime > 100).ToList();
-
-        //    foreach (var m in listOfGolden)
-        //    {
-        //        m.IsGolden = true;
-        //        _context.Update(m);
-        //        await _context.SaveChangesAsync();
-
-        //    }
-
-        //}
-
 
         // GET: Members/Details/5
         public async Task<IActionResult> Details(int? id)
