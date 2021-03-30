@@ -30,6 +30,8 @@ namespace Garage_G5.ViewModels
         public string Fullname { get; set; }
         public MembershipType MembershipType { get; set; }
         public int Discount { get; set; }
+        public int SizeVehicle { get; set; }
+        public int BasicFee { get; set; }
 
         public int TotalPrice { get; set; }
 

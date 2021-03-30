@@ -13,16 +13,16 @@ namespace Garage_G5.Models
     {
         [Key]
         public int Id { get; set; }
-
+        [Required]
         [Display(Name = "First Name")]
         [CheckName]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
         public MembershipType MembershipType { get; set; }
         public string Phone { get; set; }
-        //[MinimumAge(18)]
-        //[Min18Years]
-        //[DisplayName("Date of Birth")]
+       
+        [DisplayName("Date of Birth")]
         [DataType(DataType.Date),DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}", ApplyFormatInEditMode =true)]
         public DateTime DateOfBirth { get; set; }
         public int Age { get; set; }

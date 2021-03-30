@@ -17,7 +17,17 @@ namespace Garage_G5.Validation
              {
                 var owner = (Member)validationContext.ObjectInstance;
 
-                var dateOfB = owner.DateOfBirth.ToString().Substring(0,10);
+                //var correctDoB = owner.DateOfBirth.ToString("yyyy") + owner.DateOfBirth.ToString("MM") + owner.DateOfBirth.ToString("dd");
+                //var firstEight = owner.PersonalIdNumber.Substring(0,8);
+
+                
+                //if (correctDoB == firstEight)
+                //{
+                    
+                //}
+                var dateOfB = (owner.DateOfBirth.ToString("yyyy")) + (owner.DateOfBirth.ToString("MM")) + (owner.DateOfBirth.ToString("dd"));
+
+                //var dateOfB = owner.DateOfBirth.ToString().Substring(0,10);
                 //dateOfB.Split("-");
                 string [] subs = dateOfB.Split('-');
                 StringBuilder builder = new StringBuilder();
@@ -41,7 +51,7 @@ namespace Garage_G5.Validation
                         return ValidationResult.Success;
 
                     }
-                    else return new ValidationResult("Please check the personalcode format");
+                    else return new ValidationResult("Personal code number does not match with the date of birth");
 
                 }
                 return new ValidationResult("Please check the personalcode format");

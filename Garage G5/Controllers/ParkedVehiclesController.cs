@@ -49,6 +49,7 @@ namespace Garage_G5.Controllers
                 {
                     RegistrationNum = parkedVehicle.RegistrationNum,
                     VehicleType = vehicle.TypeName,
+                    SizeVehicle = vehicle.Size,
                     Id = parkedVehicle.Id,
                     EnteringTime = parkedVehicle.EnteringTime,
                     TotalTimeParked = DateTime.Now - parkedVehicle.EnteringTime,
@@ -58,6 +59,11 @@ namespace Garage_G5.Controllers
                     Discount = (getDiscount(member)),
                     TotalPrice = getPrice(parkedVehicle.EnteringTime) - (int)(getDiscount(member) * getPrice(parkedVehicle.EnteringTime))
                 };
+                if (nRM.SizeVehicle ==1)
+                {
+
+                nRM.TotalPrice=
+                }
                 return View(nRM);
             }
         }
