@@ -38,5 +38,7 @@ namespace Garage_G5.Models
 
         public List<ParkedVehicle> MemberVehicles { get; set; }
 
+        public bool IsUnderage { get; set; }
+
     }
 }
