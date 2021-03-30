@@ -41,5 +41,9 @@ namespace Garage_G5.Models
 
         public double TotalParkedTime { get; set; }
 
+        public int CheckOutCounter { get; set; }
+
+
+
     }
 }

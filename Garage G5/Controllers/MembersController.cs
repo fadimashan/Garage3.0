@@ -294,6 +294,12 @@ namespace Garage_G5.Controllers
         public async Task<IActionResult> CheckOutConfirmed(int id)
         {
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
+            //var member = parkedVehicle.Member;
+            //if (member.CheckOutCounter <4)
+            //{
+            //member.CheckOutCounter = +1;
+
+            //}
             parkedVehicle.IsInGarage = false;
             parkedVehicle.EnteringTime = DateTime.Now;
             await _context.SaveChangesAsync();
