@@ -47,7 +47,7 @@ namespace Garage_G5.Controllers
             var members = from v in _context.Member
                           select v;
 
-         
+
 
             int pageSize = 5;
             if (userPageSize != null)
@@ -264,18 +264,17 @@ namespace Garage_G5.Controllers
             var type = await _context.ParkedVehicle
                 .Include(c => c.TypeOfVehicle).Where(v => v.MemberId == member.Id).ToListAsync();
 
-            //var vehicles = _context.ParkedVehicle;
-            //   var memberVehicles = await vehicles.Where(v => v.MemberId == member.Id).ToListAsync();
-               member.MemberVehicles = type;
 
-            //if (member.Age > 18)
-            //{
-            //}
-            //else
-            //{
-            //    ModelState.AddModelError("Age", "You must be at least 18 years old");
-            //}
-            //return RedirectToAction(nameof(Index));
+            member.MemberVehicles = type;
+
+            if (member.Age < 18)
+            {
+                member.IsUnderAge = true;
+            }
+            else
+            {
+                member.IsUnderAge = false;
+            }
             return View("MemberCheckIn", member);
         }
 
@@ -312,7 +311,7 @@ namespace Garage_G5.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateNewVehicle([Bind("RegistrationNum,Color,Brand,Model,WheelsNum,EnteringTime,MemberId,TypeOfVehicleId")] ParkedVehicle parkedVehicle)
         {
-             
+
 
             if (ModelState.IsValid)
             {

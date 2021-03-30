@@ -14,6 +14,7 @@ namespace Garage_G5.Data
         private static Faker fake;
         private static List<TypeOfVehicle> typesOfVehicles;
         private static List<Member> members;
+        private static bool underagePerson;
         public static async Task InitAsync(IServiceProvider services)
         {
             using (var db = services.GetRequiredService<Garage_G5Context>())
@@ -73,6 +74,7 @@ namespace Garage_G5.Data
                 personalIdNumber.Append(fake.Random.Int(11, 12));
                 personalIdNumber.Append(fake.Random.Int(10, 28));
                 personalIdNumber.Append(fake.Random.Int(0001, 9999));
+                underagePerson = DateTime.Now.Year - first4digits < 18 ? true : false;
 
                 var member = new Member
                 {
@@ -83,7 +85,8 @@ namespace Garage_G5.Data
                     PersonalIdNumber = personalIdNumber.ToString(), //198010101234
                     Age = DateTime.Now.Year - first4digits,
                     DateAdded = fake.Date.Between(startDateTime, DateTime.Now),
-                    BonusAccountExpires = fake.Date.Between(startDateTime, DateTime.Now)
+                    BonusAccountExpires = fake.Date.Between(startDateTime, DateTime.Now),
+                    IsUnderAge = underagePerson
                 };
 
                 members.Add(member);
@@ -101,43 +104,43 @@ namespace Garage_G5.Data
                 },
                 new TypeOfVehicle{
                     TypeName = "Combi",
-                    Size = 3,
+                    Size = 1,
                 },
                 new TypeOfVehicle{
                     TypeName = "Sedan",
-                    Size = 3,
+                    Size = 1,
                 },
                 new TypeOfVehicle {
                     TypeName = "Coupe",
-                    Size = 3,
+                    Size = 1,
                 },
                 new TypeOfVehicle{
                     TypeName = "Van",
-                    Size = 3,
+                    Size = 1,
                 },
                 new TypeOfVehicle {
                     TypeName = "Roadster",
-                    Size = 3,
+                    Size = 1,
                 },
                 new TypeOfVehicle{
                     TypeName = "MiniVan",
-                    Size = 3,
+                    Size = 1,
                 },
                 new TypeOfVehicle{
                     TypeName = "Truck",
-                    Size = 6,
+                    Size = 2,
                 },
                 new TypeOfVehicle{
                     TypeName = "BigTruck",
-                    Size = 6,
+                    Size = 2,
                 },
                 new TypeOfVehicle{
                     TypeName = "Boat",
-                    Size = 9,
+                    Size = 3,
                 },
                 new TypeOfVehicle{
                     TypeName = "Airplane",
-                    Size = 9,
+                    Size = 3,
                 },
             };
             return typesOfVehicles;
@@ -146,7 +149,7 @@ namespace Garage_G5.Data
         private static List<ParkedVehicle> GetVehicles(int amount)
         {
             var vehicles = new List<ParkedVehicle>();
-            
+
             DateTime startDateTime = new DateTime(2020, 01, 01);
 
             for (int i = 0; i < amount; i++)
@@ -160,7 +163,7 @@ namespace Garage_G5.Data
                     Model = fake.Vehicle.Model(),
                     WheelsNum = 4,
                     EnteringTime = fake.Date.Between(startDateTime, DateTime.Now),
-                    TypeOfVehicle = fake.Random.ListItem<TypeOfVehicle>(typesOfVehicles), 
+                    TypeOfVehicle = underagePerson ? null : fake.Random.ListItem<TypeOfVehicle>(typesOfVehicles),
                     Member = fake.Random.ListItem<Member>(members),
                     IsInGarage = fake.Random.Bool()
                 };
