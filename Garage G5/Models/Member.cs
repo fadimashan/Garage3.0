@@ -22,7 +22,7 @@ namespace Garage_G5.Models
         public string Phone { get; set; }
 
         //[DisplayName("Date of Birth")]
-        [DataType(DataType.Date),DisplayFormat(DataFormatString = "YYYY/mm/dd", ApplyFormatInEditMode =true)]
+        //[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
         public int Age { get; set; }
        [Required]

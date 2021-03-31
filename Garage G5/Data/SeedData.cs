@@ -61,7 +61,6 @@ namespace Garage_G5.Data
             for (int i = 0; i < amount; i++)
             {
                 int first4digits = fake.Random.Int(1939, 2010);
-                var year = first4digits;
                 var month = fake.Random.Int(11, 12);
                 var day = fake.Random.Int(10, 28);
                 var personalIdNumber = new StringBuilder();

@@ -217,8 +217,9 @@ namespace Garage_G5.Controllers
                 try
                 {
                     _context.Entry(member).Property(x => x.PersonalIdNumber).IsModified = false;
-                    _context.Update(member);
                     _context.Entry(member).Property(x => x.DateAdded).IsModified = false;
+                    _context.Entry(member).Property(x => x.DateOfBirth).IsModified = false;
+                    _context.Update(member);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
