@@ -75,7 +75,10 @@
             {
                 <tr>
                     <td>
-                        <a data-trigger="hover" data-toggle="popover" data-html="true" data-content="Phone: @item.Phone<br/> Member since: @{ var memSince = item.DateAdded.ToString("yyyy-MM-dd");} @Html.DisplayFor(modelItem => memSince)" asp-controller="Members" asp-action="Details" asp-route-id="@item.Id" type="button" class="btn btn-outline-info btn-sm">@Html.DisplayFor(modelItem => item.FullName)</a>
+                        <a data-trigger="hover" data-toggle="popover" data-html="true" data-content="Phone: @item.Phone<br/>
+                           Member since: @{ var memSince = item.DateAdded.ToString("yyyy-MM-dd");} @Html.DisplayFor(modelItem => memSince)"
+                           asp-controller="Members" asp-action="Details" asp-route-id="@item.Id" type="button" class="btn btn-outline-info btn-sm">
+                        @Html.DisplayFor(modelItem => item.FullName)</a>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Age)

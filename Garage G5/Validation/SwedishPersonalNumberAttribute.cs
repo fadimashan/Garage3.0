@@ -34,7 +34,7 @@ namespace Garage_G5.Validation
                         return ValidationResult.Success;
 
                     }
-                    else return new ValidationResult("Please check the personalcode format");
+                    else return new ValidationResult("The personal ID doesn't match the age of birth");
 
                 }
                 return new ValidationResult("Please check the personalcode format");

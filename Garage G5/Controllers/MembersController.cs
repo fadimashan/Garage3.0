@@ -176,6 +176,8 @@ namespace Garage_G5.Controllers
                 member.DateAdded = DateTime.Now;
                 member.MembershipType = MembershipType.Pro;
                 var date = DateTime.Now;
+                var aa = (DateTime.Now - member.DateOfBirth);
+                member.Age = (int)(aa.TotalDays / 360);
                 member.BonusAccountExpires = date.AddMonths(1);
                 _context.Add(member);
                 await _context.SaveChangesAsync();
@@ -261,6 +263,12 @@ namespace Garage_G5.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var member = await _context.Member.FindAsync(id);
+            var vehicles = _context.ParkedVehicle.Where(v => v.MemberId == member.Id).ToList();
+
+            foreach (var item in vehicles)
+            {
+                _context.ParkedVehicle.Remove(item);
+            }
             _context.Member.Remove(member);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

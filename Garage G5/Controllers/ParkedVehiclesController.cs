@@ -36,11 +36,6 @@ namespace Garage_G5.Controllers
 
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
             var member = await _context.Member.FindAsync(parkedVehicle.MemberId);
-            //if (member.CheckOutCounter < 4)
-            //{
-            //    member.CheckOutCounter = +1;
-
-            //}
             var vehicletype = await _context.TypeOfVehicle.FindAsync(parkedVehicle.TypeOfVehicleId);
 
 
@@ -58,34 +53,29 @@ namespace Garage_G5.Controllers
                     Id = parkedVehicle.Id,
                     EnteringTime = parkedVehicle.EnteringTime,
                     TotalTimeParked = DateTime.Now - parkedVehicle.EnteringTime,
-                    //Price = getPrice(parkedVehicle.EnteringTime),
                     Fullname = member.FullName,
                     MembershipType = member.MembershipType,
-                    //Discount = (getDiscount(member)),
-                   // TotalPrice = getPrice(parkedVehicle.EnteringTime) - (int)(getDiscount(member) * getPrice(parkedVehicle.EnteringTime))
                 };
 
                 //chech the right place for the counter
-               
+
                 nRM.BasicFee = 100;
-                nRM.HourlyRate = 50;
-                if (nRM.VehicleSize==1)
+                nRM.HourlyRate = 10;
+                if (nRM.VehicleSize == 1)
                 {
                     nRM.TotalPrice = nRM.BasicFee + (nRM.HourlyRate * (nRM.TotalTimeParked.TotalMinutes / 60));
-
-                        nRM.Discount = nRM.BasicFee * (10-member.CheckOutCounter)/10;
-                        nRM.TotalPriceAfterDiscount = nRM.TotalPrice - nRM.Discount;  
+                    nRM.Discount = nRM.BasicFee * ((10 - member.CheckOutCounter) / 10);
+                    nRM.TotalPriceAfterDiscount = nRM.TotalPrice - nRM.Discount;
                 }
-                else if(nRM.VehicleSize==2)
+                else if (nRM.VehicleSize == 2)
                 {
-                    nRM.TotalPrice = ((nRM.BasicFee) * 1.3) + ((nRM.HourlyRate * 1.4) * nRM.TotalTimeParked.TotalMinutes/60);
-                    nRM.Discount = nRM.BasicFee * (10 - member.CheckOutCounter) / 10;
+                    nRM.TotalPrice = ((nRM.BasicFee) * 1.3) + ((nRM.HourlyRate * 1.4) * nRM.TotalTimeParked.TotalMinutes / 60);
+                    nRM.Discount = nRM.BasicFee * ((10 - member.CheckOutCounter) / 10);
                     nRM.TotalPriceAfterDiscount = nRM.TotalPrice - nRM.Discount;
                 }
                 else
                 {
-                    // case of big vehicle
-                    nRM.TotalPrice = ((nRM.BasicFee) * 1.3) + ((nRM.HourlyRate * 1.6 )* nRM.TotalTimeParked.TotalMinutes/60);
+                    nRM.TotalPrice = ((nRM.BasicFee) * 1.3) + ((nRM.HourlyRate * 1.6) * nRM.TotalTimeParked.TotalMinutes / 60);
                     nRM.Discount = nRM.BasicFee * 0.9;
                     nRM.TotalPriceAfterDiscount = nRM.TotalPrice - nRM.Discount;
                 }
@@ -96,9 +86,6 @@ namespace Garage_G5.Controllers
 
         private int getPrice(DateTime entring)
         {
-            //Vehicles that take up a place basic fee +hourly rate* time
-            //Vehicles that take up two places basic fee *1.3 + hourly price * 1.4 * time
-            //Vehicles that charge three or more basic fee *1.6 + hourly rate * 1.5 * time
             var price = (DateTime.Now - entring).TotalMinutes * 10 / 60;
             return (int)price;
         }
@@ -116,7 +103,7 @@ namespace Garage_G5.Controllers
             }
             else
             {
-                discount = 10;
+                discount = 20;
             }
 
             return discount;
@@ -168,7 +155,7 @@ namespace Garage_G5.Controllers
             var vehicles = await _context.ParkedVehicle.ToListAsync();
             var types = await _context.TypeOfVehicle.ToListAsync();
 
-            var nSM = new StatisticsModel(); 
+            var nSM = new StatisticsModel();
             DateTime longestParked = DateTime.MaxValue;
             string longestParkedRegNo = "";
             foreach (var vehicle in vehicles)
@@ -190,7 +177,7 @@ namespace Garage_G5.Controllers
 
             return View(nSM);
         }
-      
+
 
         // GET: ParkedVehicles/Create
         public IActionResult Create()
@@ -328,13 +315,12 @@ namespace Garage_G5.Controllers
         {
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
             var member = await _context.Member.FindAsync(parkedVehicle.MemberId);
-            
+
             if (member.CheckOutCounter < 4)
             {
                 member.CheckOutCounter = +1;
-
             }
-            member.TotalParkedTime =+ (double)(DateTime.Now - parkedVehicle.EnteringTime).TotalHours;
+            member.TotalParkedTime = +(double)(DateTime.Now - parkedVehicle.EnteringTime).TotalHours;
             parkedVehicle.IsInGarage = false;
             parkedVehicle.EnteringTime = DateTime.Now;
             await _context.SaveChangesAsync();
@@ -353,8 +339,8 @@ namespace Garage_G5.Controllers
         {
             int garageCapacity = 100;
             int freePlaces = 0;
-            var placeCounter = _context.ParkedVehicle.Where(v => v.IsInGarage == true).Where(v=> v.TypeOfVehicle.TypeName != "Motorcycle").Select(v => v.TypeOfVehicle.Size).Sum();
-            var motorcyclePlaces = _context.ParkedVehicle.Where(v => v.IsInGarage == true).Where(v=> v.TypeOfVehicle.TypeName == "Motorcycle").Select(v => v.TypeOfVehicle.Size).Sum();
+            var placeCounter = _context.ParkedVehicle.Where(v => v.IsInGarage == true).Where(v => v.TypeOfVehicle.TypeName != "Motorcycle").Select(v => v.TypeOfVehicle.Size).Sum();
+            var motorcyclePlaces = _context.ParkedVehicle.Where(v => v.IsInGarage == true).Where(v => v.TypeOfVehicle.TypeName == "Motorcycle").Select(v => v.TypeOfVehicle.Size).Sum();
 
             int motorCapasty;
 
@@ -389,7 +375,7 @@ namespace Garage_G5.Controllers
         {
             CheckAvailability();
             var vehicles = string.IsNullOrWhiteSpace(inputString) ?
-            _context.ParkedVehicle.Where(v => v.IsInGarage == true ):
+            _context.ParkedVehicle.Where(v => v.IsInGarage == true) :
             _context.ParkedVehicle.Where(v => v.IsInGarage == true && (v.RegistrationNum.StartsWith(inputString) || v.Brand.StartsWith(inputString)));
 
             var types = _context.TypeOfVehicle.ToList();
@@ -535,7 +521,7 @@ namespace Garage_G5.Controllers
                 });
                 GetTypeOfVehicle.Add(newType);
             }
-            return ( GetTypeOfVehicle);
+            return (GetTypeOfVehicle);
         }
 
         public bool IsRegisterNumberExists(string RegistrationNum, int Id)
