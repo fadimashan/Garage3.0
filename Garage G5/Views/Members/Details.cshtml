@@ -4,11 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
+<div id="subHeading">
+    <h2 class="sh2 mb-4" style="clear:both;">Member details for <strong style="text-decoration:underline">@Html.DisplayFor(model => model.FullName)</strong></h2>
+</div>
 <div>
-    <h4>Member</h4>
-    <hr />
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FirstName)
@@ -54,8 +53,7 @@
         </dd>
     </dl>
 </div>
-
-<div id="endButtons">
-    <a id="NoPrint" asp-action="Edit" asp-route-id="@Model.Id" type="button" class="btn btn-outline-primary">Edit</a>
-    <a asp-action="Index" id="NoPrint" type="button" class="btn btn-outline-info">Back</a>
+<div>
+    <a id="NoPrint" asp-action="Edit" asp-route-id="@Model.Id" type="button" class="btn btn-outline-primary noSpace">Edit</a>
+    <a asp-action="Index" id="NoPrint" type="button" class="btn btn-outline-info">List Members</a>
 </div>

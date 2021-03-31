@@ -3,10 +3,6 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-@await Html.PartialAsync("NavButtonsPartial", "Vehicle Details")
-<a id="NoPrint" asp-action="Create" type="button" class="btn btn-info btn">Park New</a>
-
 <div id="subHeading">
     <!-- Subheading -->
     <h2 class="sh2 mb-4" style="clear:both;">Details for @Html.DisplayFor(model => model.RegistrationNum)</h2>
