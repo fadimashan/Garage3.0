@@ -29,11 +29,16 @@ namespace Garage_G5.ViewModels
         public string VehicleType { get; set; }
         public string Fullname { get; set; }
         public MembershipType MembershipType { get; set; }
-        public int Discount { get; set; }
+        public double Discount { get; set; }
+        public int VehicleSize { get; set; }
 
-        public int TotalPrice { get; set; }
+        public double TotalPrice { get; set; }
+        public double TotalPriceAfterDiscount { get; set; }
 
         public bool IsInGarage { get; set; }
+        public double BasicFee { get; set; }
+
+        public double HourlyRate { get; set; }
 
     }
 }

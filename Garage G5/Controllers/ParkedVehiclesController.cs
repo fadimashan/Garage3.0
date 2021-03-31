@@ -36,7 +36,12 @@ namespace Garage_G5.Controllers
 
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
             var member = await _context.Member.FindAsync(parkedVehicle.MemberId);
-            var vehicle = await _context.TypeOfVehicle.FindAsync(parkedVehicle.TypeOfVehicleId);
+            //if (member.CheckOutCounter < 4)
+            //{
+            //    member.CheckOutCounter = +1;
+
+            //}
+            var vehicletype = await _context.TypeOfVehicle.FindAsync(parkedVehicle.TypeOfVehicleId);
 
 
             if (parkedVehicle == null)
@@ -48,16 +53,42 @@ namespace Garage_G5.Controllers
                 var nRM = new ReceiptModel
                 {
                     RegistrationNum = parkedVehicle.RegistrationNum,
-                    VehicleType = vehicle.TypeName,
+                    VehicleType = vehicletype.TypeName,
+                    VehicleSize = vehicletype.Size,
                     Id = parkedVehicle.Id,
                     EnteringTime = parkedVehicle.EnteringTime,
                     TotalTimeParked = DateTime.Now - parkedVehicle.EnteringTime,
-                    Price = getPrice(parkedVehicle.EnteringTime),
+                    //Price = getPrice(parkedVehicle.EnteringTime),
                     Fullname = member.FullName,
                     MembershipType = member.MembershipType,
-                    Discount = (getDiscount(member)),
-                    TotalPrice = getPrice(parkedVehicle.EnteringTime) - (int)(getDiscount(member) * getPrice(parkedVehicle.EnteringTime))
+                    //Discount = (getDiscount(member)),
+                   // TotalPrice = getPrice(parkedVehicle.EnteringTime) - (int)(getDiscount(member) * getPrice(parkedVehicle.EnteringTime))
                 };
+
+                //chech the right place for the counter
+               
+                nRM.BasicFee = 100;
+                nRM.HourlyRate = 50;
+                if (nRM.VehicleSize==1)
+                {
+                    nRM.TotalPrice = nRM.BasicFee + (nRM.HourlyRate * (nRM.TotalTimeParked.TotalMinutes / 60));
+
+                        nRM.Discount = nRM.BasicFee * (10-member.CheckOutCounter)/10;
+                        nRM.TotalPriceAfterDiscount = nRM.TotalPrice - nRM.Discount;  
+                }
+                else if(nRM.VehicleSize==2)
+                {
+                    nRM.TotalPrice = ((nRM.BasicFee) * 1.3) + ((nRM.HourlyRate * 1.4) * nRM.TotalTimeParked.TotalMinutes/60);
+                    nRM.Discount = nRM.BasicFee * (10 - member.CheckOutCounter) / 10;
+                    nRM.TotalPriceAfterDiscount = nRM.TotalPrice - nRM.Discount;
+                }
+                else
+                {
+                    // case of big vehicle
+                    nRM.TotalPrice = ((nRM.BasicFee) * 1.3) + ((nRM.HourlyRate * 1.6 )* nRM.TotalTimeParked.TotalMinutes/60);
+                    nRM.Discount = nRM.BasicFee * 0.9;
+                    nRM.TotalPriceAfterDiscount = nRM.TotalPrice - nRM.Discount;
+                }
 
                 return View(nRM);
             }
@@ -81,7 +112,7 @@ namespace Garage_G5.Controllers
             }
             else if (model.MembershipType == MembershipType.Pro)
             {
-                discount = 5;
+                discount = 10;
             }
             else
             {
@@ -297,6 +328,12 @@ namespace Garage_G5.Controllers
         {
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
             var member = await _context.Member.FindAsync(parkedVehicle.MemberId);
+            
+            if (member.CheckOutCounter < 4)
+            {
+                member.CheckOutCounter = +1;
+
+            }
             member.TotalParkedTime =+ (double)(DateTime.Now - parkedVehicle.EnteringTime).TotalHours;
             parkedVehicle.IsInGarage = false;
             parkedVehicle.EnteringTime = DateTime.Now;
