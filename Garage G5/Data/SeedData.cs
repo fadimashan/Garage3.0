@@ -44,15 +44,7 @@ namespace Garage_G5.Data
                 List<ParkedVehicle> vehiclesList = GetVehicles(21);
                 for (int i = 0; i < vehiclesList.Count(); i++)
                 {
-                    //try
-                    //{
                     await db.AddRangeAsync(vehiclesList[i]);
-                    //await db.SaveChangesAsync();
-                    //}
-                    //catch (Exception e)
-                    //{
-
-                    //}
                 }
 
                 //Update the DB
