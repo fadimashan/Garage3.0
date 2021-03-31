@@ -166,7 +166,6 @@ namespace Garage_G5.Controllers
         {
             var model = new ParkedVehicle
             {
-                //GetVehiclesType = GetVehiclesType()
                 GetVehiclesType = GetTypeOfVehicle(),
                 IsInGarage = false
             };
@@ -185,7 +184,6 @@ namespace Garage_G5.Controllers
                 {
                     Text = type.TypeName,
                     Value = type.Id.ToString(),
-                    //Disabled = CheckFreePlaces(),
                 });
                 GetTypeOfVehicle.Add(newType);
             }
