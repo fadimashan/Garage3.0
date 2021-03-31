@@ -225,8 +225,9 @@ namespace Garage_G5.Controllers
                 try
                 {
                     _context.Entry(member).Property(x => x.PersonalIdNumber).IsModified = false;
-                    _context.Update(member);
                     _context.Entry(member).Property(x => x.DateAdded).IsModified = false;
+                    _context.Entry(member).Property(x => x.DateOfBirth).IsModified = false;
+                    _context.Update(member);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -332,26 +333,15 @@ namespace Garage_G5.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateNewVehicle([Bind("RegistrationNum,Color,Brand,Model,WheelsNum,EnteringTime,MemberId,TypeOfVehicleId")] ParkedVehicle parkedVehicle)
         {
-            //var type = await _context.ParkedVehicle
-            //    .Include(c => c.Member).Where(v => v.MemberId ==parkedVehicle.MemberId).ToListAsync();
 
             if (ModelState.IsValid)
             {
-                //parkedVehicle.EnteringTime = DateTime.Now;
                 parkedVehicle.IsInGarage = false;
-
-
                 _context.ParkedVehicle.Add(parkedVehicle);
-                //_context.Member.Where()
 
                 await _context.SaveChangesAsync();
-                //var member = _context.Member.fin(parkedVehicle.Member.Id);
-                //return RedirectToAction(nameof(MemberCheckIn));
-                //return RedirectToAction(nameof(Index));
-                //return View("MemberCheckIn", member);//,parkedVehicle);//.Member.Id
                 return Redirect("/Members/MemberCheckIn/" + parkedVehicle.MemberId);
             }
-            //return RedirectToAction(nameof(MemberCheckIn));
             return View("MemberCheckIn");
         }
 
