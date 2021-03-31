@@ -104,7 +104,9 @@
                 Amount to pay
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => (model.TotalPrice))kr
+                @*@Html.DisplayFor(model => (model.Price))kr*@
+                @{ var price = (int)Model.Price; }  @Html.DisplayFor(model => price)kr
+
             </dd>
             <dt class="col-sm-2">
                 Discount
@@ -116,7 +118,8 @@
                 Total amount after Discount
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => (model.TotalPriceAfterDiscount))kr
+                @*@{ var total = (int)Model.TotalPrice; }  @Html.DisplayFor(model => (model.TotalPrice))kr*@
+                @{ var total = (int)Model.TotalPrice; }  @Html.DisplayFor(model => total)kr
             </dd>
         </dl>
     </div>
