@@ -4,57 +4,55 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
+<div id="subHeading">
+    <h2 class="sh2 mb-4" style="clear:both;">Delete member <strong style="text-decoration:underline">@Html.DisplayFor(model => model.FullName)</strong></h2>
+</div>
 <div>
-    <h4>Member</h4>
-    <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.FirstName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.LastName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.LastName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.Phone)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.Phone)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.Age)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.Age)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.PersonalIdNumber)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.PersonalIdNumber)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.DateAdded)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.DateAdded)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.BonusAccountExpires)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.BonusAccountExpires)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

@@ -57,7 +57,8 @@ namespace Garage_G5.Controllers
             {
                 _context.Add(typeOfVehicle);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { @notify = "type_created" });
             }
             return View(typeOfVehicle);
         }

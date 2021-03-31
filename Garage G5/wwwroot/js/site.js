@@ -51,6 +51,26 @@ if (notification == "parked") {
     });
 }
 
+if (notification == "member_created") {
+    $.notify({
+        title: 'The member was successfully added.',
+    }, {
+        style: 'foo',
+        autoHide: true,
+        clickToHide: true
+    });
+}
+
+if (notification == "type_created") {
+    $.notify({
+        title: 'The type was successfully added.',
+    }, {
+        style: 'foo',
+        autoHide: true,
+        clickToHide: true
+    });
+}
+
 $(document).ready(function () {
     $('[data-toggle="popover"]').popover();
 });

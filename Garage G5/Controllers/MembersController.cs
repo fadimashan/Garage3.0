@@ -186,7 +186,8 @@ namespace Garage_G5.Controllers
                 member.BonusAccountExpires = date.AddMonths(1);
                 _context.Add(member);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { @notify = "member_created" });
             }
             return View(member);
         }
