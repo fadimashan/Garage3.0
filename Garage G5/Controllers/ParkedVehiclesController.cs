@@ -36,11 +36,11 @@ namespace Garage_G5.Controllers
 
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
             var member = await _context.Member.FindAsync(parkedVehicle.MemberId);
-            if (member.CheckOutCounter < 4)
-            {
-                member.CheckOutCounter = +1;
+            //if (member.CheckOutCounter < 4)
+            //{
+            //    member.CheckOutCounter = +1;
 
-            }
+            //}
             var vehicletype = await _context.TypeOfVehicle.FindAsync(parkedVehicle.TypeOfVehicleId);
 
 
@@ -330,6 +330,12 @@ namespace Garage_G5.Controllers
         {
             var parkedVehicle = await _context.ParkedVehicle.FindAsync(id);
             var member = await _context.Member.FindAsync(parkedVehicle.MemberId);
+            
+            if (member.CheckOutCounter < 4)
+            {
+                member.CheckOutCounter = +1;
+
+            }
             member.TotalParkedTime =+ (double)(DateTime.Now - parkedVehicle.EnteringTime).TotalHours;
             parkedVehicle.IsInGarage = false;
             parkedVehicle.EnteringTime = DateTime.Now;
